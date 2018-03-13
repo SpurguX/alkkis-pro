@@ -1,3 +1,7 @@
+html {
+  font-size: 62.5%;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -8,25 +12,73 @@ body {
   border-radius: 0;
 }
 
+/* KIRJAUTUMISSIVU */
 
+#banner {
+  height: 24rem;
+  background: linear-gradient(-110deg, #7ADD50, #BBF3A3);
+  padding: 3rem;
+}
 
+#banner h1 {
+    text-align: center;
+    font-size: 6rem;
+}
 
-/* placeholder shittiä */
+.content {
+  height: 100rem;
+  background-color: #e3e7ea;
+  padding: 8rem;
+}
+
+#kirjautuminen {
+  height: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#kirjautuminen .form-group {
+  margin-bottom: 3rem;
+  /* vertical-align: middle; */
+}
+
+.login-icon {
+  font-size: 2.4rem;
+}
+
+#kirjautumissivu-kuvaus {
+  font-size: 1.8rem;
+}
+
+/* ------------------------ */
+
+/* ANNOSLASKURI-SIVU ------ */
+
+.otsikko {
+  text-align: center;
+  margin: 3rem;
+}
 
 .placeh {
-  height: 1000px;
+  height: 100rem;
   background-color: gray;
 }
 
 .juomakuvake {
   background-color: green;
-  height: 90px;
-  width: 90px;
+  height: 9rem;
+  width: 9rem;
   border-width: 1px;
   border-radius: 5px;
 }
 
 .juomakuvake-container {
   background-color: darkgreen;
-  padding: 10px;
+  padding: 1rem;
 }
+
+#lista_ja_toiminnot {
+  margin-top: 5rem;
+}
+
+/* ------------------------ */

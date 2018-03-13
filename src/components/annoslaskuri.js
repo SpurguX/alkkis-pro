@@ -1,43 +1,84 @@
 import React, { Component } from 'react';
 import Juomakuvake from './juomakuvake';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchJuomat } from '../actions';
 
-export default class Annoslaskuri extends Component {
+
+class Annoslaskuri extends Component {
+
+    componentDidMount() {
+       this.props.fetchJuomat();        
+    }
+
+    renderKuvakkeet(juomaArray) {
+        const returnValue = [];
+        for (var i = 0; i < juomaArray.length; i++ ) {
+            returnValue.push(this.renderKuvake(i));
+        }
+        return(
+            returnValue
+        );
+    }
+
+    handleKuvakeClick(juoma) {
+        console.log(juoma)
+    }
+
+    renderJuomalistaItem(juoma) {
+        return <li className="list-group-item">{juoma.nimi} <span className="badge">1</span></li>
+    }
+
+    renderKuvake(juomaInd) {
+        if (this.props.juomat == null) {
+            return <Juomakuvake />;
+        } else {
+            const juomaObj = this.props.juomat[juomaInd];
+            return <Juomakuvake key={juomaObj.id} id={juomaObj.id} nimi={juomaObj.nimi} vahvuus={juomaObj.vahvuus} tilavuus={juomaObj.tilavuus} returnObj={(juoma) => this.handleKuvakeClick(juoma)} />
+        }
+    }
+
+
 
     render() {
+
         return(
             <div>
-                <div className="placeh col-sm-1"></div>
-                <div className="col-sm-10" style={{ backgroundColor: 'brown', height: 1000}}>
-                    <h3>Annoslaskuri</h3>
-                    <div className="row">
-                            <Juomakuvake nimi="Olut III" vahvuus={4.7} tilavuus={0.33} />
-                            <Juomakuvake nimi="Olut III" vahvuus={4.7} tilavuus={0.4} />
-                            <Juomakuvake nimi="Olut III" vahvuus={4.7} tilavuus={0.5} />
-                            <Juomakuvake nimi="Viinilasi" vahvuus={13.5} tilavuus={0.12}/>
-                            <Juomakuvake nimi="Viinilasi" vahvuus={13.5} tilavuus={0.16}/>
-                            <Juomakuvake nimi="Viinilasi" vahvuus={13.5} tilavuus={0.24}/>
+                <div className="placeh col-xs-1"></div>
+                <div className="col-xs-10" style={{ backgroundColor: 'green'}}>
+                    <h2 className="otsikko">Annoslaskuri</h2>
+                    <div id="kuvakkeet" className="row">
+                            {this.props.juomat != null ? this.renderKuvakkeet(this.props.juomat) : 'Loading...'}
                     </div>
-                    <div className="row">
-                            <Juomakuvake />
-                            <Juomakuvake />
-                            <Juomakuvake />
-                            <Juomakuvake />
-                            <Juomakuvake />
-                            <Juomakuvake />
-                    </div>
-                    <div className="row">
-                            <Juomakuvake /> 
-                            <Juomakuvake />
-                            <Juomakuvake />  
-                            <Juomakuvake />
-                            <Juomakuvake />
-                            <Juomakuvake />
-
+                    <div id="lista_ja_toiminnot">
+                        <div id="juomalista" className="col-sm-6">
+                                <ul className="list-group">
+                                    
+                                    <li className="list-group-item">Viinaa <span className="badge">5</span></li>
+                                </ul> 
+                        </div>
+                        <div id="toiminnot" className="col-sm-6">
+                            Kalenteri
+                            Nappi
+                        </div>
                     </div>
                 </div>
-                <div className="placeh col-sm-1"></div>
+                <div className="placeh col-xs-1"></div>
             </div>
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        juomat: state.juomat
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({fetchJuomat: fetchJuomat} , dispatch);
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Annoslaskuri);
 

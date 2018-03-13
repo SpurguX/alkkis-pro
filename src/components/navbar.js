@@ -26,7 +26,7 @@ export default class Navbar extends Component {
 
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
-                            <li><a href="/"><span className="glyphicon glyphicon-log-in"></span> Kirjaudu</a></li>
+                            <li><a href="/">Kirjaudu ulos  <span className="glyphicon glyphicon-log-out"></span> </a></li>
                         </ul>
                     </div>
                 </div>
