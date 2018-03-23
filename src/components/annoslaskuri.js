@@ -26,21 +26,23 @@ class Annoslaskuri extends Component {
     }
 
     renderJuomalistaItem(juoma) {
-        return <li className="list-group-item">{juoma.nimi} <span className="badge">1</span></li>
+        return <li className="list-group-item">{juoma.juoma_nimi} <span className="badge">1</span></li>
     }
 
     renderKuvake(juomaInd) {
+       
         if (this.props.juomat == null) {
             return <Juomakuvake />;
         } else {
             const juomaObj = this.props.juomat[juomaInd];
-            return <Juomakuvake key={juomaObj.id} id={juomaObj.id} nimi={juomaObj.nimi} vahvuus={juomaObj.vahvuus} tilavuus={juomaObj.tilavuus} returnObj={(juoma) => this.handleKuvakeClick(juoma)} />
+            return <Juomakuvake key={juomaObj.juoma_id} id={juomaObj.juoma_id} nimi={juomaObj.juoma_nimi} vahvuus={juomaObj.vahvuus} tilavuus={juomaObj.tilavuus} returnObj={(juoma) => this.handleKuvakeClick(juoma)} />
         }
     }
 
 
 
     render() {
+        console.log(this.props.juomat)
 
         return(
             <div>
@@ -76,7 +78,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({fetchJuomat: fetchJuomat} , dispatch);
+    return bindActionCreators({ fetchJuomat } , dispatch);
 
 }
 

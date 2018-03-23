@@ -5,11 +5,12 @@ import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import LoggedInContainer from './components/logged_in_container';
+import promise from 'redux-promise';
 import reducers from './reducers';
+import LoggedInContainer from './components/logged_in_container';
 import Kirjautumissivu from './components/kirjautumissivu';
 
-const reduxStore = applyMiddleware()(createStore);
+const reduxStore = applyMiddleware(promise)(createStore);
 
 ReactDOM.render(
     <Provider store={reduxStore(reducers)}>
