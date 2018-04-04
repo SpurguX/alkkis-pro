@@ -1,9 +1,10 @@
 import { FETCH_JUOMAT } from '../actions';
+import _ from 'lodash';
 
-export default function(state = null, action) {
+export default function(state = {}, action) {
     switch(action.type) {
     case FETCH_JUOMAT:
-        return action.payload.data;
+        return _.mapKeys(action.payload.data, 'juoma_id');
     default:
         return state;
     }

@@ -1,28 +1,27 @@
 import React, { Component } from 'react';
-import Juomakuvake from './juomakuvake';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import { bindActionCreators } from 'redux';
-import { fetchJuomat } from '../actions';
+import Juomakuvake from './juomakuvake';
+import Juomalista from './juomalista';
+import { fetchJuomat, getJuomalistaState } from '../actions';
 
 
 class Annoslaskuri extends Component {
 
     componentDidMount() {
-       this.props.fetchJuomat();        
+       this.props.fetchJuomat();
     }
 
-    renderKuvakkeet(juomaArray) {
-        const returnValue = [];
-        for (var i = 0; i < juomaArray.length; i++ ) {
-            returnValue.push(this.renderKuvake(i));
-        }
-        return(
-            returnValue
-        );
-    }
-
-    handleKuvakeClick(juoma) {
-        console.log(juoma)
+    renderKuvakkeet() {
+      return (_.map(this.props.juomat, juoma => {
+        return <Juomakuvake key={juoma.juoma_id} 
+            juoma_id={juoma.juoma_id} 
+            juoma_nimi={juoma.juoma_nimi} 
+            tilavuus={juoma.tilavuus} 
+            vahvuus={juoma.vahvuus}
+            />
+      }));
     }
 
     renderJuomalistaItem(juoma) {
@@ -31,41 +30,35 @@ class Annoslaskuri extends Component {
 
     renderKuvake(juomaInd) {
        
-        if (this.props.juomat == null) {
+        if (this.props.juomat === {}) {
             return <Juomakuvake />;
         } else {
             const juomaObj = this.props.juomat[juomaInd];
-            return <Juomakuvake key={juomaObj.juoma_id} id={juomaObj.juoma_id} nimi={juomaObj.juoma_nimi} vahvuus={juomaObj.vahvuus} tilavuus={juomaObj.tilavuus} returnObj={(juoma) => this.handleKuvakeClick(juoma)} />
+          
         }
     }
 
 
 
     render() {
-        console.log(this.props.juomat)
-
         return(
-            <div>
-                <div className="placeh col-xs-1"></div>
-                <div className="col-xs-10" style={{ backgroundColor: 'green'}}>
+            <div id="annoslaskuri-container">
+                <div className="placeh col-sm-2 hidden-xs"></div>
+                <div className="col-sm-8 col-xs-12">
                     <h2 className="otsikko">Annoslaskuri</h2>
-                    <div id="kuvakkeet" className="row">
+                    <div id="juomakuvakegrid-container" className="row">
                             {this.props.juomat != null ? this.renderKuvakkeet(this.props.juomat) : 'Loading...'}
+                            <Juomakuvake juoma_nimi="Muu juoma" />
                     </div>
                     <div id="lista_ja_toiminnot">
-                        <div id="juomalista" className="col-sm-6">
-                                <ul className="list-group">
-                                    
-                                    <li className="list-group-item">Viinaa <span className="badge">5</span></li>
-                                </ul> 
-                        </div>
+                        <Juomalista />
                         <div id="toiminnot" className="col-sm-6">
                             Kalenteri
                             Nappi
                         </div>
                     </div>
                 </div>
-                <div className="placeh col-xs-1"></div>
+                <div className="placeh col-sm-2 hidden-xs"></div>
             </div>
         )
     }
@@ -73,12 +66,13 @@ class Annoslaskuri extends Component {
 
 function mapStateToProps(state) {
     return {
-        juomat: state.juomat
+        juomat: state.juomat,
+        juomalista: state.juomalista
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchJuomat } , dispatch);
+    return bindActionCreators({ fetchJuomat, getJuomalistaState } , dispatch);
 
 }
 

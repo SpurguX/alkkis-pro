@@ -9,7 +9,7 @@ export default class Navbar extends Component {
 
     render() {
         return (
-            <nav className="navbar navbar-inverse">
+            <nav className="navbar navbar-inverse" id="nav-alkkis">
                 <div className="container-fluid">
                     <div className="navbar-header">
                         <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -21,9 +21,8 @@ export default class Navbar extends Component {
                     </div>
                     <div className="collapse navbar-collapse" id="myNavbar">
                         <ul className="nav navbar-nav">
-                            <li className="active"><a href="/">Annoslaskuri</a></li>
+                            <li><a href="/">Annoslaskuri</a></li>
                             <li><a href="/">Päiväkirja</a></li>
-
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
                             <li><a href="/">Kirjaudu ulos  <span className="glyphicon glyphicon-log-out"></span> </a></li>
