@@ -15,9 +15,9 @@ body {
 /* KIRJAUTUMISSIVU */
 
 #banner {
-  height: 24rem;
+  height: 16rem;
   background: linear-gradient(-110deg, #7ADD50, #BBF3A3);
-  padding: 3rem;
+  padding: 2rem;
 }
 
 #banner h1 {
@@ -102,10 +102,52 @@ body {
 
 }
 
-#lista_ja_toiminnot {
+#unit-counter-container {
+  text-align: center;
+}
+
+#juomalista {
   margin-top: 5rem;
 }
 
+#juomalista p {
+  margin: 4.2rem;
+  text-align: center;
+}
+
+.drink-list-item {
+  height: 4.2rem;
+  padding: 1rem;
+}
+
+.drink-list-item span {
+  height: 2rem;
+  padding: 0;
+}
+
+.list-item-minus, .list-item-plus {
+  font-size: 1.8rem;
+  height: 3rem;
+}
+
+.list-item-plus {
+  text-align: right;
+}
+
+.list-item-quantity {
+  text-align: center;
+  background-color: gainsboro;
+  border-radius: 1rem;
+}
+
+.list-item-minus:hover, .list-item-plus:hover {
+  background-color: #D8D8D8;
+
+}
+
+.list-item-data {
+  text-overflow: ellipsis; /* mieti miten saa pysymään vain yhel rivil */
+}
 /* ------------------------ */
 
 /* NAVBAR ----------------- */
