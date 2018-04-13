@@ -6,7 +6,7 @@ import JuomalistaItem from './juomalista_item';
 class Juomalista extends Component {
 
     renderListItems() {
-        return _.map(this.props.juomalista, juoma => {
+        return _.map(this.props.drinkList, juoma => {
                 return (                 
                         <JuomalistaItem key={juoma.juoma_id} 
                         juoma_id={juoma.juoma_id} 
@@ -24,7 +24,7 @@ class Juomalista extends Component {
     render() {
         return (
             <div id="juomalista" className="">      
-                { _.isEmpty(this.props.juomalista) ? <p>Lista on tyhjä. Lisää juomia listaan.</p> : <ul className="list-group"> { this.renderListItems()} </ul> }
+                { _.isEmpty(this.props.drinkList) ? <p>Lista on tyhjä. Lisää juomia listaan.</p> : <ul className="list-group"> { this.renderListItems()} </ul> }
             </div>
         )
     }
@@ -34,7 +34,7 @@ class Juomalista extends Component {
 function mapStateToProps(state) {
     return(
         {
-            juomalista : state.juomalista
+            drinkList : state.drinkList
         }
     )
 }

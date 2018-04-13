@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
-import JuomaReducer from './reducer_juomat';
-import JuomalistaReducer from './reducer_juomalista';
-import DrinkListBuReducer from './reducer_drink_list_bu';
+import reducerDrinks from './reducer_drinks';
+import reducerDrinkList from './reducer_drink_list';
+import reducerDrinkListBu from './reducer_drink_list_bu';
+import reducerUnitsInList from './reducer_units_in_list';
 
 const rootReducer = combineReducers({
-    juomat: JuomaReducer,
-    juomalista: JuomalistaReducer,
-    drinkListBu: DrinkListBuReducer
+    drinks: reducerDrinks,
+    drinkList: reducerDrinkList,
+    drinkListBu: reducerDrinkListBu,
+    unitsInList: reducerUnitsInList
 })
 
 export default rootReducer;

@@ -5,7 +5,7 @@ import _ from 'lodash';
 class AddToDiaryBtn extends Component {
 
     renderBtn() {
-        if (_.isEmpty(this.props.juomalista)) {
+        if (_.isEmpty(this.props.drinkList)) {
             return <button type="button" className="btn btn-block disabled" tabIndex="-1">Lisää juomat päiväkirjaan</button>
         } else {
             return <button type="button" className="btn btn-block">Lisää juomat päiväkirjaan</button>
@@ -25,7 +25,7 @@ class AddToDiaryBtn extends Component {
 function mapStateToProps(state) {
     return(
         {
-            juomalista : state.juomalista
+            drinkList : state.drinkList
         }
     )
 }

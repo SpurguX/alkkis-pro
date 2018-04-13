@@ -1,52 +1,45 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { countUnitsInList } from '../actions';
 import _ from 'lodash';
 
 class UnitCounter extends Component {
-    constructor(props) {
-        super(props)
 
-        this.state = {
-            units: 0.0
-        }
-    }
-
-componentWillReceiveProps(nextProps) {
-    this.countUnits(nextProps);
+componentDidUpdate(prevProps) {
+        this.countUnits(this.props.drinkList);   
 }
 
-countUnits(nextProps) {
+countUnits(drinkList) {
     let units = 0.0;
-    if (!_.isEmpty(nextProps.juomalista)) {
-        _.forIn(nextProps.juomalista, juoma => {
-            units += juoma.annokset * juoma.quantity;
-            this.setState({ units: units })
-            
+    if (!_.isEmpty(drinkList)) {
+        _.forIn(drinkList, drink => {
+            units += drink.annokset * drink.quantity;
+            this.props.countUnitsInList(units);
         })
     } else {
-        this.setState({ units: 0.0 })
+        this.props.countUnitsInList(0);
     }
 }
 
 renderUnits() {
-    return this.state.units.toFixed(1)
+    return this.props.unitsInList.toFixed(1)
 }
 
 render() {
-        return(
-            <div id="unit-counter-container">
-                <h4>Annoksia listassa: {this.renderUnits()}</h4>
-            </div>
-        )
+      return null;
     }
 }
 
 function mapStateToProps(state) {
     return {
-        juomalista: state.juomalista,
+        drinkList: state.drinkList,
     };
 }
 
-export default connect(mapStateToProps, null)(UnitCounter);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ countUnitsInList }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UnitCounter);
 

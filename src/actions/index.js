@@ -7,6 +7,7 @@ export const EMPTY_DRINK_LIST = 'EMPTY_DRINK_LIST';
 export const POPULATE_DRINK_LIST_BU = 'POPULATE_DRINK_LIST_BU';
 export const POPULATE_DRINK_LIST = 'POPULATE_DRINK_LIST';
 export const EMPTY_DRINK_LIST_BU = 'EMPTY_DRINK_LIST_BU';
+export const COUNT_UNITS_IN_LIST = 'COUNT_UNITS_IN_LIST';
 
 export function fetchJuomat() {
     const juomatPromise = axios.get("http://localhost:8080/kaikki_juomat");
@@ -54,5 +55,12 @@ export function populateDrinkListBu(drinkList, callback) {
 export function emptyDrinkListBu() {
     return {
         type: EMPTY_DRINK_LIST_BU
+    }
+}
+
+export function countUnitsInList(units) {
+    return {
+        type: COUNT_UNITS_IN_LIST,
+        payload: units
     }
 }

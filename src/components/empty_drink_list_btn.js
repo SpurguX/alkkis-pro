@@ -7,7 +7,7 @@ import { populateDrinkListBu, emptyDrinkList, populateDrinkList, emptyDrinkListB
 class EmptyDrinkListBtn extends Component {
 
     handleEmpty() {
-        this.props.populateDrinkListBu(this.props.juomalista, this.props.emptyDrinkList())      
+        this.props.populateDrinkListBu(this.props.drinkList, this.props.emptyDrinkList())      
     }
 
     handleRecovery() {
@@ -15,7 +15,7 @@ class EmptyDrinkListBtn extends Component {
     }
 
     renderBtn() {
-        if (_.isEmpty(this.props.juomalista)) {
+        if (_.isEmpty(this.props.drinkList)) {
             if(_.isEmpty(this.props.drinkListBu)) {
                 return <button type="button" className="btn btn-block disabled" tabIndex="-1">Tyhjennä lista</button>
             } else {
@@ -40,7 +40,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
     return(
         {
-            juomalista : state.juomalista,
+            drinkList : state.drinkList,
             drinkListBu : state.drinkListBu
         }
     );

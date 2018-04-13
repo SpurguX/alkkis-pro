@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import Juomakuvake from './juomakuvake';
+import OtherDrink from './other_drink';
 import Juomalista from './juomalista';
-import UnitCounter from './unit_counter';
+import UnitCountDisplayer from './unit_count_displayer';
+import DrinkDatePicker from './drink_datepicker';
 import DrinkListButtons from './drink_list_buttons';
 import { fetchJuomat } from '../actions';
 
@@ -16,7 +18,7 @@ class Annoslaskuri extends Component {
     }
 
     renderKuvakkeet() {
-      return (_.map(this.props.juomat, juoma => {
+      return (_.map(this.props.drinks, juoma => {
         return <Juomakuvake key={juoma.juoma_id} 
             juoma_id={juoma.juoma_id} 
             juoma_nimi={juoma.juoma_nimi} 
@@ -38,11 +40,12 @@ class Annoslaskuri extends Component {
                 <div className="col-sm-8 col-xs-12">
                     <h2 className="otsikko">Annoslaskuri</h2>
                     <div id="juomakuvakegrid-container" className="row">
-                            {this.props.juomat != null ? this.renderKuvakkeet(this.props.juomat) : 'Loading...'}
-                            <Juomakuvake juoma_nimi="Muu juoma" />
+                            {this.props.drinks != null ? this.renderKuvakkeet(this.props.drinks) : 'Loading...'}
+                            <OtherDrink />
                     </div>
-                    <UnitCounter />
+                    <UnitCountDisplayer />
                     <Juomalista />
+                    <DrinkDatePicker />
                     <DrinkListButtons />
                 </div>
                 <div className="placeh col-sm-2 hidden-xs"></div>
@@ -53,8 +56,8 @@ class Annoslaskuri extends Component {
 
 function mapStateToProps(state) {
     return {
-        juomat: state.juomat,
-        juomalista: state.juomalista
+        drinks: state.drinks,
+        drinkList: state.drinkList
     };
 }
 
