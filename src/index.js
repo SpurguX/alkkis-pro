@@ -9,6 +9,7 @@ import promise from 'redux-promise';
 import reducers from './reducers';
 import LoggedInContainer from './components/logged_in_container';
 import Kirjautumissivu from './components/kirjautumissivu';
+import Diary from './components/page_diary';
 
 const reduxStore = applyMiddleware(promise)(createStore);
 
@@ -17,6 +18,7 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <Route path="/in" component={LoggedInContainer}/>
+                <Route path="/diary" component={Diary}/>
                 <Route path="/" component={Kirjautumissivu}/>
             </Switch>
         </BrowserRouter>

@@ -11,7 +11,7 @@ import DrinkListButtons from './drink_list_buttons';
 import { fetchJuomat } from '../actions';
 
 
-class Annoslaskuri extends Component {
+class UnitCalculator extends Component {
 
     componentDidMount() {
        this.props.fetchJuomat();
@@ -35,7 +35,7 @@ class Annoslaskuri extends Component {
 
     render() {
         return(
-            <div id="annoslaskuri-container">
+            <div id="unit-calculator-container" className="alkkis-container">
                 <div className="placeh col-sm-2 hidden-xs"></div>
                 <div className="col-sm-8 col-xs-12">
                     <h2 className="otsikko">Annoslaskuri</h2>
@@ -66,5 +66,5 @@ function mapDispatchToProps(dispatch) {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Annoslaskuri);
+export default connect(mapStateToProps, mapDispatchToProps)(UnitCalculator);
 

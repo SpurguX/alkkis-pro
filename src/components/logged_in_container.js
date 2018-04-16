@@ -1,12 +1,12 @@
 import React from 'react';
 import Navbar from './navbar';
-import Annoslaskuri from './annoslaskuri';
+import UnitCalculator from './page_unit_calculator';
 
 const LoggedInContainer = () => {
     return (
         <div id="main" className="container">
             <Navbar />
-            <Annoslaskuri />
+            <UnitCalculator />
         </div>
     )
 }

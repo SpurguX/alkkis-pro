@@ -21,8 +21,8 @@ export default class Navbar extends Component {
                     </div>
                     <div className="collapse navbar-collapse" id="myNavbar">
                         <ul className="nav navbar-nav">
-                            <li><a href="/">Annoslaskuri</a></li>
-                            <li><a href="/">Päiväkirja</a></li>
+                            <li><a href="/in">Annoslaskuri</a></li>
+                            <li><a href="/diary">Päiväkirja</a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
                             <li><a href="/">Kirjaudu ulos  <span className="glyphicon glyphicon-log-out"></span> </a></li>

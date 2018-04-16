@@ -9,6 +9,11 @@ export const POPULATE_DRINK_LIST = 'POPULATE_DRINK_LIST';
 export const EMPTY_DRINK_LIST_BU = 'EMPTY_DRINK_LIST_BU';
 export const COUNT_UNITS_IN_LIST = 'COUNT_UNITS_IN_LIST';
 
+export const FETCH_DRINK_ENTRIES = 'FETCH_DRINK_ENTRIES';
+
+
+// CALCULATOR PAGE ---------------------------------------------
+
 export function fetchJuomat() {
     const juomatPromise = axios.get("http://localhost:8080/kaikki_juomat");
 
@@ -62,5 +67,17 @@ export function countUnitsInList(units) {
     return {
         type: COUNT_UNITS_IN_LIST,
         payload: units
+    }
+}
+
+// DIARY PAGE ----------------------------------------
+
+export function fetchDrinkEntries() {
+    const drinkEntriesPromise = axios.get("http://localhost:8080/fetch_all_entries")
+    console.log(drinkEntriesPromise);
+
+    return {
+        type: FETCH_DRINK_ENTRIES,
+        payload: drinkEntriesPromise
     }
 }
