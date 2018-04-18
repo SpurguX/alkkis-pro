@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import beer from '../images/craft-beer.jpg';
 
-export default class Kirjautumissivu extends Component {
+export default class LoginPage extends Component {
     constructor(props) {
         super(props)
 

@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import JuomalistaItem from './juomalista_item';
+import DrinkListItem from './drink_list_item';
 
-class Juomalista extends Component {
+class DrinkList extends Component {
 
     renderListItems() {
-        return _.map(this.props.drinkList, juoma => {
+        return _.map(this.props.drinkList, drink => {
                 return (                 
-                        <JuomalistaItem key={juoma.juoma_id} 
-                        juoma_id={juoma.juoma_id} 
-                        juoma_nimi={juoma.juoma_nimi} 
-                        tilavuus={juoma.tilavuus} 
-                        vahvuus={juoma.vahvuus}
-                        quantity={juoma.quantity}
+                        <DrinkListItem key={drink.drink_id} 
+                        drink_id={drink.drink_id} 
+                        drink_name={drink.drink_name} 
+                        volume={drink.volume} 
+                        alc_content={drink.alc_content}
+                        quantity={drink.quantity}
                         />                 
                 )         
         })
@@ -39,4 +39,4 @@ function mapStateToProps(state) {
     )
 }
 
-export default connect(mapStateToProps)(Juomalista);
+export default connect(mapStateToProps)(DrinkList);

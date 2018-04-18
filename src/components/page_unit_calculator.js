@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { bindActionCreators } from 'redux';
-import Juomakuvake from './juomakuvake';
+import DrinkIconButton from './drink_icon_button';
 import OtherDrink from './other_drink';
-import Juomalista from './juomalista';
+import DrinkList from './drink_list';
 import UnitCountDisplayer from './unit_count_displayer';
 import DrinkDatePicker from './drink_datepicker';
 import DrinkListButtons from './drink_list_buttons';
@@ -18,19 +18,19 @@ class UnitCalculator extends Component {
     }
 
     renderKuvakkeet() {
-      return (_.map(this.props.drinks, juoma => {
-        return <Juomakuvake key={juoma.juoma_id} 
-            juoma_id={juoma.juoma_id} 
-            juoma_nimi={juoma.juoma_nimi} 
-            tilavuus={juoma.tilavuus} 
-            vahvuus={juoma.vahvuus}
-            annokset={juoma.annokset}
+      return (_.map(this.props.drinks, drink => {
+        return <DrinkIconButton key={drink.drink_id} 
+            drink_id={drink.drink_id} 
+            drink_name={drink.drink_name} 
+            volume={drink.volume} 
+            alc_content={drink.alc_content}
+            units={drink.units}
             />
       }));
     }
 
-    renderJuomalistaItem(juoma) {
-        return <li className="list-group-item">{juoma.juoma_nimi} <span className="badge">1</span></li>
+    renderJuomalistaItem(drink) {
+        return <li className="list-group-item">{drink.drink_name} <span className="badge">1</span></li>
     }
 
     render() {
@@ -44,7 +44,7 @@ class UnitCalculator extends Component {
                             <OtherDrink />
                     </div>
                     <UnitCountDisplayer />
-                    <Juomalista />
+                    <DrinkList />
                     <DrinkDatePicker />
                     <DrinkListButtons />
                 </div>

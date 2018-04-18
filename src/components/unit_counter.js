@@ -14,7 +14,7 @@ countUnits(drinkList) {
     let units = 0.0;
     if (!_.isEmpty(drinkList)) {
         _.forIn(drinkList, drink => {
-            units += drink.annokset * drink.quantity;
+            units += drink.units * drink.quantity;
             this.props.countUnitsInList(units);
         })
     } else {

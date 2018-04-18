@@ -13,13 +13,13 @@ export default class DiaryTable extends Component {
     renderEntries() {
         return(
             _.map(this.props.entries, entry => {
-                let { juoma } = entry;
+                let { drink } = entry;
                 console.log()
                 return (
                     <tr key={entry.drink_entry_id}>
                         <td>{this.formatDate(entry.drink_date)}</td>
                         <td>{entry.drink_entry_units}</td>
-                        <td>{juoma.juoma_nimi} {juoma.tilavuus} l</td>
+                        <td>{drink.drink_name} {drink.volume} l</td>
                         <td>{entry.drink_quantity}</td>
                     </tr>
                 )

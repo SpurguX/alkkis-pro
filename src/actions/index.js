@@ -15,7 +15,7 @@ export const FETCH_DRINK_ENTRIES = 'FETCH_DRINK_ENTRIES';
 // CALCULATOR PAGE ---------------------------------------------
 
 export function fetchJuomat() {
-    const juomatPromise = axios.get("http://localhost:8080/kaikki_juomat");
+    const juomatPromise = axios.get("http://localhost:8080/all_drinks");
 
     return {
         type: FETCH_JUOMAT,
@@ -73,7 +73,7 @@ export function countUnitsInList(units) {
 // DIARY PAGE ----------------------------------------
 
 export function fetchDrinkEntries() {
-    const drinkEntriesPromise = axios.get("http://localhost:8080/fetch_all_entries")
+    const drinkEntriesPromise = axios.get("http://localhost:8080/all_entries")
     
     return {
         type: FETCH_DRINK_ENTRIES,

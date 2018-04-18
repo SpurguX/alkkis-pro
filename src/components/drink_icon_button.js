@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateJuomalistaState } from '../actions';
 
-class Juomakuvake extends Component {
+class DrinkIconButton extends Component {
     constructor(props) {
         super(props);
 
@@ -18,9 +18,9 @@ class Juomakuvake extends Component {
         return (
             <div className="col-sm-3 col-xs-6 juomakuvake-container" onClick={this.handleClick} >
                 <div className="juomakuvake">
-                    <p>{this.props.juoma_nimi != null ? this.props.juoma_nimi : "Juomajuoma_nimi"} {this.props.tilavuus != null ? `${this.props.tilavuus} l` : "? l"}</p>
+                    <p>{this.props.drink_name } {`${this.props.volume} l`}</p>
                     <p><span className="juoma-icon glyphicon glyphicon-glass"></span></p>
-                    <p>{this.props.vahvuus != null ? `${this.props.vahvuus} %` : "? %"}</p>
+                    <p>{`${this.props.alc_content} %`}</p>
                 </div>
             </div>
         )
@@ -32,4 +32,4 @@ function mapDispatchToProps(dispatch) {
 
 }
 
-export default connect(null, mapDispatchToProps)(Juomakuvake);
+export default connect(null, mapDispatchToProps)(DrinkIconButton);

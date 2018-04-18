@@ -4,7 +4,7 @@ import _ from 'lodash';
 export default function(state = {}, action) {
     switch(action.type) {
     case FETCH_JUOMAT:
-        return _.mapKeys(action.payload.data, 'juoma_id');
+        return _.mapKeys(action.payload.data, 'drink_id');
     default:
         return state;
     }

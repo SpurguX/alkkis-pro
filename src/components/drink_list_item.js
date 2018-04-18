@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateJuomalistaState, decreaseQuantity } from '../actions';
 
-class JuomalistaItem extends Component {
+class DrinkListItem extends Component {
     constructor(props) {
         super(props);
 
@@ -23,7 +23,7 @@ class JuomalistaItem extends Component {
         return (
             <li className="list-group-item drink-list-item">
                 <span className="glyphicon glyphicon-minus col-xs-1 list-item-minus" onClick={this.handleMinusClick}></span>
-                <span className="col-xs-9 list-item-data">{this.props.juoma_nimi} {this.props.tilavuus} l, {this.props.vahvuus} %</span>
+                <span className="col-xs-9 list-item-data">{this.props.drink_name} {this.props.volume} l, {this.props.alc_content} %</span>
                 <span className="col-xs-1 list-item-quantity">{this.props.quantity}</span>
                 <span className="glyphicon glyphicon-plus list-item-plus col-xs-1" onClick={this.handlePlusClick}></span>
             </li>
@@ -36,4 +36,4 @@ function mapDispatchToProps(dispatch) {
 
 }
 
-export default connect(null, mapDispatchToProps)(JuomalistaItem);
+export default connect(null, mapDispatchToProps)(DrinkListItem);
