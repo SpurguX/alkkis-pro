@@ -1,11 +1,30 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import _ from 'lodash';
 
-class DiaryTable extends Component {
+export default class DiaryTable extends Component {
 
-    componentDidMount() {
-       
+    formatDate(date) {
+        let dd = date.substring(8,10);
+        let mm = date.substring(5,7);
+        let yyyy = date.substring(0,4);
+        return (`${dd}.${mm}.${yyyy}`)
+    }
+
+    renderEntries() {
+        return(
+            _.map(this.props.entries, entry => {
+                let { juoma } = entry;
+                console.log()
+                return (
+                    <tr key={entry.drink_entry_id}>
+                        <td>{this.formatDate(entry.drink_date)}</td>
+                        <td>{entry.drink_entry_units}</td>
+                        <td>{juoma.juoma_nimi} {juoma.tilavuus} l</td>
+                        <td>{entry.drink_quantity}</td>
+                    </tr>
+                )
+            })
+        )
     }
 
     render() {
@@ -21,7 +40,7 @@ class DiaryTable extends Component {
                         </tr>
                     </thead>
                     <tbody>
-
+                        {this.renderEntries()}
                     </tbody>
                 </table>
             </div>
@@ -30,17 +49,4 @@ class DiaryTable extends Component {
         )
     }
 }
-
-function mapStateToProps(state) {
-    return {
-        drinks: state.drinks,
-        drinkList: state.drinkList
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-   
-}
-
-export default connect(mapStateToProps, null)(DiaryTable);
 

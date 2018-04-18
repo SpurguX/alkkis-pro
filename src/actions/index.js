@@ -74,8 +74,7 @@ export function countUnitsInList(units) {
 
 export function fetchDrinkEntries() {
     const drinkEntriesPromise = axios.get("http://localhost:8080/fetch_all_entries")
-    console.log(drinkEntriesPromise);
-
+    
     return {
         type: FETCH_DRINK_ENTRIES,
         payload: drinkEntriesPromise
