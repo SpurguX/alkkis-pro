@@ -1,11 +1,11 @@
 import { FETCH_JUOMAT } from '../actions';
 import _ from 'lodash';
 
-export default function(state = {}, action) {
-    switch(action.type) {
-    case FETCH_JUOMAT:
-        return _.mapKeys(action.payload.data, 'drink_id');
-    default:
-        return state;
+export default function (state = {}, action) {
+    switch (action.type) {
+        case FETCH_JUOMAT:
+            return _.mapKeys(action.payload.data, 'drink_id');
+        default:
+            return state;
     }
 }

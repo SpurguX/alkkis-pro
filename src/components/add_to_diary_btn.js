@@ -1,33 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { postDrinkList } from '../actions';
 import _ from 'lodash';
 
 class AddToDiaryBtn extends Component {
 
+    handleClick() {
+        this.props.postDrinkList(this.props.drinkList, this.props.drinkDate);
+    }
+
     renderBtn() {
         if (_.isEmpty(this.props.drinkList)) {
-            return <button type="button" className="btn btn-block disabled" tabIndex="-1">Lisää juomat päiväkirjaan</button>
+            return <button type="button" className="btn btn-block disabled" tabIndex="-1" >Lisää juomat päiväkirjaan</button>
         } else {
-            return <button type="button" className="btn btn-block">Lisää juomat päiväkirjaan</button>
+            return <button type="button" className="btn btn-block" onClick={() => this.handleClick()}>Lisää juomat päiväkirjaan</button>
         }
     }
 
     render() {
-        return(
+        return (
             this.renderBtn()
         )
     }
-       
-    
-    
 }
 
 function mapStateToProps(state) {
-    return(
+    return (
         {
-            drinkList : state.drinkList
+            drinkList: state.drinkList,
+            drinkDate: state.drinkDate,
         }
     )
 }
 
-export default connect(mapStateToProps)(AddToDiaryBtn);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ postDrinkList }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddToDiaryBtn);

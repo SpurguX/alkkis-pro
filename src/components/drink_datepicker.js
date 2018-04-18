@@ -5,30 +5,21 @@ import { bindActionCreators } from 'redux';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../datepicker.css';
-import moment from 'moment';
 import 'moment/locale/fi';
+import { updateDrinkDate } from '../actions';
 
 class DrinkDatepicker extends Component {
-    constructor (props) {
-        super(props)
-        this.state = {
-          startDate: moment()
-        };
-        this.handleChange = this.handleChange.bind(this);
-      }
     
     handleChange(date) {
-    this.setState({
-        startDate: date
-    });
+        this.props.updateDrinkDate(date);
     }
 
     render() {
     return( 
         <div className="datepicker-container">
         <DatePicker
-            selected={this.state.startDate}
-            onChange={this.handleChange}
+            selected={this.props.drinkDate}
+            onChange={(date) => this.handleChange(date)}
             locale="fi"
         />
         </div>
@@ -39,12 +30,12 @@ class DrinkDatepicker extends Component {
 
 function mapStateToProps(state) {
     return {
-        date: 0
+        drinkDate: state.drinkDate
     }
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators( { } , dispatch);
+    return bindActionCreators( { updateDrinkDate } , dispatch);
 
 }
 

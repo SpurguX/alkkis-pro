@@ -19,7 +19,7 @@ export default class DiaryTable extends Component {
                     <tr key={entry.drink_entry_id}>
                         <td>{this.formatDate(entry.drink_date)}</td>
                         <td>{entry.drink_entry_units}</td>
-                        <td>{drink.drink_name} {drink.volume} l</td>
+                        <td>{drink.drink_name} {drink.volume} l - {drink.alc_content} %</td>
                         <td>{entry.drink_quantity}</td>
                     </tr>
                 )

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import _ from 'lodash';
 
 export const FETCH_JUOMAT = 'FETCH_JUOMAT';
 export const UPDATE_JUOMALISTA_STATE = 'UPDATE_JUOMALISTA_STATE';
@@ -8,6 +9,8 @@ export const POPULATE_DRINK_LIST_BU = 'POPULATE_DRINK_LIST_BU';
 export const POPULATE_DRINK_LIST = 'POPULATE_DRINK_LIST';
 export const EMPTY_DRINK_LIST_BU = 'EMPTY_DRINK_LIST_BU';
 export const COUNT_UNITS_IN_LIST = 'COUNT_UNITS_IN_LIST';
+export const POST_DRINK_LIST = 'POST_DRINK_LIST';
+export const UPDATE_DRINK_DATE = 'UPDATE_DRINK_DATE';
 
 export const FETCH_DRINK_ENTRIES = 'FETCH_DRINK_ENTRIES';
 
@@ -20,6 +23,27 @@ export function fetchJuomat() {
     return {
         type: FETCH_JUOMAT,
         payload: juomatPromise
+    }
+}
+
+export function postDrinkList(drinkList, date) {
+    const drinkListArray = _.map(drinkList, drinkListItem => {
+        return {
+            'drink_date': date._d,
+            'drink': {'drink_id': drinkListItem.drink_id},
+            'drink_quantity': drinkListItem.quantity,
+            'drink_entry_units': drinkListItem.units,
+        };
+    });
+    const response = axios({
+        method: 'post',
+        url: "http://localhost:8080/add_entry",
+        data: drinkListArray,
+    });
+
+    return {
+        type: POST_DRINK_LIST,
+        payload: response
     }
 }
 
@@ -67,6 +91,13 @@ export function countUnitsInList(units) {
     return {
         type: COUNT_UNITS_IN_LIST,
         payload: units
+    }
+}
+
+export function updateDrinkDate(date) {
+    return {
+        type: UPDATE_DRINK_DATE,
+        payload: date
     }
 }
 
