@@ -26,6 +26,16 @@ export function fetchJuomat() {
     }
 }
 
+async function getEntries(drinkListArray) {
+    const response = 
+    axios({
+        method: 'post',
+        url: "http://localhost:8080/add_entry",
+        data: drinkListArray,
+    });
+    return await response;
+}
+
 export function postDrinkList(drinkList, date) {
     const drinkListArray = _.map(drinkList, drinkListItem => {
         return {
@@ -35,15 +45,12 @@ export function postDrinkList(drinkList, date) {
             'drink_entry_units': drinkListItem.units,
         };
     });
-    const response = axios({
-        method: 'post',
-        url: "http://localhost:8080/add_entry",
-        data: drinkListArray,
-    });
+    
+    const response = getEntries(drinkListArray)
+    console.log(response)
 
     return {
         type: POST_DRINK_LIST,
-        payload: response
     }
 }
 

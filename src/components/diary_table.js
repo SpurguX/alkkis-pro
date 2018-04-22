@@ -10,15 +10,36 @@ export default class DiaryTable extends Component {
         return (`${dd}.${mm}.${yyyy}`)
     }
 
+    compareDrinkDates(a, b) {
+        if (a.drink_date < b.drink_date) {    
+            return -1;
+        }
+        if (a.drink_date > b.drink_date) {
+            return 1;
+        }
+        return 0;
+    }
+
+    sortEntriesbyDrinkDate() {
+        const { entries } = this.props;
+        let dateSortedEntries = [];
+        Object.keys(entries).forEach((key) => {
+            dateSortedEntries.push(entries[key])
+        })
+        dateSortedEntries.sort(this.compareDrinkDates);
+        return dateSortedEntries;
+    }
+
     renderEntries() {
+        const dateSortedEntries = this.sortEntriesbyDrinkDate();
+    
         return(
-            _.map(this.props.entries, entry => {
+            _.map(dateSortedEntries, entry => {
                 let { drink } = entry;
-                console.log()
                 return (
                     <tr key={entry.drink_entry_id}>
                         <td>{this.formatDate(entry.drink_date)}</td>
-                        <td>{entry.drink_entry_units}</td>
+                        <td>{entry.drink_entry_units.toFixed(1)}</td>
                         <td>{drink.drink_name} {drink.volume} l - {drink.alc_content} %</td>
                         <td>{entry.drink_quantity}</td>
                     </tr>

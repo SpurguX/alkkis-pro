@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateJuomalistaState } from '../actions';
+import beerIcon from '../images/beer-drink-jar-outline.svg'
 
 class DrinkIconButton extends Component {
     constructor(props) {
@@ -18,9 +19,8 @@ class DrinkIconButton extends Component {
         return (
             <div className="col-sm-3 col-xs-6 juomakuvake-container" onClick={this.handleClick} >
                 <div className="juomakuvake">
-                    <p>{this.props.drink_name } {`${this.props.volume} l`}</p>
-                    <p><span className="juoma-icon glyphicon glyphicon-glass"></span></p>
-                    <p>{`${this.props.alc_content} %`}</p>
+                    <img src={beerIcon} alt="beer" style={{height: '3.4rem'}}/>
+                    <p>{this.props.drink_name } {`${this.props.volume} l`}<br />{`${this.props.alc_content} %`}</p>              
                 </div>
             </div>
         )
