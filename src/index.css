@@ -125,11 +125,10 @@ body {
   margin-right: auto;
   padding: 1rem;
   padding-top: 3rem;
-  box-shadow: 5px;
   font-size: 1.6rem;
   border: 0.1rem solid black;
   border-radius: 33%;
-  box-shadow: 0.3rem 0.3rem;
+  box-shadow: 0.2rem 0.2rem dimgray;
 }
 
 .juomakuvake:hover {

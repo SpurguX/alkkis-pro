@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import DrinkListItem from './drink_list_item';
+import { emptyDrinkList } from '../actions';
 
 class DrinkList extends Component {
-
+S
     renderListItems() {
         return _.map(this.props.drinkList, drink => {
                 return (                 
@@ -19,8 +21,6 @@ class DrinkList extends Component {
         })
     }
 
-
-
     render() {
         return (
             <div id="juomalista" className="">      
@@ -34,9 +34,14 @@ class DrinkList extends Component {
 function mapStateToProps(state) {
     return(
         {
-            drinkList : state.drinkList
+            drinkList : state.drinkList,
+            drinkListPostStatus: state.drinkListPostStatus
         }
     )
 }
 
-export default connect(mapStateToProps)(DrinkList);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ emptyDrinkList }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DrinkList);

@@ -1,13 +1,43 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { postDrinkList } from '../actions';
+import { postDrinkListOk, postDrinkListFailure, postDrinkListClearStatus, emptyDrinkList } from '../actions';
 import _ from 'lodash';
+import axios from 'axios';
 
 class AddToDiaryBtn extends Component {
 
+    postDrinkList(drinkList, date) {
+        const drinkListArray = _.map(drinkList, drinkListItem => {
+            return {
+                'drink_date': date._d,
+                'drink': {'drink_id': drinkListItem.drink_id},
+                'drink_quantity': drinkListItem.quantity,
+                'drink_entry_units': drinkListItem.units,
+            };
+        });
+            
+        axios({
+            method: 'post',
+            url: "http://localhost:8080/add_entry",
+            data: drinkListArray
+        })
+        .then((response) => {
+            if (response.status === 200) {
+                alert("Lisäys ok")
+                this.props.postDrinkListOk();
+                this.props.emptyDrinkList();
+                this.props.postDrinkListClearStatus();
+            }
+        })
+        .catch((response) => {
+            alert("Lisäyksessä tapahtui virhe");
+            this.props.postDrinkListFailure();
+        })
+    }
+
     handleClick() {
-        this.props.postDrinkList(this.props.drinkList, this.props.drinkDate);
+        this.postDrinkList(this.props.drinkList, this.props.drinkDate);
     }
 
     renderBtn() {
@@ -35,7 +65,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ postDrinkList }, dispatch);
+    return bindActionCreators({ postDrinkListOk, postDrinkListFailure, postDrinkListClearStatus, emptyDrinkList }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddToDiaryBtn);
