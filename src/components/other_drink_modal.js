@@ -1,54 +1,47 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import OtherDrinkForm from "./other_drink_form";
+
+const modalRoot = document.getElementById("modal-root");
 
 class OtherDrinkModal extends Component {
+  constructor(props) {
+    super(props);
+    this.el = document.createElement("div");
+    this.el.className = "modal-container";
+  }
+
+  componentDidMount() {
+    modalRoot.appendChild(this.el);
+  }
+
+  componentWillUnmount() {
+    modalRoot.removeChild(this.el);
+  }
+
   render() {
-    if(!this.props.show) {
-      return null;
-    }
-
-    // The gray background
-    const backdropStyle = {
-      position: 'fixed',
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0,
-      backgroundColor: 'rgba(0,0,0,0.3)',
-      padding: 50
-    };
-
-    // The modal "window"
-    const modalStyle = {
-      backgroundColor: '#fff',
-      borderRadius: 5,
-      minWidth: 200,
-      maxWidth: 500,
-      minHeight: 300,
-      margin: '0 auto',
-      padding: 30
-    };
-
-    return (
-      <div className="backdrop" style={backdropStyle}>
-        <div className="modal" style={modalStyle}>
-          {this.props.children}
-            <p>ASDF</p>
-          <div className="footer">
-            <button onClick={this.props.onClose}>
-              Close
-            </button>
-          </div>
+    return ReactDOM.createPortal(
+      <div className="modal-content">
+        <div className="modal-header">
+          <h4 className="modal-title">Muu juoma</h4>
         </div>
-      </div>
+        <div className="modal-body">
+          <h4>Syötä juoman arvot</h4>
+          <OtherDrinkForm />
+        </div>
+        <div className="modal-footer">
+          <button
+            type="button"
+            class="btn btn-default"
+            onClick={this.props.onClose}
+          >
+            Sulje
+          </button>
+        </div>
+      </div>,
+      this.el
     );
   }
 }
-
-OtherDrinkModal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  show: PropTypes.bool,
-  children: PropTypes.node
-};
 
 export default OtherDrinkModal;
