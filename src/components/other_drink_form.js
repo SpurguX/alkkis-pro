@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import beer from "../images/craft-beer.jpg";
 
 export default class OtherDrinkForm extends Component {
 

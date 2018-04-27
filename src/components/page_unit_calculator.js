@@ -9,14 +9,10 @@ import DrinkList from "./drink_list";
 import UnitCountDisplayer from "./unit_count_displayer";
 import DrinkDatePicker from "./drink_datepicker";
 import DrinkListButtons from "./drink_list_buttons";
+import AddResultModal from "./drink_list_add_result_modal";
 import { fetchJuomat } from "../actions";
 
 class UnitCalculator extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { show: false };
-  }
 
   componentDidMount() {
     this.props.fetchJuomat();
@@ -45,36 +41,33 @@ class UnitCalculator extends Component {
     );
   }
 
-  toggleModal = () => {
-    this.setState({ show: !this.state.show }, () => {
-      console.log(this.state.show);
-    });
-  };
-
-  closeModal() {
-    this.setState({ show: false });
-  }
-
   render() {
     const otherDrinkModal = ( 
-      this.state.show ?
-      <OtherDrinkModal onClose={() => this.closeModal()} />
+      this.props.othDrinkModal.show ?
+      <OtherDrinkModal />
+      : null
+    );
+
+    const addResultModal = (
+      this.props.addResultModal.show ?
+      <AddResultModal />
       : null
     );
 
     return (
       <div id="unit-calculator-container" className="alkkis-container">
         <div className="placeh col-sm-2 hidden-xs" />
-        <div className="col-sm-8 col-xs-12">
+        <div className="col-sm-8 col-xs-12 unit-calculator-wrapper">
           {/* <h2 className="otsikko">Annoslaskuri</h2> */}
           <div id="juomakuvakegrid-container" className="row">
             {this.props.drinks != null
               ? this.renderKuvakkeet(this.props.drinks)
               : "Loading..."}
-            <OtherDrinkButton onClick={this.toggleModal} />
+            <OtherDrinkButton />
           </div>
           {otherDrinkModal}
-          <div id="ihansama">
+          {addResultModal}
+          <div id="unit-calculator-controls">
             <UnitCountDisplayer />
             <DrinkList />
             <DrinkDatePicker />
@@ -91,7 +84,9 @@ class UnitCalculator extends Component {
 function mapStateToProps(state) {
   return {
     drinks: state.drinks,
-    drinkList: state.drinkList
+    drinkList: state.drinkList,
+    othDrinkModal: state.othDrinkModal,
+    addResultModal: state.addResultModal
   };
 }
 

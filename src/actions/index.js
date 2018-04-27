@@ -10,8 +10,12 @@ export const EMPTY_DRINK_LIST_BU = 'EMPTY_DRINK_LIST_BU';
 export const COUNT_UNITS_IN_LIST = 'COUNT_UNITS_IN_LIST';
 export const POST_DRINK_LIST_OK = 'POST_DRINK_LIST_OK';
 export const POST_DRINK_LIST_FAILURE = 'POST_DRINK_LIST_FAILURE';
-export const POST_DRINK_LIST_CLEAR_STATUS = 'POST_DRINK_LIST_CLEAR_STATUS'
+export const POST_DRINK_LIST_CLEAR_STATUS = 'POST_DRINK_LIST_CLEAR_STATUS';
 export const UPDATE_DRINK_DATE = 'UPDATE_DRINK_DATE';
+export const SHOW_OTH_DRINK_MODAL = 'SHOW_OTH_DRINK_MODAL';
+export const HIDE_OTH_DRINK_MODAL = 'HIDE_OTH_DRINK_MODAL';
+export const SHOW_ADD_RESULT_MODAL = 'SHOW_ADD_DRINK_MODAL';
+export const HIDE_ADD_RESULT_MODAL = 'HIDE_ADD_DRINK_MODAL';
 
 export const FETCH_DRINK_ENTRIES = 'FETCH_DRINK_ENTRIES';
 
@@ -96,6 +100,30 @@ export function updateDrinkDate(date) {
     return {
         type: UPDATE_DRINK_DATE,
         payload: date
+    }
+}
+
+export function showOthDrinkModal() {
+    return {
+        type: SHOW_OTH_DRINK_MODAL
+    }
+}
+
+export function hideOthDrinkModal() {
+    return{
+        type: HIDE_OTH_DRINK_MODAL
+    }
+}
+
+export function showAddResultModal() {
+    return {
+        type: SHOW_ADD_RESULT_MODAL
+    }
+}
+
+export function hideAddResultModal() {
+    return{
+        type: HIDE_ADD_RESULT_MODAL
     }
 }
 

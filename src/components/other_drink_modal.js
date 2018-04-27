@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import OtherDrinkForm from "./other_drink_form";
+import { hideOthDrinkModal } from '../actions';
 
 const modalRoot = document.getElementById("modal-root");
 
@@ -32,8 +35,8 @@ class OtherDrinkModal extends Component {
         <div className="modal-footer">
           <button
             type="button"
-            class="btn btn-default"
-            onClick={this.props.onClose}
+            className="btn btn-default"
+            onClick={this.props.hideOthDrinkModal}
           >
             Sulje
           </button>
@@ -44,4 +47,9 @@ class OtherDrinkModal extends Component {
   }
 }
 
-export default OtherDrinkModal;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators( { hideOthDrinkModal } , dispatch);
+
+}
+
+export default connect(null, mapDispatchToProps)(OtherDrinkModal);

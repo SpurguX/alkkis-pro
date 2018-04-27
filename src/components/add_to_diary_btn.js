@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { postDrinkListOk, postDrinkListFailure, postDrinkListClearStatus, emptyDrinkList } from '../actions';
+import { postDrinkListOk, postDrinkListFailure, emptyDrinkList, showAddResultModal } from '../actions';
 import _ from 'lodash';
 import axios from 'axios';
 
@@ -24,15 +24,17 @@ class AddToDiaryBtn extends Component {
         })
         .then((response) => {
             if (response.status === 200) {
-                alert("Lisäys ok")
                 this.props.postDrinkListOk();
                 this.props.emptyDrinkList();
-                this.props.postDrinkListClearStatus();
+            } else {
+                this.props.postDrinkListFailure();
             }
         })
         .catch((response) => {
-            alert("Lisäyksessä tapahtui virhe");
             this.props.postDrinkListFailure();
+        })
+        .then(() => {
+            this.props.showAddResultModal();
         })
     }
 
@@ -65,7 +67,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ postDrinkListOk, postDrinkListFailure, postDrinkListClearStatus, emptyDrinkList }, dispatch);
+    return bindActionCreators({ postDrinkListOk, postDrinkListFailure, emptyDrinkList, showAddResultModal }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddToDiaryBtn);
