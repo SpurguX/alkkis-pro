@@ -26,10 +26,9 @@ class OtherDrinkModal extends Component {
     return ReactDOM.createPortal(
       <div className="modal-content">
         <div className="modal-header">
-          <h4 className="modal-title">Muu juoma</h4>
+          <h4 className="modal-title">Muu juoma - syötä arvot</h4>
         </div>
         <div className="modal-body">
-          <h4>Syötä juoman arvot</h4>
           <OtherDrinkForm />
         </div>
         <div className="modal-footer">
