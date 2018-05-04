@@ -71,8 +71,9 @@ class OtherDrinkForm extends Component {
       method: "POST",
       headers: { "content-type": "application/x-www-form-urlencoded" },
       data: qs.stringify(data),
-      url: "http://localhost:8080/add_drink"
+      url: "http://localhost:8080/save_other_drink"
     };
+
     axios(options)
       .then(response => {
         this.props.updateJuomalistaState(response.data);

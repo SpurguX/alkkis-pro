@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const FETCH_JUOMAT = 'FETCH_JUOMAT';
+export const FETCH_DRINKS = 'FETCH_JUOMAT';
 export const UPDATE_JUOMALISTA_STATE = 'UPDATE_JUOMALISTA_STATE';
 export const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
 export const EMPTY_DRINK_LIST = 'EMPTY_DRINK_LIST';
@@ -22,12 +22,12 @@ export const FETCH_DRINK_ENTRIES = 'FETCH_DRINK_ENTRIES';
 
 // CALCULATOR PAGE ---------------------------------------------
 
-export function fetchJuomat() {
-    const juomatPromise = axios.get("http://localhost:8080/all_drinks");
+export function fetchDrinks() {
+    const drinksPromise = axios.get("http://localhost:8080/all_drinks");
 
     return {
-        type: FETCH_JUOMAT,
-        payload: juomatPromise
+        type: FETCH_DRINKS,
+        payload: drinksPromise
     }
 }
 

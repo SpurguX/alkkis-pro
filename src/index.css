@@ -215,7 +215,7 @@ body {
 
 .modal-content {
   width: 60rem;
-  height: 60rem;
+  height: 48rem;
   background-color: white;
 }
 
@@ -240,6 +240,27 @@ input::-webkit-inner-spin-button {
   font-size: 1.8rem;
   line-height: 1.3333333;
   color: #555;
+}
+
+.oth-mod-header {
+  padding: 0;
+}
+
+.oth-mod-tab {
+  height: 5rem;
+  font-size: 1.8rem;
+  border-top-left-radius: 0.6rem;
+  border-top-right-radius: 0.6rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.oth-mod-tab-active {
+  background-color: #BBF3A3;
+}
+
+.oth-mod-tab-active:focus {
+  background-color: #BBF3A3;
 }
 
 

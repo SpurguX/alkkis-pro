@@ -10,12 +10,12 @@ import UnitCountDisplayer from "./unit_count_displayer";
 import DrinkDatePicker from "./drink_datepicker";
 import DrinkListButtons from "./drink_list_buttons";
 import AddResultModal from "./drink_list_add_result_modal";
-import { fetchJuomat } from "../actions";
+import { fetchDrinks } from "../actions";
 
 class UnitCalculator extends Component {
 
   componentDidMount() {
-    this.props.fetchJuomat();
+    this.props.fetchDrinks();
   }
 
   renderKuvakkeet() {
@@ -91,7 +91,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchJuomat }, dispatch);
+  return bindActionCreators({ fetchDrinks }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UnitCalculator);
