@@ -20,7 +20,7 @@ class SavedDrinks extends Component {
 
   fetchSavedDrinks() {
     axios
-      .get("http://localhost:8080/all_saved_drinks")
+      .get("http://jessetaina.info:8080/all_saved_drinks")
       .then(response => {
         this.setState({ savedDrinks: response.data });
       })
