@@ -1,4 +1,4 @@
-export function countUnits(volume, alc_content) {
+export function countUnits(volume, alcContent) {
 	const ethanolDensity = 789;
-	return volume * (alc_content / 100) * ethanolDensity / 12.00;
+	return volume * (alcContent / 100) * ethanolDensity / 12.00;
 }

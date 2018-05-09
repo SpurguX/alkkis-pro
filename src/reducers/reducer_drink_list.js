@@ -4,23 +4,23 @@ import _ from 'lodash';
 export default function (state = {}, action) {
     switch (action.type) {
         case UPDATE_JUOMALISTA_STATE:
-            let { drink_id } = action.payload;
-            if (Object.keys(state).includes(drink_id.toString())) {
-                let modifiedDrinkObject = _.get(state, drink_id);
+            let { drinkId } = action.payload;
+            if (Object.keys(state).includes(drinkId.toString())) {
+                let modifiedDrinkObject = _.get(state, drinkId);
                 modifiedDrinkObject.quantity++;
-                return { ...state, [drink_id]: modifiedDrinkObject };
+                return { ...state, [drinkId]: modifiedDrinkObject };
             } else {
-                return { ...state, [drink_id]: { ...action.payload, 'quantity': 1 } }
+                return { ...state, [drinkId]: { ...action.payload, 'quantity': 1 } }
             }
         case DECREASE_QUANTITY:
-            let drink_id2 = action.payload.drink_id;
-            let modifiedDrinkObject = _.get(state, drink_id2);
+            let drinkId2 = action.payload.drinkId;
+            let modifiedDrinkObject = _.get(state, drinkId2);
             modifiedDrinkObject.quantity--;
-            state = _.omit(state, drink_id2);
+            state = _.omit(state, drinkId2);
             if (modifiedDrinkObject.quantity < 1) {
                 return state;
             } else {
-                return { ...state, [drink_id2]: modifiedDrinkObject };
+                return { ...state, [drinkId2]: modifiedDrinkObject };
             }
         case EMPTY_DRINK_LIST:
             return {};

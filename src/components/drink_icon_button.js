@@ -20,7 +20,7 @@ class DrinkIconButton extends Component {
             <div className="col-sm-3 col-xs-6 juomakuvake-container" onClick={this.handleClick} >
                 <div className="juomakuvake">
                     <img src={beerIcon} alt="beer" style={{height: '3.4rem'}}/>
-                    <p>{this.props.drink_name } {`${this.props.volume} l`}<br />{`${this.props.alc_content} %`}</p>              
+                    <p>{this.props.drinkName } {`${this.props.volume} l`}<br />{`${this.props.alcContent} %`}</p>              
                 </div>
             </div>
         )

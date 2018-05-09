@@ -23,7 +23,7 @@ class DrinkListItem extends Component {
         return (
             <li className="list-group-item drink-list-item">
                 <span className="glyphicon glyphicon-minus col-xs-1 list-item-minus" onClick={this.handleMinusClick}></span>
-                <span className="col-xs-9 list-item-data">{this.props.drink_name} {this.props.volume} l, {this.props.alc_content} %</span>
+                <span className="col-xs-9 list-item-data">{this.props.drinkName} {this.props.volume} l, {this.props.alcContent} %</span>
                 <span className="col-xs-1 list-item-quantity">{this.props.quantity}</span>
                 <span className="glyphicon glyphicon-plus list-item-plus col-xs-1" onClick={this.handlePlusClick}></span>
             </li>

@@ -23,7 +23,7 @@ export const FETCH_DRINK_ENTRIES = 'FETCH_DRINK_ENTRIES';
 // CALCULATOR PAGE ---------------------------------------------
 
 export function fetchDrinks() {
-    const drinksPromise = axios.get("http://jessetaina.info:8080/all_drinks");
+    const drinksPromise = axios.get("http://localhost:8080/all_default_drinks");
 
     return {
         type: FETCH_DRINKS,
@@ -130,7 +130,7 @@ export function hideAddResultModal() {
 // DIARY PAGE ----------------------------------------
 
 export function fetchDrinkEntries() {
-    const drinkEntriesPromise = axios.get("http://jessetaina.info:8080/all_entries")
+    const drinkEntriesPromise = axios.get("http://localhost:8080/all_entries")
     
     return {
         type: FETCH_DRINK_ENTRIES,

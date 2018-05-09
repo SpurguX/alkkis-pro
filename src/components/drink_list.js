@@ -10,11 +10,11 @@ S
     renderListItems() {
         return _.map(this.props.drinkList, drink => {
                 return (                 
-                        <DrinkListItem key={drink.drink_id} 
-                        drink_id={drink.drink_id} 
-                        drink_name={drink.drink_name} 
+                        <DrinkListItem key={drink.drinkId} 
+                        drinkId={drink.drinkId} 
+                        drinkName={drink.drinkName} 
                         volume={drink.volume} 
-                        alc_content={drink.alc_content}
+                        alcContent={drink.alcContent}
                         quantity={drink.quantity}
                         />                 
                 )         

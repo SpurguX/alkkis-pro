@@ -22,11 +22,11 @@ class UnitCalculator extends Component {
     return _.map(this.props.drinks, drink => {
       return (
         <DrinkIconButton
-          key={drink.drink_id}
-          drink_id={drink.drink_id}
-          drink_name={drink.drink_name}
+          key={drink.drinkId}
+          drinkId={drink.drinkId}
+          drinkName={drink.drinkName}
           volume={drink.volume}
-          alc_content={drink.alc_content}
+          alcContent={drink.alcContent}
           units={drink.units}
         />
       );

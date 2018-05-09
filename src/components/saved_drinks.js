@@ -20,7 +20,7 @@ class SavedDrinks extends Component {
 
   fetchSavedDrinks() {
     axios
-      .get("http://jessetaina.info:8080/all_saved_drinks")
+      .get("http://localhost:8080/all_saved_drinks")
       .then(response => {
         this.setState({ savedDrinks: response.data });
       })
@@ -31,10 +31,10 @@ class SavedDrinks extends Component {
 
   renderSavedDrinks() {
     const options = this.state.savedDrinks.map(drink => {
-      const { drink_id, drink_name, volume, alc_content } = drink;
+      const { drinkId, drinkName, volume, alcContent } = drink;
       return (
-        <option key={drink_id} drink_id={drink_id} onClick={this.click}>
-          {drink_name} {volume} l, {alc_content} %
+        <option key={drinkId} drinkId={drinkId} onClick={this.click}>
+          {drinkName} {volume} l, {alcContent} %
         </option>
       );
     });

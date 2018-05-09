@@ -11,7 +11,7 @@ class AddToDiaryBtn extends Component {
         const drinkListArray = _.map(drinkList, drinkListItem => {
             return {
                 'drink_date': date._d,
-                'drink': {'drink_id': drinkListItem.drink_id},
+                'drink': {'drinkId': drinkListItem.drinkId},
                 'drink_quantity': drinkListItem.quantity,
                 'drink_entry_units': drinkListItem.units,
             };
@@ -19,7 +19,7 @@ class AddToDiaryBtn extends Component {
             
         axios({
             method: 'post',
-            url: "http://jessetaina.info:8080/add_entry",
+            url: "http://localhost:8080/add_entry",
             data: drinkListArray
         })
         .then((response) => {
