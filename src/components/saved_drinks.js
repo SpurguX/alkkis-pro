@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { updateJuomalistaState } from "../actions";
 import axios from "axios";
+import _ from 'lodash';
 
 class SavedDrinks extends Component {
   constructor(props) {
@@ -10,7 +11,6 @@ class SavedDrinks extends Component {
 
     this.state = {
       savedDrinks: [],
-      selectedDrinks: []
     };
   }
 
@@ -22,7 +22,8 @@ class SavedDrinks extends Component {
     axios
       .get("http://localhost:8080/all_saved_drinks")
       .then(response => {
-        this.setState({ savedDrinks: response.data });
+        let savedDrinksIdsAsKeys = _.mapKeys(response.data, 'drinkId');   
+        this.setState({ savedDrinks: savedDrinksIdsAsKeys });
       })
       .catch(response => {
         console.log("terrible error", response);
@@ -30,10 +31,10 @@ class SavedDrinks extends Component {
   }
 
   renderSavedDrinks() {
-    const options = this.state.savedDrinks.map(drink => {
+    const options = _.map(this.state.savedDrinks, drink => {
       const { drinkId, drinkName, volume, alcContent } = drink;
       return (
-        <option key={drinkId} drinkId={drinkId} onClick={this.click}>
+        <option key={drinkId} drink_id={drinkId} onClick={this.click}>
           {drinkName} {volume} l, {alcContent} %
         </option>
       );
@@ -44,28 +45,16 @@ class SavedDrinks extends Component {
   handleAdd = (event) => {
     event.preventDefault();
     const options = document.getElementsByTagName("option");
-    let selectedDrinks = [];
     for (var i = 0; i < options.length; i++) {
       if (options[i].selected) {
-        selectedDrinks.push(options[i].getAttribute("drink_id"));
+        let drinkId = options[i].getAttribute("drink_id");
+        this.props.updateJuomalistaState(this.state.savedDrinks[drinkId]);
       }
     }
-    this.getDrinksObjsById(selectedDrinks)
   };
-
-  getDrinksObjsById(selectedDrinks) {
-    selectedDrinks.forEach((drink) => {
-        console.log(drink)
-        if (this.state.savedDrinks.includes(drink)) {
-            console.log(drink)
-        }
-    })
-    
-  }
 
   render() {
     console.log(this.state.savedDrinks);
-    this.renderSavedDrinks();
 
     return (
       <form className="form-horizontal">
