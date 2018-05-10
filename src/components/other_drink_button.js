@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateJuomalistaState, showOthDrinkModal } from '../actions';
+import { showOthDrinkModal } from '../actions';
 
 class OtherDrinkButton extends Component {
 
@@ -19,7 +19,7 @@ class OtherDrinkButton extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators( { updateJuomalistaState, showOthDrinkModal } , dispatch);
+    return bindActionCreators( { showOthDrinkModal } , dispatch);
 
 }
 

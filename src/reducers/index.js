@@ -8,6 +8,8 @@ import reducerDrinkDate from './reducer_drink_date';
 import reducerDrinkListPostStatus from './reducer_drink_list_post_status';
 import reducerOtherDrinkModal from './reducer_other_drink_modal';
 import reducerAddResultModal from './reducer_add_result_modal';
+import reducerEditEntryModal from './reducer_edit_entry_modal';
+import reducerSavedDrinks from './reducer_saved_drinks';
 
 const rootReducer = combineReducers({
     addResultModal: reducerAddResultModal,
@@ -17,7 +19,9 @@ const rootReducer = combineReducers({
     drinkList: reducerDrinkList,
     drinkListBu: reducerDrinkListBu,
     drinkListPostStatus: reducerDrinkListPostStatus,
+    editEntryModal: reducerEditEntryModal,
     othDrinkModal: reducerOtherDrinkModal,
+    savedDrinks: reducerSavedDrinks,
     unitsInList: reducerUnitsInList, 
 });
 

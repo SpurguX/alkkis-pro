@@ -1,46 +1,28 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { updateJuomalistaState } from "../actions";
+import { hideOthDrinkModal, updateDrinkList, fetchSavedDrinks } from "../actions";
 import axios from "axios";
 import _ from 'lodash';
+import { renderDrinksAsOptions } from '../helpers/functions';
 
 class SavedDrinks extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      savedDrinks: [],
-    };
-  }
 
   componentDidMount() {
-    this.fetchSavedDrinks();
+    this.props.fetchSavedDrinks();
   }
 
-  fetchSavedDrinks() {
-    axios
-      .get("http://localhost:8080/all_saved_drinks")
-      .then(response => {
-        let savedDrinksIdsAsKeys = _.mapKeys(response.data, 'drinkId');   
-        this.setState({ savedDrinks: savedDrinksIdsAsKeys });
-      })
-      .catch(response => {
-        console.log("terrible error", response);
-      });
-  }
-
-  renderSavedDrinks() {
-    const options = _.map(this.state.savedDrinks, drink => {
-      const { drinkId, drinkName, volume, alcContent } = drink;
-      return (
-        <option key={drinkId} drink_id={drinkId} onClick={this.click}>
-          {drinkName} {volume} l, {alcContent} %
-        </option>
-      );
-    });
-    return options;
-  }
+  // renderSavedDrinks() {
+  //   const options = _.map(this.props.savedDrinks, drink => {
+  //     const { drinkId, drinkName, volume, alcContent } = drink;
+  //     return (
+  //       <option key={drinkId} drink_id={drinkId} onClick={this.click}>
+  //         {drinkName} {volume} l, {alcContent} %
+  //       </option>
+  //     );
+  //   });
+  //   return options;
+  // }
 
   handleAdd = (event) => {
     event.preventDefault();
@@ -48,20 +30,27 @@ class SavedDrinks extends Component {
     for (var i = 0; i < options.length; i++) {
       if (options[i].selected) {
         let drinkId = options[i].getAttribute("drink_id");
-        this.props.updateJuomalistaState(this.state.savedDrinks[drinkId]);
+        this.props.updateDrinkList(this.props.savedDrinks[drinkId]);
       }
     }
+    this.props.hideOthDrinkModal();
   };
 
   render() {
-    console.log(this.state.savedDrinks);
-
     return (
       <form className="form-horizontal">
-        <div className="col-sm-offset-1 col-sm-10">
-          <select multiple className="form-control" id="other-drink-select">
-            {this.renderSavedDrinks()}
-          </select>
+        <div className="form-group">
+          <div className="col-sm-offset-1 col-sm-10">
+            <div className="col-sm-1"><span className="glyphicon glyphicon-info-sign" id="saved-drink-info"></span></div>
+            Valitse useampi juoma pitämällä control-näppäintä painettuna
+          </div>
+        </div>
+        <div className="form-group">
+          <div className="col-sm-offset-1 col-sm-10">
+            <select multiple className="form-control" id="saved-drink-select">
+              {renderDrinksAsOptions(this.props.savedDrinks)}
+            </select>
+          </div>
         </div>
         <div className="form-group">
           <div className="col-sm-4 col-sm-offset-4">
@@ -75,8 +64,14 @@ class SavedDrinks extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ updateJuomalistaState }, dispatch);
+function mapStateToProps(state) {
+  return {
+    savedDrinks: state.savedDrinks
+  }
 }
 
-export default connect(null, mapDispatchToProps)(SavedDrinks);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ hideOthDrinkModal, updateDrinkList, fetchSavedDrinks }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SavedDrinks);

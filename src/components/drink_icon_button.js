@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateJuomalistaState } from '../actions';
+import { updateDrinkList } from '../actions';
 import beerIcon from '../images/beer-drink-jar-outline.svg'
 
 class DrinkIconButton extends Component {
@@ -12,7 +12,7 @@ class DrinkIconButton extends Component {
     }
     
     handleClick() {
-        this.props.updateJuomalistaState(this.props)
+        this.props.updateDrinkList(this.props)
     }
 
     render() {
@@ -28,7 +28,7 @@ class DrinkIconButton extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators( { updateJuomalistaState } , dispatch);
+    return bindActionCreators( { updateDrinkList } , dispatch);
 
 }
 

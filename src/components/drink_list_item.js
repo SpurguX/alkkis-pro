@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateJuomalistaState, decreaseQuantity } from '../actions';
+import { updateDrinkList, decreaseQuantity } from '../actions';
 
 class DrinkListItem extends Component {
     constructor(props) {
@@ -12,7 +12,7 @@ class DrinkListItem extends Component {
     }
     
     handlePlusClick() {
-        this.props.updateJuomalistaState(this.props);
+        this.props.updateDrinkList(this.props);
     }
 
     handleMinusClick() {
@@ -32,7 +32,7 @@ class DrinkListItem extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators( { updateJuomalistaState, decreaseQuantity } , dispatch);
+    return bindActionCreators( { updateDrinkList, decreaseQuantity } , dispatch);
 
 }
 

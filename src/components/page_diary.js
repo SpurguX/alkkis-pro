@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { fetchDrinkEntries } from '../actions';
 import Navbar from './navbar';
 import DiaryTable from './diary_table';
-import { fetchDrinkEntries } from '../actions';
+import EditEntryModal from './edit_entry_modal';
 
 class Diary extends Component {
 
@@ -11,7 +12,10 @@ class Diary extends Component {
        this.props.fetchDrinkEntries();
     }
 
+
     render() {
+        const editEntryModal = this.props.editEntryModal.show ? <EditEntryModal /> : null;
+
         return(
             <div id="main" className="container">
                 <Navbar />
@@ -23,6 +27,7 @@ class Diary extends Component {
                     </div>
                     <div className="placeh col-sm-1 hidden-xs"></div>
                 </div>
+                {editEntryModal}
             </div>
         )
     }
@@ -30,7 +35,8 @@ class Diary extends Component {
 
 function mapStateToProps(state) {
     return {
-        drinkEntries: state.allDrinkEntries
+        drinkEntries: state.allDrinkEntries,
+        editEntryModal: state.editEntryModal
     };
 }
 

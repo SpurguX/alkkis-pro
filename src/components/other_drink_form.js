@@ -4,7 +4,7 @@ import "react-rangeslider/lib/index.css";
 import { countUnits } from "../helpers/functions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { updateJuomalistaState } from "../actions";
+import { hideOthDrinkModal, updateDrinkList } from "../actions";
 import axios from "axios";
 import qs from "qs";
 
@@ -56,7 +56,7 @@ class OtherDrinkForm extends Component {
     this.setState({ units: units });
   }
 
-  addNewDrinkToDb() {
+  addNewDrinkToDbAndList() {
     let { drinkName, alcContent, units, volume } = this.state;
     if (drinkName === "") {
       drinkName = "Muu juoma";
@@ -67,7 +67,6 @@ class OtherDrinkForm extends Component {
       alcContent: alcContent,
       units: units
     };
-    console.log(qs.stringify(data))
     const options = {
       method: "POST",
       headers: { "content-type": "application/x-www-form-urlencoded" },
@@ -77,7 +76,7 @@ class OtherDrinkForm extends Component {
 
     axios(options)
       .then(response => {
-        this.props.updateJuomalistaState(response.data);
+        this.props.updateDrinkList(response.data);
       })
       .catch(response => {
         console.log("Error", response.status);
@@ -86,7 +85,8 @@ class OtherDrinkForm extends Component {
 
   handleAdd = event => {
     event.preventDefault();
-    this.addNewDrinkToDb();
+    this.addNewDrinkToDbAndList();
+    this.props.hideOthDrinkModal();
   };
 
   render() {
@@ -156,7 +156,7 @@ class OtherDrinkForm extends Component {
           </div>
         </div>
         <div className="form-group">
-          <div className="col-sm-4 col-sm-offset-4">
+          <div className="col-sm-4 col-sm-offset-3">
             <button className="btn btn-primary" onClick={this.handleAdd}>
               Tallenna juoma ja lisää listaan
             </button>
@@ -168,7 +168,7 @@ class OtherDrinkForm extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ updateJuomalistaState }, dispatch);
+  return bindActionCreators({ hideOthDrinkModal, updateDrinkList }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(OtherDrinkForm);

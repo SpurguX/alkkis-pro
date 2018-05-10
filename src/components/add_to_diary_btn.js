@@ -9,11 +9,12 @@ class AddToDiaryBtn extends Component {
 
     postDrinkList(drinkList, date) {
         const drinkListArray = _.map(drinkList, drinkListItem => {
+            const entryUnits = drinkListItem.units * drinkListItem.quantity;
             return {
                 'drink_date': date._d,
                 'drink': {'drinkId': drinkListItem.drinkId},
                 'drink_quantity': drinkListItem.quantity,
-                'drink_entry_units': drinkListItem.units,
+                'drink_entry_units': entryUnits
             };
         });
             

@@ -70,7 +70,9 @@ class UnitCalculator extends Component {
           <div id="unit-calculator-controls">
             <UnitCountDisplayer />
             <DrinkList />
+          <div className="datepicker-container">
             <DrinkDatePicker />
+          </div>
             <DrinkListButtons />
           </div>
         </div>
