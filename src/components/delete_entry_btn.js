@@ -11,7 +11,7 @@ class DeleteEntryBtn extends Component {
     deleteEntry = () => {     
         axios({
           method: 'post',
-          url: "http://localhost:8080/delete_entry",
+          url: "http://jessetaina.info:8080/delete_entry",
           headers: { "content-type": "application/x-www-form-urlencoded" },
           data: qs.stringify({drink_entry_id : this.props.drink_entry_id}),
       }).then((response) => { 

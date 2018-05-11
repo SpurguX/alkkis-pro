@@ -25,7 +25,7 @@ export const HIDE_EDIT_ENTRY_MODAL = 'HIDE_EDIT_ENTRY_MODAL';
 // CALCULATOR PAGE ---------------------------------------------
 
 export function fetchDrinks() {
-    const drinksPromise = axios.get("http://localhost:8080/all_default_drinks");
+    const drinksPromise = axios.get("http://jessetaina.info:8080/all_default_drinks");
 
     return {
         type: FETCH_DRINKS,
@@ -118,7 +118,7 @@ export function hideOthDrinkModal() {
 }
 
 export function fetchSavedDrinks() {
-    let savedDrinksPromise = axios.get("http://localhost:8080/all_saved_drinks")
+    let savedDrinksPromise = axios.get("http://jessetaina.info:8080/all_saved_drinks")
 
     return {
         type: FETCH_SAVED_DRINKS,
@@ -141,7 +141,7 @@ export function hideAddResultModal() {
 // DIARY PAGE ----------------------------------------
 
 export function fetchDrinkEntries() {
-    const drinkEntriesPromise = axios.get("http://localhost:8080/all_entries")
+    const drinkEntriesPromise = axios.get("http://jessetaina.info:8080/all_entries")
     
     return {
         type: FETCH_DRINK_ENTRIES,
