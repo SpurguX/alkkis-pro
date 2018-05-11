@@ -156,9 +156,18 @@ class OtherDrinkForm extends Component {
           </div>
         </div>
         <div className="form-group">
-          <div className="col-sm-4 col-sm-offset-3">
-            <button className="btn btn-primary" onClick={this.handleAdd}>
+          <div className="col-sm-6 col-sm-offset-3">
+            <button className="btn btn-default" onClick={this.handleAdd}>
               Tallenna juoma ja lisää listaan
+            </button>
+          </div>
+          <div className="col-sm-2 close-btn-div">
+            <button
+              type="button"
+              className="btn btn-default"
+              onClick={this.props.hideOthDrinkModal}
+            >
+              Sulje
             </button>
           </div>
         </div>

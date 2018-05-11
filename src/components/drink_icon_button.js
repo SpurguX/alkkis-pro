@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateDrinkList } from '../actions';
-import beerIcon from '../images/beer-drink-jar-outline.svg'
+import beerIcon from '../images/beer-pint.svg'
 
 class DrinkIconButton extends Component {
     constructor(props) {
@@ -16,10 +16,14 @@ class DrinkIconButton extends Component {
     }
 
     render() {
+        let icon = 'tall-glass.svg'
+        this.props.icon !== null ? icon = this.props.icon : null
+        icon = require(`../images/${icon}`)
+
         return (
             <div className="col-sm-3 col-xs-6 juomakuvake-container" onClick={this.handleClick} >
                 <div className="juomakuvake">
-                    <img src={beerIcon} alt="beer" style={{height: '3.4rem'}}/>
+                    <img src={icon} alt="img" class="drink-icon"/>
                     <p>{this.props.drinkName } {`${this.props.volume} l`}<br />{`${this.props.alcContent} %`}</p>              
                 </div>
             </div>

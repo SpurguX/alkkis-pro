@@ -28,6 +28,7 @@ class UnitCalculator extends Component {
           volume={drink.volume}
           alcContent={drink.alcContent}
           units={drink.units}
+          icon={drink.icon}
         />
       );
     });

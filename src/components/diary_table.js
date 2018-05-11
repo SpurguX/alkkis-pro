@@ -32,6 +32,24 @@ export default class DiaryTable extends Component {
         return dateSortedEntries;
     }
 
+    calculateTotalUnits() {
+        const { entries } = this.props;
+        let totalUnits = 0.0;
+        _.forEach(entries, (obj, key) => {
+            totalUnits += (obj.drink_entry_units);
+        })
+        return totalUnits.toFixed(1);
+    }
+
+    calculateTotalQuantity() {
+        const { entries } = this.props;
+        let totalQuantity = 0;
+        _.forEach(entries, (obj, key) => {
+            totalQuantity += (obj.drink_quantity);
+        })
+        return totalQuantity
+    }
+
     renderEntries() {
         const dateSortedEntries = this.sortEntriesbyDrinkDate();
     
@@ -53,6 +71,7 @@ export default class DiaryTable extends Component {
     }
 
     render() {
+        this.calculateTotalUnits()
         return(
             <div id="diary-table-container" className="table-responsive">
                 <table className="table table-striped">
@@ -67,6 +86,20 @@ export default class DiaryTable extends Component {
                     <tbody>
                         {this.renderEntries()}
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>Kpl yht.</th>
+                            <th>Annokset yht.</th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>{this.calculateTotalQuantity()}</td>
+                            <td>{this.calculateTotalUnits()}</td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
 

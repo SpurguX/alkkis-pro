@@ -75,7 +75,7 @@ body {
    position: absolute;
    top: 0;
    left: 0;
-   background-image: url('./images/barcounter.jpg');
+   background-image: url('./images/counter_fancy.jpg');
    background-repeat: repeat;
    width: 100%;
    height: 100%;
@@ -97,7 +97,7 @@ body {
   height: 72rem;
   border: 0.1rem solid gray;
   border-radius: 1rem;
-  opacity: 0.88;
+  opacity: 0.94;
 }
 
 #juomakuvakegrid-container {
@@ -110,8 +110,9 @@ body {
   text-align: center;
 }
 
-.juoma-icon {
-  font-size: 2.4rem;
+.drink-icon {
+  height: 4rem;
+  margin-bottom: 0.4rem
 }
 
 .juomakuvake {
@@ -200,10 +201,13 @@ body {
 
 .modal-content {
   width: 60rem;
-  height: 48rem;
+  height: 40rem;
   background-color: white;
 }
 
+.close-btn-div {
+  text-align: right;
+}
 .modal-footer {
   position: absolute;
   bottom: 1rem;
@@ -255,7 +259,7 @@ input::-webkit-inner-spin-button {
 }
 
 #saved-drink-select {
-  height: 24rem;
+  height: 20.3rem;
 }
 
 /* ADD RESULT MODAL ------ */
@@ -265,6 +269,24 @@ input::-webkit-inner-spin-button {
   background-color: white;
   text-align: center;
 }
+
+/* EDIT ENTRY FORM ------- */
+
+.edit-entry-form-group {
+  height: 4.2rem;
+}
+
+.edit-entry-field {
+  height: 4.2rem;
+  text-align: center;
+}
+
+#edit-entry-select {
+  border: 1px solid #ccc;
+  border-radius: 0.3rem;
+  width: 36.8rem;
+}
+
 
 
 /* DIARY ----------------- */
@@ -291,6 +313,13 @@ input::-webkit-inner-spin-button {
   border-radius: 0;
 }
 
-/* ------------------------ */
 
+/* DATEPICKER ------------- */
+
+.react-datepicker__input-container > input {
+  border: 1px solid #ccc;
+  text-align: center;
+  height: 4.2rem !important;
+  width: 36.8rem !important;
+}
 

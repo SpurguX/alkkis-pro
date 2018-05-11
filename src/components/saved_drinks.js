@@ -12,18 +12,6 @@ class SavedDrinks extends Component {
     this.props.fetchSavedDrinks();
   }
 
-  // renderSavedDrinks() {
-  //   const options = _.map(this.props.savedDrinks, drink => {
-  //     const { drinkId, drinkName, volume, alcContent } = drink;
-  //     return (
-  //       <option key={drinkId} drink_id={drinkId} onClick={this.click}>
-  //         {drinkName} {volume} l, {alcContent} %
-  //       </option>
-  //     );
-  //   });
-  //   return options;
-  // }
-
   handleAdd = (event) => {
     event.preventDefault();
     const options = document.getElementsByTagName("option");
@@ -53,9 +41,18 @@ class SavedDrinks extends Component {
           </div>
         </div>
         <div className="form-group">
-          <div className="col-sm-4 col-sm-offset-4">
-            <button className="btn btn-primary" onClick={this.handleAdd}>
+          <div className="col-sm-6 col-sm-offset-3">
+            <button className="btn btn-default" onClick={this.handleAdd}>
               Lisää valitut juomat listaan
+            </button>
+          </div>
+          <div className="col-sm-2 close-btn-div">
+            <button
+              type="button"
+              className="btn btn-default"
+              onClick={this.props.hideOthDrinkModal}
+            >
+              Sulje
             </button>
           </div>
         </div>

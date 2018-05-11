@@ -45,9 +45,9 @@ class AddToDiaryBtn extends Component {
 
     renderBtn() {
         if (_.isEmpty(this.props.drinkList)) {
-            return <button type="button" className="btn btn-block disabled" tabIndex="-1" >Lisää juomat päiväkirjaan</button>
+            return <button type="button" className="btn btn-block btn-default disabled" tabIndex="-1" >Lisää juomat päiväkirjaan</button>
         } else {
-            return <button type="button" className="btn btn-block" onClick={() => this.handleClick()}>Lisää juomat päiväkirjaan</button>
+            return <button type="button" className="btn btn-block btn-default" onClick={() => this.handleClick()}>Lisää juomat päiväkirjaan</button>
         }
     }
 

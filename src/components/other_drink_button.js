@@ -9,9 +9,8 @@ class OtherDrinkButton extends Component {
         return (
             <div className="col-sm-3 col-xs-6 juomakuvake-container" onClick={this.props.showOthDrinkModal} >
                 <div className="juomakuvake">
-                    <p>Muu Juoma</p>
-                    <p><span className="juoma-icon glyphicon glyphicon-glass"></span></p>
-                    <p>? %</p>
+                    <img src={require('../images/tall-glass.svg')} alt="img" class="drink-icon"/>
+                    <p>Muu Juoma <br />? %</p>
                 </div>
             </div>
         )

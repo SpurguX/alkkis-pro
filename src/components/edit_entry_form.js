@@ -75,7 +75,6 @@ class EditEntryForm extends Component {
         break;
       }
     }
-
     this.updateDrinkToState(drinks, savedDrinks, drinkIdOfSelected);
   };
 
@@ -101,45 +100,56 @@ class EditEntryForm extends Component {
     }
   }
 
+  setInitialOption() {
+    const options = document.getElementsByTagName("option");
+    const { drinkId } = this.state.drink;
+    for (var i = 0; i < options.length; i++) {
+      if (options[i].getAttribute("drink_id") == drinkId) {
+        let el = document.querySelector(`option[drink_id='${drinkId}']`)
+        el.setAttribute("selected", true)
+        break;
+      }
+    }
+  }
+
   handleAdd = (event) => {
     event.preventDefault();
     this.editEntry();
   }
 
-  editEntry = () => {
-    
+  editEntry = () => { 
     axios({
       method: "post",
       url: "http://localhost:8080/edit_entry",
-      // headers: { "content-type": "application/x-www-form-urlencoded" },
       data: this.state
     }).then(response => {
       console.log(response);
       this.props.fetchDrinkEntries();
+      this.props.hideEditEntryModal();
     });
   };
 
   render() {
-    console.log(this.state);
+    this.setInitialOption()
 
     return (
       <form className="form-horizontal">
-        <div className="form-group">
+        <div className="form-group edit-entry-form-group">
           <label className="control-label col-sm-3">Juontipäivä: </label>
           <div className="col-sm-8">
             <DrinkDatePicker />
           </div>
         </div>
-        <div className="form-group">
+        <div className="form-group edit-entry-form-group">
           <label className="control-label col-sm-3">Juoma: </label>
           <div className="col-sm-8">
-            <select onChange={this.handleSelection} id="edit-entry-select">
+            <select onChange={this.handleSelection} className="edit-entry-field" id="edit-entry-select">
               {renderDrinksAsOptions(this.props.drinks)}
               {renderDrinksAsOptions(this.props.savedDrinks)}
             </select>
           </div>
         </div>
-        <div className="form-group">
+        <div className="form-group edit-entry-form-group">
           <label className="control-label col-sm-3">Kappalemäärä:</label>
           <div className="col-sm-2">
             <input
@@ -147,23 +157,32 @@ class EditEntryForm extends Component {
               name="quantity"
               step={1}
               max={100}
-              className="form-control input-lg"
+              className="form-control input-lg edit-entry-field"
               value={this.state.drink_quantity}
               onChange={this.handleQuantityChange}
             />
           </div>
         </div>
-        <div className="form-group">
+        <div className="form-group edit-entry-form-group">
           <label className="control-label col-sm-3">Annokset:</label>
           <div className="col-sm-2">
             <div id="units-text">{this.state.drink_entry_units.toFixed(1)}</div>
           </div>
         </div>
         <div className="form-group">
-          <div className="col-sm-4 col-sm-offset-3">
-            <button className="btn btn-primary" onClick={this.handleAdd}>
+          <div className="col-sm-6 col-sm-offset-3">
+            <button className="btn btn-default" onClick={this.handleAdd}>
               Vahvista muokkaus
             </button>
+          </div>
+          <div  className="col-sm-2 close-btn-div">
+          <button
+            type="button"
+            className="btn btn-default"
+            onClick={this.props.hideEditEntryModal}
+          >
+            Sulje
+          </button>
           </div>
         </div>
       </form>

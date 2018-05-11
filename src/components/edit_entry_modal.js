@@ -31,15 +31,6 @@ class EditEntryModal extends Component {
         <div className="modal-body">
           <EditEntryForm />
         </div>
-        <div className="modal-footer">
-          <button
-            type="button"
-            className="btn btn-default"
-            onClick={this.props.hideEditEntryModal}
-          >
-            Sulje
-          </button>
-        </div>
       </div>,
       this.el
     );
