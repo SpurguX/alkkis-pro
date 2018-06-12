@@ -7,26 +7,12 @@ export default class DiaryTableWeekView extends Component {
 
   getStartAndEndOfWeekDates(dateAsMoment) {
     let weekdayOfEntry = dateAsMoment.isoWeekday();
-    let startOfWeekDate;
-    let endOfWeekDate;
-    if (weekdayOfEntry === 1) {
-      startOfWeekDate = _.clone(dateAsMoment._d);
-      endOfWeekDate = _.clone(dateAsMoment);
-      endOfWeekDate.date(startOfWeekDate.getDate() + 6);
-      endOfWeekDate = endOfWeekDate._d;
-    } else if (weekdayOfEntry === 7) {
-      endOfWeekDate = _.clone(dateAsMoment._d);
-      startOfWeekDate = _.clone(dateAsMoment);
-      startOfWeekDate.date(endOfWeekDate.getDate() - 6);
-      startOfWeekDate = startOfWeekDate._d;
-    } else {
-      startOfWeekDate = _.cloneDeep(dateAsMoment);
-      endOfWeekDate = _.cloneDeep(dateAsMoment);
-      startOfWeekDate.date(dateAsMoment.date() - (weekdayOfEntry - 1));
-      endOfWeekDate.date(dateAsMoment.date() + (7 - weekdayOfEntry));
-      startOfWeekDate = startOfWeekDate._d;
-      endOfWeekDate = endOfWeekDate._d;
-    }
+    let startOfWeekDate = _.cloneDeep(dateAsMoment);
+    let endOfWeekDate = _.cloneDeep(dateAsMoment);
+    startOfWeekDate.date(dateAsMoment.date() - (weekdayOfEntry - 1));
+    endOfWeekDate.date(dateAsMoment.date() + (7 - weekdayOfEntry));
+    startOfWeekDate = startOfWeekDate._d;
+    endOfWeekDate = endOfWeekDate._d;
     return [startOfWeekDate, endOfWeekDate];
   }
 
