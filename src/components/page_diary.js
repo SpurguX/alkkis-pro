@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import { fetchDrinkEntries } from '../actions';
 import Navbar from './navbar';
 import DiaryTable from './diary_table';
+import DiaryTableWeekView from './diary_table_week_view';
+import DiaryTabs from './diary_tabs';
 import EditEntryModal from './edit_entry_modal';
 
 class Diary extends Component {
@@ -19,11 +21,12 @@ class Diary extends Component {
         return(
             <div id="main" className="container">
                 <Navbar />
-                <div id="diary-container" className="alkkis-container">
+                <div id="diary-container">
                     <div className="placeh col-sm-1 hidden-xs"></div>
                     <div className="col-sm-10 col-xs-12">
                         <h2 className="otsikko">Juomapäiväkirja</h2>
-                        <DiaryTable entries={this.props.drinkEntries} />
+                        <DiaryTabs />
+                        <DiaryTableWeekView entries={this.props.drinkEntries} />
                     </div>
                     <div className="placeh col-sm-1 hidden-xs"></div>
                 </div>

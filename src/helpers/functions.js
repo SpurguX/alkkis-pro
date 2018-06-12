@@ -17,3 +17,17 @@ export function renderDrinksAsOptions(savedDrinks) {
 	});
 	return options;
 }
+
+export function formatDBDate(date) {
+	let dd = date.substring(8,10);
+	let mm = date.substring(5,7);
+	let yyyy = date.substring(0,4);
+	return (`${dd}.${mm}.${yyyy}`);
+}
+
+export function formatJSDate(date) {
+	let dd = date.getDate()
+	let mm = date.getMonth() + 1;
+	let yyyy = date.getFullYear();
+	return (`${dd}.${mm}.${yyyy}`);
+}

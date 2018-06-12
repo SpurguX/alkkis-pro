@@ -8,13 +8,6 @@ body {
   font-family: sans-serif;
 }
 
-
-/* .alkkis-container {
-  /* background-color: #e3e7ea; */
-  /* height: auto; */
-/* }  */
-
-
 /* KIRJAUTUMISSIVU */
 
 #banner {
@@ -65,8 +58,7 @@ body {
 
 #unit-calculator-container {
   position: relative;
-  /* background-repeat: repeat; */
-  height: 140rem;
+  overflow: hidden;
 }
 
 #unit-calculator-container:after {
@@ -133,7 +125,12 @@ body {
 
 .juomakuvake:hover {
   background-color: #D8D8D8;
+}
 
+.juomakuvake:active {
+  position: relative;
+  top: 2px;
+  left: 1px;
 }
 
 #unit-counter-container {
@@ -237,7 +234,7 @@ input::-webkit-inner-spin-button {
   padding: 0;
 }
 
-.oth-mod-tab {
+.alkkis-tab {
   height: 5rem;
   font-size: 1.8rem;
   border-top-left-radius: 0.6rem;
@@ -292,7 +289,14 @@ input::-webkit-inner-spin-button {
 /* DIARY ----------------- */
 
 
+#diary-table-container {
+  overflow-x: unset;
+}
 
+#diary-tabs-container {
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
 
 
 /* NAVBAR ----------------- */

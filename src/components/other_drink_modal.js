@@ -48,13 +48,13 @@ export default class OtherDrinkModal extends Component {
       <div className="modal-content">
         <div className="modal-header oth-mod-header">       
           <button 
-            className={`btn btn-default col-sm-6 oth-mod-tab ${this.styleIfActive(addDrinkTab)}`}
+            className={`btn btn-default col-sm-6 alkkis-tab ${this.styleIfActive(addDrinkTab)}`}
             onClick={this.handleAddTabClick}
           >
             Muu juoma - syötä arvot
           </button>
           <button 
-            className={`btn btn-default col-sm-6 oth-mod-tab ${this.styleIfActive(savedDrinksTab)}`}
+            className={`btn btn-default col-sm-6 alkkis-tab ${this.styleIfActive(savedDrinksTab)}`}
             onClick={this.handleSavedTabClick}
           >
             Tallennetut juomat

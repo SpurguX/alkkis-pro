@@ -2,18 +2,12 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import DeleteEntryBtn from './delete_entry_btn';
 import EditEntryBtn from './edit_entry_btn';
+import { formatDBDate } from '../helpers/functions';
 
 export default class DiaryTable extends Component {
 
-    formatDate(date) {
-        let dd = date.substring(8,10);
-        let mm = date.substring(5,7);
-        let yyyy = date.substring(0,4);
-        return (`${dd}.${mm}.${yyyy}`)
-    }
-
     compareDrinkDates(a, b) {
-        if (a.drink_date < b.drink_date) {    
+        if (a.drink_date < b.drink_date) {
             return -1;
         }
         if (a.drink_date > b.drink_date) {
@@ -58,7 +52,7 @@ export default class DiaryTable extends Component {
                 let { drink } = entry;
                 return (
                     <tr key={entry.drink_entry_id}>
-                        <td>{this.formatDate(entry.drink_date)}</td>
+                        <td>{this.formatDBDate(entry.drink_date)}</td>
                         <td>{drink.drinkName} {drink.volume} l - {drink.alcContent} %</td>
                         <td>{entry.drink_quantity}</td>
                         <td>{entry.drink_entry_units.toFixed(1)}</td>
@@ -71,7 +65,6 @@ export default class DiaryTable extends Component {
     }
 
     render() {
-        this.calculateTotalUnits()
         return(
             <div id="diary-table-container" className="table-responsive">
                 <table className="table table-striped">

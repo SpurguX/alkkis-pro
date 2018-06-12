@@ -56,7 +56,7 @@ class UnitCalculator extends Component {
     );
 
     return (
-      <div id="unit-calculator-container" className="alkkis-container">
+      <div id="unit-calculator-container">
         <div className="placeh col-sm-2 hidden-xs" />
         <div className="col-sm-8 col-xs-12 unit-calculator-wrapper">
           {/* <h2 className="otsikko">Annoslaskuri</h2> */}
