@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import moment from "moment";
-import { formatJSDate } from '../helpers/functions';
+import { formatJSDate, calculateTotalUnits } from '../helpers/functions';
 
 export default class DiaryTableWeekView extends Component {
 
@@ -39,15 +39,6 @@ export default class DiaryTableWeekView extends Component {
       }
       return weeklyRows;
     }
-  }
-
-  calculateTotalUnits() {
-    const { entries } = this.props;
-    let totalUnits = 0.0;
-    _.forEach(entries, (obj, key) => {
-      totalUnits += obj.drink_entry_units;
-    });
-    return totalUnits.toFixed(1);
   }
 
   renderEntries(weeklyRows) {
@@ -89,7 +80,7 @@ export default class DiaryTableWeekView extends Component {
             <tr>
               <td />
               <td />
-              <td>{this.calculateTotalUnits()}</td>
+              <td>{calculateTotalUnits(this.props.entries)}</td>
             </tr>
           </tfoot>
         </table>

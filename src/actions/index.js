@@ -21,6 +21,7 @@ export const FETCH_SAVED_DRINKS = 'FETCH_SAVED_DRINKS';
 export const FETCH_DRINK_ENTRIES = 'FETCH_DRINK_ENTRIES';
 export const SHOW_EDIT_ENTRY_MODAL = 'SHOW_EDIT_ENTRY_MODAL';
 export const HIDE_EDIT_ENTRY_MODAL = 'HIDE_EDIT_ENTRY_MODAL';
+export const SELECT_DIARY_TAB = 'SELECT_DIARY_TAB';
 
 // CALCULATOR PAGE ---------------------------------------------
 
@@ -159,5 +160,12 @@ export function showEditEntryModal(entry) {
 export function hideEditEntryModal() {
     return {
         type: HIDE_EDIT_ENTRY_MODAL
+    }
+}
+
+export function selectDiaryTab(selectedTab) {
+    return {
+        type: SELECT_DIARY_TAB,
+        payload: selectedTab
     }
 }

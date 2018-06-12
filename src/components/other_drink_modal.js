@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import OtherDrinkForm from "./other_drink_form";
 import SavedDrinks from './saved_drinks';
+import { styleTabIfActive } from '../helpers/functions';
 
 const modalRoot = document.getElementById("modal-root");
 const addDrinkTab = 'addDrinkTab';
@@ -28,13 +29,6 @@ export default class OtherDrinkModal extends Component {
     return this.state.selectedTab === addDrinkTab ? <OtherDrinkForm /> : <SavedDrinks />
   }
 
-  styleIfActive(tab) {
-    if (this.state.selectedTab === tab) {
-      return "oth-mod-tab-active";
-    }
-    return "";
-  }
-
   handleAddTabClick = () => {
     this.setState({selectedTab: addDrinkTab});
   }
@@ -48,13 +42,13 @@ export default class OtherDrinkModal extends Component {
       <div className="modal-content">
         <div className="modal-header oth-mod-header">       
           <button 
-            className={`btn btn-default col-sm-6 alkkis-tab ${this.styleIfActive(addDrinkTab)}`}
+            className={`btn btn-default col-sm-6 alkkis-tab ${styleTabIfActive(addDrinkTab, this.state.selectedTab)}`}
             onClick={this.handleAddTabClick}
           >
             Muu juoma - syötä arvot
           </button>
           <button 
-            className={`btn btn-default col-sm-6 alkkis-tab ${this.styleIfActive(savedDrinksTab)}`}
+            className={`btn btn-default col-sm-6 alkkis-tab ${styleTabIfActive(savedDrinksTab, this.state.selectedTab)}`}
             onClick={this.handleSavedTabClick}
           >
             Tallennetut juomat

@@ -10,10 +10,12 @@ import reducerOtherDrinkModal from './reducer_other_drink_modal';
 import reducerAddResultModal from './reducer_add_result_modal';
 import reducerEditEntryModal from './reducer_edit_entry_modal';
 import reducerSavedDrinks from './reducer_saved_drinks';
+import reducerDiarySelectedTab from './reducer_diary_selected_tab';
 
 const rootReducer = combineReducers({
     addResultModal: reducerAddResultModal,
     allDrinkEntries: reducerDrinkEntries,
+    diarySelectedTab: reducerDiarySelectedTab,
     drinks: reducerDrinks,
     drinkDate: reducerDrinkDate,
     drinkList: reducerDrinkList,

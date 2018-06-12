@@ -243,11 +243,11 @@ input::-webkit-inner-spin-button {
   border-bottom-right-radius: 0;
 }
 
-.oth-mod-tab-active {
+.alkkis-tab-active {
   background-color: #BBF3A3;
 }
 
-.oth-mod-tab-active:focus {
+.alkkis-tab-active:focus {
   background-color: #BBF3A3;
 }
 

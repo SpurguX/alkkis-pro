@@ -31,3 +31,18 @@ export function formatJSDate(date) {
 	let yyyy = date.getFullYear();
 	return (`${dd}.${mm}.${yyyy}`);
 }
+
+export function calculateTotalUnits(entries) {
+	let totalUnits = 0.0;
+	_.forEach(entries, obj => {
+		totalUnits += obj.drink_entry_units;
+	});
+	return totalUnits.toFixed(1);
+}
+
+export function styleTabIfActive(thisTab, tabInState) {
+	if (tabInState === thisTab) {
+		return "alkkis-tab-active";
+	}
+	return "";
+}
