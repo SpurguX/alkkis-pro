@@ -5,6 +5,7 @@ import { fetchDrinkEntries } from "../actions";
 import Navbar from "./navbar";
 import DiaryTableAllEntries from "./diary_table_all_entries";
 import DiaryTableWeekView from "./diary_table_week_view";
+import DiaryTableMonthView from "./diary_table_month_view";
 import DiaryTabs from "./diary_tabs";
 import EditEntryModal from "./edit_entry_modal";
 import {
@@ -25,7 +26,9 @@ class Diary extends Component {
       case weeklyViewTab:
         return <DiaryTableWeekView entries={this.props.drinkEntries} />;
       case monthlyViewTab:
-        return <p>in progress</p>;
+        return <DiaryTableMonthView entries={this.props.drinkEntries} />;
+      default:
+        return <DiaryTableWeekView entries={this.props.drinkEntries} />;
     }
   }
 

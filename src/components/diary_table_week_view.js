@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import moment from "moment";
-import { formatJSDate, calculateTotalUnits } from '../helpers/functions';
+import { formatJSDate, calculateTotalUnits, sortEntriesbyDrinkDate } from '../helpers/functions';
 
 export default class DiaryTableWeekView extends Component {
 
@@ -17,40 +17,42 @@ export default class DiaryTableWeekView extends Component {
   }
 
   entriesToWeeklyForm() {
-    const { entries } = this.props;
+    const entries = sortEntriesbyDrinkDate(this.props.entries);
     let entry = entries[Object.keys(entries)[0]];
     let weeklyRows = {};
     if (entry !== undefined) {
-      for (var index in entries) {
+      for (let index in entries) {
         let drinkDate = new Date(Date.parse(entries[index].drink_date));
         let dateAsMoment = moment(drinkDate);
         let weekOfDate = dateAsMoment.isoWeek();
-        if (Object.keys(weeklyRows).includes(weekOfDate.toString())) {
-          weeklyRows[weekOfDate].units +=  entries[index].drink_entry_units;
+        let yearAndWeek = dateAsMoment.year() + ":" + weekOfDate;
+        if (Object.keys(weeklyRows).includes(yearAndWeek)) {
+          weeklyRows[yearAndWeek].units +=  entries[index].drink_entry_units;
         } else {
           let weeklyRow = {};
           weeklyRow.units = entries[index].drink_entry_units;
           weeklyRow.weekNum = weekOfDate;
           let startAndEnd = this.getStartAndEndOfWeekDates(dateAsMoment);
-          weeklyRow.startOfWeek = formatJSDate(startAndEnd[0]);
-          weeklyRow.endOfWeek = formatJSDate(startAndEnd[1]);
-          weeklyRows[`${weekOfDate}`] = weeklyRow;
+          weeklyRow.startOfWeek = startAndEnd[0];
+          weeklyRow.endOfWeek = startAndEnd[1];
+          weeklyRows[`${yearAndWeek}`] = weeklyRow;
         }
       }
       return weeklyRows;
     }
   }
 
-  renderEntries(weeklyRows) {
+  renderEntries() {
+    let weeklyRows = this.entriesToWeeklyForm();
     return _.map(weeklyRows, row => {
       let { units, weekNum } = row;
       let { startOfWeek, endOfWeek } = row;
       return (
-        <tr key={weekNum}>
-          <td>{weekNum}</td>
+        <tr key={startOfWeek}>
           <td>
-          {startOfWeek} - {endOfWeek}
+          {formatJSDate(startOfWeek)} - {formatJSDate(endOfWeek)}
           </td>
+          <td><span className="badge">{weekNum}</span></td>
           <td>{units.toFixed(1)}</td>
         </tr>
       );
@@ -63,13 +65,13 @@ export default class DiaryTableWeekView extends Component {
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>Viikko</th>
               <th>Päivämäärä</th>
+              <th>Viikko</th>
               <th>Annokset</th>
             </tr>
           </thead>
           <tbody>
-            {this.renderEntries(this.entriesToWeeklyForm())}
+            {this.renderEntries()}
           </tbody> 
           <tfoot>
             <tr>

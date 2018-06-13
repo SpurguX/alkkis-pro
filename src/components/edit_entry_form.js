@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { countUnits } from "../helpers/functions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
@@ -9,7 +8,6 @@ import {
   fetchDrinkEntries,
   updateDrinkDate
 } from "../actions";
-import qs from "qs";
 import axios from "axios";
 import moment from "moment";
 import { renderDrinksAsOptions } from "../helpers/functions";
@@ -46,7 +44,7 @@ class EditEntryForm extends Component {
   countUnitsInEntry = (units, quantity) => units * quantity;
 
   handleQuantityChange = event => {
-    let quantityInt = parseInt(event.target.value);
+    let quantityInt = parseInt(event.target.value, 10);
     if (quantityInt > 100) {
       quantityInt = 100;
     }
@@ -104,7 +102,7 @@ class EditEntryForm extends Component {
     const options = document.getElementsByTagName("option");
     const { drinkId } = this.state.drink;
     for (var i = 0; i < options.length; i++) {
-      if (options[i].getAttribute("drink_id") == drinkId) {
+      if (options[i].getAttribute("drink_id") === drinkId.toString()) {
         let el = document.querySelector(`option[drink_id='${drinkId}']`)
         el.setAttribute("selected", true)
         break;

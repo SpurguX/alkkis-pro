@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { hideOthDrinkModal, updateDrinkList, fetchSavedDrinks } from "../actions";
-import axios from "axios";
-import _ from 'lodash';
 import { renderDrinksAsOptions } from '../helpers/functions';
 
 class SavedDrinks extends Component {

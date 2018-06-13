@@ -18,6 +18,25 @@ export function renderDrinksAsOptions(savedDrinks) {
 	return options;
 }
 
+export function sortEntriesbyDrinkDate(entries) {
+	let dateSortedEntries = [];
+	Object.keys(entries).forEach((key) => {
+			dateSortedEntries.push(entries[key])
+	})
+	dateSortedEntries.sort(compareDrinkDates);
+	return dateSortedEntries;
+}
+
+function compareDrinkDates(a, b) {
+	if (a.drink_date < b.drink_date) {
+			return -1;
+	}
+	if (a.drink_date > b.drink_date) {
+			return 1;
+	}
+	return 0;
+}
+
 export function formatDBDate(date) {
 	let dd = date.substring(8,10);
 	let mm = date.substring(5,7);
@@ -45,4 +64,8 @@ export function styleTabIfActive(thisTab, tabInState) {
 		return "alkkis-tab-active";
 	}
 	return "";
+}
+
+export function capitalizeFirstLetter(string) {
+	return string.charAt(0).toUpperCase() + string.slice(1);
 }
