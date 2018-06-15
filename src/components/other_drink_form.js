@@ -90,7 +90,8 @@ class OtherDrinkForm extends Component {
   };
 
   render() {
-    const { drinkName, volume, alcContent, units } = this.state;
+    const { drinkName, volume, alcContent } = this.state;
+    const units = this.state.units.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
     return (
       <form className="form-horizontal">
@@ -152,7 +153,7 @@ class OtherDrinkForm extends Component {
         <div className="form-group">
           <label className="control-label col-sm-3">Annokset:</label>
           <div className="col-sm-2">
-            <div id="units-text">{units.toFixed(1)}</div>
+            <div id="units-text">{units}</div>
           </div>
         </div>
         <div className="form-group">

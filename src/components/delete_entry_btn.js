@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { } from '../actions';
-import qs from 'qs';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -10,10 +9,8 @@ class DeleteEntryBtn extends Component {
 
     deleteEntry = () => {     
         axios({
-          method: 'post',
-          url: "http://jessetaina.info:8080/delete_entry",
-          headers: { "content-type": "application/x-www-form-urlencoded" },
-          data: qs.stringify({drink_entry_id : this.props.drink_entry_id}),
+          method: 'delete',
+          url: `http://jessetaina.info:8080/drinkEntries/${this.props.drink_entry_id}`,
       }).then((response) => { 
         console.log(response);
         this.props.fetchDrinkEntries();

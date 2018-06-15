@@ -53,13 +53,14 @@ export default class DiaryTableWeekView extends Component {
           {formatJSDate(startOfWeek)} - {formatJSDate(endOfWeek)}
           </td>
           <td><span className="badge">{weekNum}</span></td>
-          <td>{units.toFixed(1)}</td>
+          <td>{units.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
         </tr>
       );
     });
   }
 
   render() {
+    let totalUnits = calculateTotalUnits(this.props.entries).toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     return (
       <div id="diary-table-container" className="table-responsive">
         <table className="table table-striped">
@@ -82,7 +83,7 @@ export default class DiaryTableWeekView extends Component {
             <tr>
               <td />
               <td />
-              <td>{calculateTotalUnits(this.props.entries)}</td>
+              <td>{totalUnits}</td>
             </tr>
           </tfoot>
         </table>

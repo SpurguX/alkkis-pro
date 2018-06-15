@@ -8,7 +8,9 @@ export function countUnits(volume, alcContent) {
 
 export function renderDrinksAsOptions(savedDrinks) {
 	const options = _.map(savedDrinks, drink => {
-		const { drinkId, drinkName, volume, alcContent } = drink;
+		const { drinkId, drinkName } = drink;
+		const volume = drink.volume.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+		const alcContent = drink.alcContent.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 		return (
 			<option key={drinkId} drink_id={drinkId}>
 				{drinkName} {volume} l, {alcContent} %
@@ -56,7 +58,7 @@ export function calculateTotalUnits(entries) {
 	_.forEach(entries, obj => {
 		totalUnits += obj.drink_entry_units;
 	});
-	return totalUnits.toFixed(1);
+	return totalUnits;
 }
 
 export function styleTabIfActive(thisTab, tabInState) {

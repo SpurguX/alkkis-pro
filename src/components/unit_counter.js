@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 class UnitCounter extends Component {
 
-componentDidUpdate(prevProps) {
+componentDidUpdate() {
         this.countUnits(this.props.drinkList);   
 }
 
@@ -20,10 +20,6 @@ countUnits(drinkList) {
     } else {
         this.props.countUnitsInList(0);
     }
-}
-
-renderUnits() {
-    return this.props.unitsInList.toFixed(1)
 }
 
 render() {

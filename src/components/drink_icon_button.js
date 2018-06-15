@@ -15,15 +15,18 @@ class DrinkIconButton extends Component {
     }
 
     render() {
+        const volume = this.props.volume.toLocaleString('fi');
+        const alcContent = this.props.alcContent.toLocaleString('fi');
+
         let iconName;
         this.props.icon !== null ? iconName = this.props.icon : iconName = 'tall-glass.svg';
-        let icon = require(`../images/${iconName}`);
+        const icon = require(`../images/${iconName}`);
 
         return (
             <div className="col-sm-3 col-xs-6 juomakuvake-container" onClick={this.handleClick} >
                 <div className="juomakuvake">
                     <img src={icon} alt="img" className="drink-icon"/>
-                    <p>{this.props.drinkName } {`${this.props.volume} l`}<br />{`${this.props.alcContent} %`}</p>              
+                    <p>{this.props.drinkName } {`${volume} l`}<br />{`${alcContent} %`}</p>              
                 </div>
             </div>
         )

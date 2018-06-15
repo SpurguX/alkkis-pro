@@ -21,15 +21,18 @@ export default class DiaryTableAllEntries extends Component {
   renderEntries() {
     const dateSortedEntries = sortEntriesbyDrinkDate(this.props.entries);
     return _.map(dateSortedEntries, entry => {
-      let { drink } = entry;
+      const { drink } = entry;
+      const volume = drink.volume.toLocaleString('fi');
+      const alcContent = drink.alcContent.toLocaleString('fi');
+      const units = entry.drink_entry_units.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
       return (
         <tr key={entry.drink_entry_id}>
           <td>{formatDBDate(entry.drink_date)}</td>
           <td>
-            {drink.drinkName} {drink.volume} l - {drink.alcContent} %
+            {drink.drinkName} {volume} l - {alcContent} %
           </td>
           <td>{entry.drink_quantity}</td>
-          <td>{entry.drink_entry_units.toFixed(1)}</td>
+          <td>{units}</td>
           <td>
             <EditEntryBtn entry={entry} />
           </td>
@@ -42,6 +45,7 @@ export default class DiaryTableAllEntries extends Component {
   }
 
   render() {
+    let totalUnits = calculateTotalUnits(this.props.entries).toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     return (
       <div id="diary-table-container" className="table-responsive">
         <table className="table table-striped">
@@ -65,7 +69,7 @@ export default class DiaryTableAllEntries extends Component {
               <td />
               <td />
               <td>{this.calculateTotalQuantity()}</td>
-              <td>{calculateTotalUnits(this.props.entries)}</td>
+              <td>{totalUnits}</td>
             </tr>
           </tfoot>
         </table>
