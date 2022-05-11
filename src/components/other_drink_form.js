@@ -71,7 +71,8 @@ class OtherDrinkForm extends Component {
       method: "POST",
       headers: { "content-type": "application/x-www-form-urlencoded" },
       data: qs.stringify(data),
-      url: "http://jessetaina.info:8080/save_other_drink"
+      // url: "http://jessetaina.info:8080/save_other_drink"
+      url: "http://localhost:8080/save_other_drink"
     };
 
     axios(options)

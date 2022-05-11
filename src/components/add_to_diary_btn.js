@@ -20,7 +20,8 @@ class AddToDiaryBtn extends Component {
             
         axios({
             method: 'post',
-            url: "http://jessetaina.info:8080/add_entry",
+            // url: "http://jessetaina.info:8080/add_entry", // TODO add domain to env config
+            url: "http://localhost:8080/add_entry",
             data: drinkListArray
         })
         .then((response) => {

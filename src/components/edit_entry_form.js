@@ -118,7 +118,8 @@ class EditEntryForm extends Component {
   editEntry = () => { 
     axios({
       method: "post",
-      url: "http://jessetaina.info:8080/edit_entry",
+      // url: "http://jessetaina.info:8080/edit_entry",
+      url: "http://localhost:8080/edit_entry",
       data: this.state
     }).then(response => {
       console.log(response);

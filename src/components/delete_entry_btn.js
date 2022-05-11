@@ -10,7 +10,8 @@ class DeleteEntryBtn extends Component {
     deleteEntry = () => {     
         axios({
           method: 'delete',
-          url: `http://jessetaina.info:8080/drinkEntries/${this.props.drink_entry_id}`,
+          // url: `http://jessetaina.info:8080/drinkEntries/${this.props.drink_entry_id}`,
+          url: `http://localhost:8080/drinkEntries/${this.props.drink_entry_id}`,
       }).then((response) => { 
         console.log(response);
         this.props.fetchDrinkEntries();
