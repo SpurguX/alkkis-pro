@@ -1,37 +1,57 @@
 html {
-  font-size: 62.5%;
+  min-height: 100vh;
 }
 
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  height: 100%;
+  /* min-height: 100vh; */
 }
 
-/* KIRJAUTUMISSIVU */
+#root {
+  height: 100%;
+}
+
+/* LOGIN PAGE */
 
 #banner {
-  height: 24rem;
-  background: linear-gradient(-110deg, #7ADD50, #BBF3A3);
-  padding: 6rem;
+  margin: 0 -2rem;
+  height: 4.8rem;
+  background: linear-gradient(-110deg, #7add50f1, #bbf3a3ee);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  resize: vertical;
 }
 
 #banner h1 {
     text-align: center;
-    font-size: 6rem;
+    color: linear-gradient(-110deg, silver, white);
+    font-size: 2.4rem;
+}
+
+.container-login {
+  background-image: url('./images/counter_fancy.jpg');
+  background-repeat: repeat;
+  height: 100vh;
 }
 
 .content {
-  height: 100rem;
-  background-color: #e3e7ea;
-  padding: 8rem;
+  margin: 2rem auto 0rem;
+  max-width: 600px;
+  /* height: 100%; */
+  background: linear-gradient(-110deg, #7add50f1, #bbf3a3ee);
+  /* height: 100rem; */
+  background-color: transparent;
+  /* padding: 8rem; */
 }
 
 #kirjautuminen {
-  padding-top: 4rem;
-  height: 32rem;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 500px;
+  padding-top: 3.6rem;
+  margin: 0 auto;
 }
 
 #kirjautuminen .form-group {
@@ -43,7 +63,14 @@ body {
   font-size: 2.4rem;
 }
 
+#kirjautumissivu-kuva {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
 #kirjautumissivu-kuvaus {
+  max-width: 500px;
+  margin: 0 auto;
   font-size: 1.8rem;
 }
 
