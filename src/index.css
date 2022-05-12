@@ -5,7 +5,6 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
   height: 100%;
   /* min-height: 100vh; */
 }
@@ -17,9 +16,9 @@ body {
 /* LOGIN PAGE */
 
 #banner {
-  margin: 0 -2rem;
+  margin: 0 ;
   height: 4.8rem;
-  background: linear-gradient(-110deg, #7add50f1, #bbf3a3ee);
+  background: linear-gradient(-110deg, #7add50f9, #bbf3a3f6);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -28,35 +27,72 @@ body {
 
 #banner h1 {
     text-align: center;
-    color: linear-gradient(-110deg, silver, white);
     font-size: 2.4rem;
 }
 
 .container-login {
-  background-image: url('./images/counter_fancy.jpg');
-  background-repeat: repeat;
+  position: relative;
   height: 100vh;
 }
 
+.container-login:before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  background-image: url('./images/counter_fancy.jpg');
+  background-repeat: repeat;
+  height: 100%;
+  width: 100%;
+  opacity: 0.9;
+}
+
+
+
+.login-wrapper {
+  position: relative;
+  height: calc(100% - 4.8rem);
+}
+
+.logo--login--wrapper {
+  margin: 0 auto;
+  background: rgba(0,0,0, 0.3);
+}
+
+.logo--login {
+  object-fit: none;
+  height: auto;
+  filter: invert(95%);
+}
+
+/* .logo--login:after {
+  position: absolute;
+  content:"";
+  height:100%;
+  width:100%;
+  top:0;
+  left:0;
+  background: linear-gradient(to bottom, rgba(255,0,0,0) 0%,rgba(255,0,0,0.65) 100%); */
+/* } */
+
+
 .content {
-  margin: 2rem auto 0rem;
+  padding: 3.6rem;
+  margin: -0rem auto 0rem;
+  border-radius: 4px;
   max-width: 600px;
-  /* height: 100%; */
-  background: linear-gradient(-110deg, #7add50f1, #bbf3a3ee);
-  /* height: 100rem; */
+  background: linear-gradient(-110deg, #7add50f9, #bbf3a3f6);
   background-color: transparent;
-  /* padding: 8rem; */
 }
 
 #kirjautuminen {
   max-width: 500px;
-  padding-top: 3.6rem;
   margin: 0 auto;
 }
 
 #kirjautuminen .form-group {
   margin-bottom: 3rem;
-  /* vertical-align: middle; */
 }
 
 .login-icon {
@@ -71,7 +107,8 @@ body {
 #kirjautumissivu-kuvaus {
   max-width: 500px;
   margin: 0 auto;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
+  font-style: italic;
 }
 
 /* ------------------------ */
@@ -350,7 +387,6 @@ input::-webkit-inner-spin-button {
 .navbar {
   border-radius: 0;
 }
-
 
 /* DATEPICKER ------------- */
 
