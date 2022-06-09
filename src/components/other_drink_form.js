@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Slider from "react-rangeslider";
-import "react-rangeslider/lib/index.css";
+// import Slider from "react-rangeslider";
+// import "react-rangeslider/lib/index.css";
 import { countUnits } from "../helpers/functions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -143,12 +143,13 @@ class OtherDrinkForm extends Component {
             />
           </div>
           <div className="col-sm-6">
-            <Slider
+            <h3>Add slider component here</h3>
+            {/* <Slider
               max={100}
               step={0.1}
               value={alcContent}
               onChange={value => this.handleAlcContentSliderChange(value)}
-            />
+            /> */}
           </div>
         </div>
         <div className="form-group">

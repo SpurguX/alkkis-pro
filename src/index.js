@@ -8,7 +8,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import promise from 'redux-promise';
 import reducers from './reducers';
 import LoggedInContainer from './components/logged_in_container';
-import LoginPage from './components/login_page';
+import LoginPage from './components/page_login';
 import Diary from './components/page_diary';
 
 const reduxStore = applyMiddleware(promise)(createStore);

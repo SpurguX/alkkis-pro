@@ -6,7 +6,6 @@ import DrinkListItem from './drink_list_item';
 import { emptyDrinkList } from '../actions';
 
 class DrinkList extends Component {
-S
     renderListItems() {
         return _.map(this.props.drinkList, drink => {
                 return (                 

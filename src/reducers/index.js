@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import reducerDrinks from './reducer_drinks';
+import reducerDrinkFilterConditions from './reducer_drink_filter_conditions';
 import reducerDrinkList from './reducer_drink_list';
 import reducerDrinkListBu from './reducer_drink_list_bu';
 import reducerUnitsInList from './reducer_units_in_list';
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     allDrinkEntries: reducerDrinkEntries,
     diarySelectedTab: reducerDiarySelectedTab,
     drinks: reducerDrinks,
+    drinkFilterConditions: reducerDrinkFilterConditions,
     drinkDate: reducerDrinkDate,
     drinkList: reducerDrinkList,
     drinkListBu: reducerDrinkListBu,

@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import _ from "lodash";
 import { bindActionCreators } from "redux";
 import DrinkIconButton from "./drink_icon_button";
+import DrinkIconChosenButton from "./drink_icon_chosen_button";
+import DrinkFilterBtnGroup from "./drink_filter_btn_group";
 import OtherDrinkButton from "./other_drink_button";
 import OtherDrinkModal from "./other_drink_modal";
 import DrinkList from "./drink_list";
@@ -18,10 +20,11 @@ class UnitCalculator extends Component {
     this.props.fetchDrinks();
   }
 
-  renderKuvakkeet() {
+  renderDrinkIconButtons() {
     return _.map(this.props.drinks, drink => {
+      const drinkIncludedInFilter = this.props.drinkFilterConditions.includes(drink.type)
       return (
-        <DrinkIconButton
+        drinkIncludedInFilter ? <DrinkIconButton
           key={drink.drinkId}
           drinkId={drink.drinkId}
           drinkName={drink.drinkName}
@@ -29,6 +32,24 @@ class UnitCalculator extends Component {
           alcContent={drink.alcContent}
           units={drink.units}
           icon={drink.icon}
+        />
+        : null) ;
+    });
+  }
+
+
+  renderDrinkIconChosenButtons() {
+    return _.map(this.props.drinkList, drink => {
+      return (
+        <DrinkIconChosenButton
+          key={drink.drinkId}
+          drinkId={drink.drinkId}
+          drinkName={drink.drinkName}
+          volume={drink.volume}
+          alcContent={drink.alcContent}
+          units={drink.units}
+          icon={drink.icon}
+          quantity={drink.quantity}
         />
       );
     });
@@ -56,28 +77,65 @@ class UnitCalculator extends Component {
     );
 
     return (
-      <div id="unit-calculator-container">
-        <div className="placeh col-sm-2 hidden-xs" />
-        <div className="col-sm-8 col-xs-12 unit-calculator-wrapper">
-          {/* <h2 className="otsikko">Annoslaskuri</h2> */}
-          <div id="juomakuvakegrid-container" className="row">
-            {this.props.drinks != null
-              ? this.renderKuvakkeet(this.props.drinks)
-              : "Loading..."}
-            <OtherDrinkButton />
+      <div className="container-unit-calculator">
+        {/* <div className="col-sm-2 hidden-xs" /> */}
+        <div className="row pt-5 justify-content-center">
+          <UnitCountDisplayer />
+        </div>
+        <div className="row pt-3">
+          <div className="col-xl-6 col-lg-6 col-md-12 text-white">
+            <h4 className="text-center">Valitse juomia</h4>
           </div>
-          {otherDrinkModal}
-          {addResultModal}
-          <div id="unit-calculator-controls">
-            <UnitCountDisplayer />
-            <DrinkList />
-          <div className="datepicker-container">
-            <DrinkDatePicker />
-          </div>
-            <DrinkListButtons />
+          <div className="col-xl-6 col-lg-6 col-md-12 text-center text-white">
+            <h4>Juodut juomat</h4>
           </div>
         </div>
-        <div className="placeh col-sm-2 hidden-xs" />
+        <div className="row pt-3">
+          <div className="col-xl-6 col-lg-6 col-md-12 drink-icon-button-col--drinks">
+            <div className="drink-icon-button-grid-wrapper">
+              {/* <h2 className="otsikko">Annoslaskuri</h2> */}
+              <div className="row justify-content-center drink-icon-button-grid-container">
+                {this.props.drinks != null
+                  ? this.renderDrinkIconButtons(this.props.drinks)
+                  : "Loading..."}
+                <OtherDrinkButton />
+              </div>
+              {otherDrinkModal}
+              {addResultModal}
+            </div>
+          </div>
+          <div className="col-xl-6 col-lg-6 col-md-12 drink-icon-button-col--chosen-drinks">
+            <div className="drink-icon-button-grid-wrapper">
+              <div className="row justify-content-center drink-icon-button-grid-container">
+                  {this.props.drinkList != null
+                    && this.renderDrinkIconChosenButtons(this.props.drinkList)
+                  }
+                </div>  
+            </div>
+          </div>
+        </div>
+        <div className="row pt-3">
+          <div className="col-xl-6 col-lg-6 col-md-12">
+            <div className="row justify-content-center">
+              <DrinkFilterBtnGroup />
+            </div> 
+          </div>
+          <div className="col-xl-6 col-lg-6 col-md-12">
+            <div className="row justify-content-center mb-2">
+              <DrinkDatePicker />
+            </div>
+            <div className="row justify-content-center">
+              {/* <div className="col"> */}
+              
+              {/* </div> */}
+              {/* <div className="col flex-grow-1"> */}
+              <DrinkListButtons />
+              {/* </div> */}
+              
+              
+            </div> 
+          </div>
+        </div>
       </div>
       
     );
@@ -88,6 +146,7 @@ function mapStateToProps(state) {
   return {
     drinks: state.drinks,
     drinkList: state.drinkList,
+    drinkFilterConditions: state.drinkFilterConditions,
     othDrinkModal: state.othDrinkModal,
     addResultModal: state.addResultModal
   };

@@ -13,9 +13,73 @@ body {
   height: 100%;
 }
 
+.container-bg-img {
+  position: relative;
+  min-height: 100vh;
+}
+
+.container-bg-img:before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  background-image: url('./images/counter_fancy.jpg');
+  background-repeat: repeat;
+  min-height: 100%;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.container-bg-img--opaque {
+  /* box-shadow: inset 0px 0px 250px 250px rgba(38, 33, 39, 1); */
+  box-shadow: inset 0px 0px 250px 250px black;
+}
+
+.container-bg-img--opaque:before {
+  box-shadow: inset 0px 0px 250px 250px rgba(9, 8, 9, 0.9);  
+  /* box-shadow: inset 2550px 2550px 1250px 1000px rgba(38, 33, 39, 1); */
+  /* opacity: 0.4; */
+}
+
+.bg-overlay:before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  /* background-image: url('./images/counter_fancy.jpg'); */
+  background-repeat: repeat;
+  min-height: 100%;
+  width: 100%;
+  border-radius: 33%;
+  opacity: 1;
+  /* box-shadow: 150px 150px 150px 100px rgba(38, 33, 39, 1); */
+  box-shadow: 0px 0px 200px 200px black;
+  /* box-shadow: px 0px 200px 200px rgba(38, 33, 39, 1); */
+}
+
+.bg-overlay {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 33%;
+  /* box-shadow: inset 0px 0px 200px 200px black; */
+  box-shadow: inset 0px 0px 200px 200px rgba(38, 33, 39, 1);
+  
+  /* background-color: rgba(38, 33, 39, 0.6); */
+  /* background-color: rgba(38, 33, 39, 1); */
+  /* background: black;/
+  /* box-shadow: 0px 0px 1500px 1000px black; */
+  /* background-color: rgba(38, 33, 39, 0.8); */
+}
+
 /* LOGIN PAGE */
 
-#banner {
+/* #banner {
   margin: 0 ;
   height: 4.8rem;
   background: linear-gradient(-110deg, #7add50f9, #bbf3a3f6);
@@ -27,27 +91,8 @@ body {
 
 #banner h1 {
     text-align: center;
-    font-size: 2.4rem;
-}
-
-.container-login {
-  position: relative;
-  height: 100vh;
-}
-
-.container-login:before {
-  content: "";
-  position: absolute;
-  display: block;
-  top: 0;
-  left: 0;
-  background-image: url('./images/counter_fancy.jpg');
-  background-repeat: repeat;
-  height: 100%;
-  width: 100%;
-  opacity: 0.9;
-}
-
+    font-size: 2.4rem; */
+/* } */
 
 
 .login-wrapper {
@@ -86,13 +131,13 @@ body {
   background-color: transparent;
 }
 
-#kirjautuminen {
+.login-form-wrapper {
   max-width: 500px;
   margin: 0 auto;
 }
 
-#kirjautuminen .form-group {
-  margin-bottom: 3rem;
+.login-form-wrapper .form-group {
+  margin-bottom: 2.4rem;
 }
 
 .login-icon {
@@ -120,27 +165,49 @@ body {
   margin: 3rem;
 }
 
-#unit-calculator-container {
+.container-unit-calculator {
   position: relative;
-  overflow: hidden;
+  padding: 0 2.4rem;
+  /* background-color: rgba(38, 33, 39, 0.802); */
 }
 
-#unit-calculator-container:after {
-   content: "";
-   display: block;
-   position: absolute;
-   top: 0;
-   left: 0;
-   background-image: url('./images/counter_fancy.jpg');
-   background-repeat: repeat;
-   width: 100%;
-   height: 100%;
-   opacity : 0.3;
-   z-index: -2;
+@media (min-width: 960px) {
+  .container-unit-calculator {
+      padding: 0 4rem;
+  }
 }
 
-.unit-calculator-wrapper {
+@media (min-width: 1440px) {
+  .container-unit-calculator {
+      padding: 0 6rem;
+  }
+}
+
+.drink-icon-button-grid-wrapper {
   height: 100%;
+  padding: 0 2.4rem;
+}
+
+.drink-icon-button-col--drinks {
+  border-right:4px solid rgba(38, 33, 39, 0.8);
+}
+.drink-icon-button-col--chosen-drinks {
+  /* border-left:4px solid rgba(0, 0, 0, 0.41); */
+  border-left:4px solid rgba(38, 33, 39, 0.8);
+}
+
+.unit-count-wrapper {
+  padding: 1rem;
+  background-color: rgba(38, 33, 39, 0.8);
+  border-radius: 1.2rem;
+}
+
+.total-units-header {
+  color: white;
+}
+
+.total-units-count {
+  color: white;
 }
 
 #unit-calculator-controls {
@@ -157,50 +224,93 @@ body {
   opacity: 0.94;
 }
 
-#juomakuvakegrid-container {
-  padding: 2rem 0 2rem 0;
-
+.drink-icon-button-grid-container {
+  margin-top: -1rem;
 }
 
-.juomakuvake-container {
+.drink-icon-button-container {
   padding: 1rem;
   text-align: center;
 }
 
 .drink-icon {
-  height: 4rem;
-  margin-bottom: 0.4rem
+  height: 2rem;
+  margin-bottom: 0.24rem;
+  background-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 1rem 0.8rem rgb(255, 255, 255, 0.4);
 }
 
-.juomakuvake {
-  background-color: white;
-  height: 14rem;
-  width: 14rem;
+.drink-icon-button {
+  position: relative;
+  /* background-color: white; */
+  background: linear-gradient(-110deg, #b3d8a2, rgb(216, 237, 207));
+  /* height: 7.6rem; */
+  width: 8.4rem;
   border-width: 1px;
   border-radius: 5px;
   margin-left: auto;
   margin-right: auto;
-  padding: 1rem;
-  padding-top: 3rem;
-  font-size: 1.6rem;
-  border: 0.1rem solid black;
-  border-radius: 33%;
-  box-shadow: 0.2rem 0.2rem dimgray;
+  padding: 0.8rem 0.4rem ;
+  /* padding-top: 1rem; */
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  /* font-variant: small-caps;
+  font-variant-caps: all-small-caps; */
+  border: 0.1rem solid rgba(0, 0, 0, 0.153);
+  border-radius: 15%;
+  box-shadow: 0.125rem .25rem rgba(0, 0, 0, .15);
 }
 
-.juomakuvake:hover {
-  background-color: #D8D8D8;
+.drink-icon-button-volume-text {
+  font-size: 0.8rem;
 }
 
-.juomakuvake:active {
+.drink-icon-button:hover {
+  /* background-color: #D8D8D8; */
+  cursor: pointer;
+  background: linear-gradient(-110deg, #a1c790, rgb(187, 211, 177));
+}
+
+.drink-icon-button:active {
   position: relative;
   top: 2px;
   left: 1px;
 }
 
-#unit-counter-container {
-  text-align: center;
+.drink-icon-button-badge {
+  position: absolute;
+  /* top: 0.4rem; */
+  
+  font-weight: 400;
+  font-size: 0.8rem;
+  background-color: rgba(255, 255, 255, 0.501);;
+  /* background: linear-gradient(-110deg, #b3d8a2, rgb(216, 237, 207)); */
+  border-radius: 1.6rem;
+  padding: 0 0.2rem 0.1rem;
+  letter-spacing: -0.02rem;
+  box-shadow: 0.075rem .125rem rgba(0, 0, 0, .075);
 }
+
+.drink-icon-button-badge--alcohol {
+  top: 0.8rem;
+  left: 1rem;
+  /* transform: rotate(-6deg); */
+}
+
+.drink-icon-button-badge--volume {
+  top: 2.4rem;
+}
+
+.drink-icon-button-badge--quantity {
+  display:inline-block;
+  min-width: 1.6rem;
+  font-size: 1rem;
+  top: 0.5rem;
+  right: 0.8rem;
+  left: auto;
+}
+
 
 #juomalista {
   margin-top: 2rem;
@@ -373,7 +483,8 @@ input::-webkit-inner-spin-button {
 /* NAVBAR ----------------- */
 
 #nav-alkkis {
-  background: linear-gradient(-110deg, #7ADD50, #BBF3A3);
+  background: linear-gradient(-110deg, #b3d8a2, rgb(216, 237, 207));
+  /* background: linear-gradient(-110deg, #7ADD50, #BBF3A3); */
   /* height: 10rem; */
   border: 0;
   color: black;
@@ -390,10 +501,17 @@ input::-webkit-inner-spin-button {
 
 /* DATEPICKER ------------- */
 
+.react-datepicker-wrapper {
+  display: block  !important;
+  width: 20rem !important ;
+}
+
 .react-datepicker__input-container > input {
   border: 1px solid #ccc;
   text-align: center;
-  height: 4.2rem !important;
-  width: 36.8rem !important;
+  height: 3rem !important;
+  /*width: 36.8rem !important; */
+  font-size: 1.2rem !important;
+  width: 100% !important;
 }
 

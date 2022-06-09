@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-export const FETCH_DRINKS = 'FETCH_JUOMAT';
+export const FETCH_DRINKS = 'FETCH_DRINKS';
+export const UPDATE_DRINK_FILTER_CONDITIONS = 'UPDATE_DRINK_FILTER_CONDITIONS';
 export const UPDATE_DRINK_LIST = 'UPDATE_DRINK_LIST';
 export const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
 export const EMPTY_DRINK_LIST = 'EMPTY_DRINK_LIST';
@@ -34,6 +35,14 @@ export function fetchDrinks() {
         payload: drinksPromise
     }
 }
+
+export function updateDrinkFilterConditions(conditions) {
+    return {
+        type: UPDATE_DRINK_FILTER_CONDITIONS,
+        payload: conditions
+     }
+ }
+ 
 
 export function postDrinkListOk() {
    return {
