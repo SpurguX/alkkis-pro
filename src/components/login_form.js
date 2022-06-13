@@ -1,7 +1,7 @@
 export default function LoginForm() {
     return (
         <div className="login-form-wrapper">
-        <form className="form-horizontal" action="/in">
+        <form className="form-horizontal" action="/calculator">
             <div className="form-group">
                 <div>
                     <input type="text" className="form-control form-control-lg" placeholder="Käyttäjänimi" />
@@ -14,7 +14,7 @@ export default function LoginForm() {
             </div>
             <div className="form-group">
                 <div>
-                <input type="submit" className="btn btn-info btn-block btn-lg" value="KIRJAUDU" />
+                <input type="submit" className="btn btn-info btn-block btn-lg" value="SISÄÄN" />
                 </div>
             </div>
         </form>

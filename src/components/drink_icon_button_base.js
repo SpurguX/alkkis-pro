@@ -28,6 +28,7 @@ class DrinkIconButtonBase extends Component {
             <div className="drink-icon-button-container" onClick={this.handleClick} >
                 <div className="drink-icon-button">
                     <img src={icon} alt="img" className="drink-icon"/>
+                    {/* <svg src={icon} alt="img" className="drink-icon"/> */}
                     {/* <p className="mb-0">{this.props.drinkName} <span className="drink-icon-button-volume-text">{this.volumeDisplayValue()}</span></p> */}
                     <p className="mb-0">{this.props.drinkName}</p>
                     <p className="mt-0 mb-0">{alcContent} %, {this.volumeDisplayValue()}</p>

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+// import './index.css';
+import './index.scss';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -10,6 +11,7 @@ import reducers from './reducers';
 import LoggedInContainer from './components/logged_in_container';
 import LoginPage from './components/page_login';
 import Diary from './components/page_diary';
+import PageUnitCalculator from './components/page_unit_calculator';
 
 const reduxStore = applyMiddleware(promise)(createStore);
 
@@ -17,7 +19,7 @@ ReactDOM.render(
     <Provider store={reduxStore(reducers)}>
         <BrowserRouter>
             <Switch>
-                <Route path="/in" component={LoggedInContainer}/>
+                <Route path="/calculator" component={PageUnitCalculator}/>
                 <Route path="/diary" component={Diary}/>
                 <Route path="/" component={LoginPage}/>
             </Switch>

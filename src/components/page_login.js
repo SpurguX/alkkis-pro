@@ -19,7 +19,7 @@ export default class LoginPage extends Component {
                     <div className="mb-4 logo--login--wrapper rounded px-1">
                         <img src={logo} className="logo--login" />
                     </div>
-                    <div className="content">
+                    <div className="login-content">
                         <LoginForm />
                         <div id="kirjautumissivu-kuvaus" className="text-center">
                             Nyt vasta aletaan ryyppäämään!

@@ -13,6 +13,7 @@ import DrinkDatePicker from "./drink_datepicker";
 import DrinkListButtons from "./drink_list_buttons";
 import AddResultModal from "./drink_list_add_result_modal";
 import { fetchDrinks } from "../actions";
+import LoggedInContainer from "./logged_in_container";
 
 class UnitCalculator extends Component {
 
@@ -77,6 +78,7 @@ class UnitCalculator extends Component {
     );
 
     return (
+      <LoggedInContainer>
       <div className="container-unit-calculator">
         {/* <div className="col-sm-2 hidden-xs" /> */}
         <div className="row pt-5 justify-content-center">
@@ -84,10 +86,22 @@ class UnitCalculator extends Component {
         </div>
         <div className="row pt-3">
           <div className="col-xl-6 col-lg-6 col-md-12 text-white">
-            <h4 className="text-center">Valitse juomia</h4>
+            <div className="d-flex justify-content-center">
+              <div className="header-container-borders">
+                <div className="header-wrapper">
+                  <h4 className="text-center">Valitse juomia</h4>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="col-xl-6 col-lg-6 col-md-12 text-center text-white">
-            <h4>Juodut juomat</h4>
+            <div className="d-flex justify-content-center">
+              <div className="header-container-borders">
+                <div className="header-wrapper">
+                  <h4>Juodut juomat</h4>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className="row pt-3">
@@ -110,14 +124,16 @@ class UnitCalculator extends Component {
                   {this.props.drinkList != null
                     && this.renderDrinkIconChosenButtons(this.props.drinkList)
                   }
-                </div>  
+                </div>
             </div>
           </div>
         </div>
         <div className="row pt-3">
           <div className="col-xl-6 col-lg-6 col-md-12">
             <div className="row justify-content-center">
-              <DrinkFilterBtnGroup />
+              <div className="header-container-borders">
+                <DrinkFilterBtnGroup />
+              </div>
             </div> 
           </div>
           <div className="col-xl-6 col-lg-6 col-md-12">
@@ -137,7 +153,7 @@ class UnitCalculator extends Component {
           </div>
         </div>
       </div>
-      
+      </LoggedInContainer>
     );
   }
 }

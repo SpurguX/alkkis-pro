@@ -40,7 +40,7 @@ export default class OtherDrinkModal extends Component {
   render() {
     return ReactDOM.createPortal(
       <div className="modal-content">
-        <div className="modal-header oth-mod-header">       
+        <div className="modal-header oth-mod-header">
           <button 
             className={`btn btn-default col-sm-6 alkkis-tab ${styleTabIfActive(addDrinkTab, this.state.selectedTab)}`}
             onClick={this.handleAddTabClick}

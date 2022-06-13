@@ -13,6 +13,7 @@ import {
   weeklyViewTab,
   monthlyViewTab
 } from "../reducers/reducer_diary_selected_tab";
+import LoggedInContainer from "./logged_in_container";
 
 class Diary extends Component {
   componentDidMount() {
@@ -38,8 +39,7 @@ class Diary extends Component {
     ) : null;
 
     return (
-      <div id="main" className="container">
-        <Navbar />
+      <LoggedInContainer>
         <div id="diary-container">
           <div className="placeh col-sm-1 hidden-xs" />
           <div className="col-sm-10 col-xs-12">
@@ -50,7 +50,7 @@ class Diary extends Component {
           <div className="placeh col-sm-1 hidden-xs" />
         </div>
         {editEntryModal}
-      </div>
+      </LoggedInContainer>
     );
   }
 }

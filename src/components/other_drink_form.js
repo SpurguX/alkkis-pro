@@ -122,12 +122,13 @@ class OtherDrinkForm extends Component {
             />
           </div>
           <div className="col-sm-6">
-            <Slider
+            Slider
+            {/* <Slider
               max={1.0}
               step={0.01}
               value={volume}
               onChange={value => this.handleVolumeSliderChange(value)}
-            />
+            /> */}
           </div>
         </div>
         <div className="form-group">

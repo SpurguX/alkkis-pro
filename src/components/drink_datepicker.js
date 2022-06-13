@@ -15,10 +15,10 @@ class DrinkDatePicker extends Component {
   render() {
     console.log(this.props.drinkDate);
     return (
-      <div className="btn-group btn-group-lg ml-2 mr-2" role="group">
-        <div class="input-group-prepend">
-          <div class="input-group-text" id="btnGroupAddon">Juomispäivä</div>
-        </div>
+      <div className="btn-group ml-2 mr-2 header-container-borders" role="group">
+        {/* <div class="input-group-prepend"> */}
+          <div class="btn py-2 px-2 btn-chosen-drink-control btn-chosen-drink-control--font-eraser">Juomispäivä</div>
+        {/* </div> */}
         <DatePicker
           selected={this.props.drinkDate}
           onChange={date => this.handleChange(date)}
