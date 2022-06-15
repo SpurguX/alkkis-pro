@@ -17,12 +17,12 @@ class EmptyDrinkListBtn extends Component {
     renderBtn() {
         if (_.isEmpty(this.props.drinkList)) {
             if(_.isEmpty(this.props.drinkListBu)) {
-                return <button type="button" className="btn btn-lg btn-chosen-drink-control disabled ml-2 mr-2" tabIndex="-1">Tyhjennä lista</button>
+                return <button type="button" className="btn btn-lg btn-wood disabled ml-2 mr-2" tabIndex="-1">Tyhjennä lista</button>
             } else {
-                return <button type="button" className="btn btn-lg btn-chosen-drink-control ml-2 mr-2" onClick={() => this.handleRecovery()}>Palauta lista</button>
+                return <button type="button" className="btn btn-lg btn-wood ml-2 mr-2" onClick={() => this.handleRecovery()}>Palauta lista</button>
             }
         } else {
-            return <button type="button" className="btn btn-lg btn-chosen-drink-control ml-2 mr-2" onClick={() => this.handleEmpty()}>Tyhjennä lista</button>
+            return <button type="button" className="btn btn-lg btn-wood ml-2 mr-2" onClick={() => this.handleEmpty()}>Tyhjennä lista</button>
         }
     }
 

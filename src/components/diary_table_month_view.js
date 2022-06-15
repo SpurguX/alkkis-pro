@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import moment from "moment";
-import { sortEntriesbyDrinkDate, calculateTotalUnits, capitalizeFirstLetter } from '../helpers/functions';
+import { sortEntriesbyDrinkDate, calculateTotalUnits, capitalizeFirstLetter } from '../utils/functions';
 
 export default class DiaryTableMonthView extends Component {
 

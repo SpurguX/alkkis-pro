@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { selectDiaryTab } from '../actions';
-import { allEntriesTab, weeklyViewTab, monthlyViewTab } from '../reducers/reducer_diary_selected_tab';
-import { styleTabIfActive } from '../helpers/functions';
+import { diaryTabs } from '../utils/constants';
+import { styleTabIfActive } from '../utils/functions';
 
 class DiaryTabs extends Component {
 
@@ -11,13 +11,31 @@ class DiaryTabs extends Component {
     const { selectedTab } = this.props;
     return (
       <div id="diary-tabs-container">
-        <button className={`btn btn-default col-sm-4 alkkis-tab ${styleTabIfActive(allEntriesTab, selectedTab)}`} onClick={() => this.props.selectDiaryTab(allEntriesTab)}>
+        <button
+          className={`btn btn-default col-sm-4 alkkis-tab ${styleTabIfActive(
+            diaryTabs.ALL_ENTRIES_TAB,
+            selectedTab
+          )}`}
+          onClick={() => this.props.selectDiaryTab(diaryTabs.ALL_ENTRIES_TAB)}
+        >
           Kaikki merkinnät
         </button>
-        <button className={`btn btn-default col-sm-4 alkkis-tab ${styleTabIfActive(weeklyViewTab, selectedTab)}`} onClick={() => this.props.selectDiaryTab(weeklyViewTab)}>
+        <button
+          className={`btn btn-default col-sm-4 alkkis-tab ${styleTabIfActive(
+            diaryTabs.WEEKLY_VIEW_TAB,
+            selectedTab
+          )}`}
+          onClick={() => this.props.selectDiaryTab(diaryTabs.WEEKLY_VIEW_TAB)}
+        >
           Viikkonäkymä
         </button>
-        <button className={`btn btn-default col-sm-4 alkkis-tab ${styleTabIfActive(monthlyViewTab, selectedTab)}`} onClick={() => this.props.selectDiaryTab(monthlyViewTab)}>
+        <button
+          className={`btn btn-default col-sm-4 alkkis-tab ${styleTabIfActive(
+            diaryTabs.MONTHLY_VIEW_TAB,
+            selectedTab
+          )}`}
+          onClick={() => this.props.selectDiaryTab(diaryTabs.MONTHLY_VIEW_TAB)}
+        >
           Kuukausinäkymä
         </button>
       </div>

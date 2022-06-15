@@ -1,17 +1,67 @@
+/* COLORS */
+
 $wood: #4c3e2d;
 $darkwood: #342a1f;
 $shady-gray: rgba(38, 33, 39, 0.8);
 $gray-text: #d8d1c8;
-// $gray-text: #f6f6f6;
+$pale-gray: #b1aba8;
 $blackboard-gradient: linear-gradient(-10deg, rgb(26, 26, 26), black);
-
+$golden-beer: #c48a2b;
 
 /* FONTS */
 
 @font-face {
   font-family: "Eraser";
-  src: local("EraserDust"),
-    url("./fonts/EraserDust.ttf") format("truetype");
+  src: local("EraserDustFin"),
+    url("./fonts/EraserDustFin.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Christmas";
+  src: local("ChristmasRespiteRegular"),
+    url("./fonts/ChristmasRespiteRegular.ttf") format("truetype");
+}
+
+$font-small: 0.8rem;
+$font-regular: 1rem;
+$font-large: 1.25rem;
+$font-xlarge: 1.5rem;
+$font-h3: 1.75rem;
+$font-h2: 2rem;
+$font-h1: 2.5rem;
+
+.font {
+  &-small {
+    font-size: $font-small;
+  }
+  &-regular {
+    font-size: $font-regular;
+  }
+  &-large {
+    font-size: $font-large;
+  }
+  &-xlarge {
+    font-size: $font-xlarge;
+  }
+  &-h3 {
+    font-size: $font-h3;
+  }
+  &-h2 {
+    font-size: $font-h2;
+  }
+  &-h1 {
+    font-size: $font-h1;
+  }
+}
+
+.font-eraser {
+  text-transform: uppercase;
+  font-family: "Eraser", sans-serif;
+}
+
+.font-christmas {
+  letter-spacing: 2px;
+  font-family: "Christmas", sans-serif;
 }
 
 /* BOOTSRAP OVERRIDES */
@@ -44,32 +94,6 @@ button:focus,
     outline: 2px solid rgba(#c48a2b, 0.8);
     border-radius: 4px;
 }
-
-
-
-// a.nav-link {
-//   &:focus, &.focus {
-//     // box-shadow: red 0px 0px 0px 2px !important;
-//     box-shadow: $shady-gray 0px 0px 0px 2px !important;
-//     border: 0;
-//   }
-
-//   &:active, &.active {
-//     box-shadow: $shady-gray 0px 0px 0px 2px !important;
-//   }
-// }
-
-
-// .btn {
-//   :active, .active, :focus, .focus {
-//     // box-shadow: red 0px 0px 0px 2px !important;
-//     box-shadow: red 0px 0px 0px 2px;
-//     box-shadow: $shady-gray 0px 0px 0px 2px;
-//   }
-// }
-
-
-
 
 /* GENERAL */
 
@@ -114,25 +138,11 @@ body {
 .container-bg-img--opaque {
 
 }
+
 .container-bg-img--opaque:before {
   box-shadow: inset 0px 0px 200px 100px rgba(0,0,0, 1);
-
 }
 
-/* .bg-overlay:before {
-  content: "";
-  position: absolute;
-  display: block;
-  top: 0;
-  left: 0;
-  background-repeat: repeat;
-  min-height: 100%;
-  width: 100%;
-  border-radius: 33%;
-  opacity: 1;
-  box-shadow: 0px 0px 200px 200px black;
-}
-*/
 .bg-overlay {
   position: absolute;
   display: block;
@@ -143,6 +153,38 @@ body {
   box-shadow: inset 0px 24px 100px 50px rgba(0,0,0, 1);  
   background-color: rgba($darkwood, 0.15);
 }
+
+.bg-blackboard {
+  background: $blackboard-gradient;
+  text-transform: uppercase;
+  font-family: "Eraser";
+  color: whitesmoke;
+}
+
+.btn-blackboard {
+  text-transform: uppercase;
+  font-family: "Eraser";
+  background: $blackboard-gradient;
+  border: 0;
+  color: whitesmoke
+}
+
+.btn-blackboard--unselected {
+  opacity: 0.5;
+}
+
+.btn-wood {
+  background: url("./images/painted_wood_colorized.png"), radial-gradient(#4c3e2d, #342a1f);
+  background-blend-mode: soft-light;
+  color: $gray-text;
+  text-transform: uppercase;
+  // font-weight: 600;
+  font-size: $font-xlarge;
+  letter-spacing: 1px;
+  font-family: "Christmas";
+  border: none;
+}
+
 
 /* LOGIN PAGE */
 
@@ -208,24 +250,17 @@ body {
 }
 
 .login-icon {
-  font-size: 2.4rem;
+  font-size: $font-h1;
 }
 
-#kirjautumissivu-kuva {
+.login-description {
   max-width: 500px;
   margin: 0 auto;
+  font-size: $font-h3;
+  color: $gray-text;
 }
 
-#kirjautumissivu-kuvaus {
-  max-width: 500px;
-  margin: 0 auto;
-  font-size: 1.6rem;
-  font-style: italic;
-}
-
-/* ------------------------ */
-
-/* ANNOSLASKURI-SIVU ------ */
+/* PAGE CALCULATOR */
 
 .otsikko {
   text-align: center;
@@ -235,7 +270,6 @@ body {
 .container-unit-calculator {
   position: relative;
   padding: 0 2.4rem;
-  /* background-color: rgba(38, 33, 39, 0.802); */
 }
 
 @media (min-width: 960px) {
@@ -273,15 +307,13 @@ body {
 
 .unit-count-header {
   color: whitesmoke;
-  color: whitesmoke;
 }
 
 .total-units-count {
   color: whitesmoke;
-  // color: whitesmoke;
 }
 
-.header-container-borders {
+.container-wooden-borders {
   padding: 0.5rem;
   border-radius: 0.2rem;
   background: url("./images/painted_wood_colorized.png"), radial-gradient(#4c3e2d, #342a1f);
@@ -328,23 +360,26 @@ body {
 .drink-icon-button {
   position: relative;
   // color: #b0aaa3; 
-  color: $gray-text; 
-  // color: whitesmoke; 
+  color: $pale-gray; 
   background: url("./images/painted_wood_colorized.png"), radial-gradient(#4c3e2d, #342a1f);
   background-blend-mode: soft-light;
   width: 8.4rem;
   margin-left: auto;
   margin-right: auto;
   padding: 0.8rem 0.4rem ;
-  font-size: 0.8rem;
+  font-size: $font-small;
+  // font-size: $font-large;
+  // letter-spacing: 2px;
+  // line-height: 1;
   text-transform: uppercase;
   font-weight: 600;
+  // font-family: "Christmas";
   border-radius: 36px;
   box-shadow: 0 0.125rem 0.25rem .125rem rgba(0, 0, 0, 0.5)
 }
 
 .drink-icon-button-volume-text {
-  font-size: 0.8rem;
+  font-size: $font-small;
 }
 
 .drink-icon-button:hover {
@@ -365,7 +400,7 @@ body {
   /* top: 0.4rem; */
   
   font-weight: 400;
-  font-size: 0.8rem;
+  font-size: $font-small;
   /* background-color: rgba(255, 255, 255, 0.501); */
   background-color: #b0aaa3;;
   /* background: linear-gradient(-110deg, #b3d8a2, rgb(216, 237, 207)); */
@@ -388,7 +423,7 @@ body {
 .drink-icon-button-badge--quantity {
   display:inline-block;
   min-width: 1.6rem;
-  font-size: 1rem;
+  font-size: $font-regular;
   top: 0.5rem;
   right: 0.8rem;
   left: auto;
@@ -396,34 +431,64 @@ body {
 }
 
 
-.btn-filter {
-  font-family: "Eraser";
-  background: $blackboard-gradient;
-  border: 0;
-  color: whitesmoke
+/* Range slider *******************/
+
+.alkkis-range {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 15rem;
+  height: 0.5rem;
+  border-radius: 1rem;
 }
 
-.btn-filter--unselected {
-  opacity: 0.5;
+.alkkis-range:focus {
+  outline: none;
+}
+
+/***** Chrome, Safari, Opera, and Edge Chromium *****/
+.alkkis-range::-webkit-slider-runnable-track {
+  // background: whitesmoke;
+  height: 0.5rem;
+  border-radius: 1rem;
+}
+
+.alkkis-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -0.5rem; /* Centers thumb on the track */
+  background: $pale-gray;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 1rem;
 }
 
 
-// Chosen drink controls
-
-.btn-chosen-drink-control {
-  background: url("./images/painted_wood_colorized.png"), radial-gradient(#4c3e2d, #342a1f);
-  background-blend-mode: soft-light;
-  color: $gray-text;
-  text-transform: uppercase;
-  font-weight: 600;
-  font-size: 1rem;
-  border: none;
-
-  &--font-eraser {
-    font-family: "Eraser", sans-serif;
-  }
+.alkkis-range:focus::-webkit-slider-thumb {
+  outline: 2px solid rgba(#c48a2b, 0.8);
+  outline-offset: 0.1rem;
 }
 
+/******** Firefox ********/
+.alkkis-range::-moz-range-track {
+  height: 0.5rem;
+  border-radius: 1rem;
+}
+
+
+.alkkis-range::-moz-range-thumb {
+  border: none; /*Removes extra border that FF applies*/
+  background: $pale-gray;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 1rem;
+}
+
+.alkkis-range:focus::-moz-range-thumb {
+  outline: 2px solid rgba($golden-beer, 0.8);
+  outline-offset: 0.1rem;
+}
 
 
 #juomalista {
@@ -486,14 +551,11 @@ body {
 }
 
 .modal-content {
-  width: 60rem;
-  height: 40rem;
-  background-color: white;
+  max-width: 40rem;
+  // height: 40rem;
+  // background-color: white;
 }
 
-.close-btn-div {
-  text-align: right;
-}
 .modal-footer {
   position: absolute;
   bottom: 1rem;
@@ -511,12 +573,12 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-#units-text {
-  height: 4.6rem;
-  padding: 0.5rem 1.6rem;
-  font-size: 1.8rem;
-  line-height: 1.3333333;
-  color: #555;
+.units-text {
+  // height: 4.6rem;
+  // padding: 0.5rem 1.6rem;
+  // font-size: $font-h3;
+  // line-height: 1.3333333;
+  // color: #555;
 }
 
 .oth-mod-header {
@@ -524,8 +586,8 @@ input::-webkit-inner-spin-button {
 }
 
 .alkkis-tab {
-  height: 5rem;
-  font-size: 1.8rem;
+  height: 3.2rem;
+  font-size: $font-large;
   border-top-left-radius: 0.6rem;
   border-top-right-radius: 0.6rem;
   border-bottom-left-radius: 0;
@@ -541,7 +603,7 @@ input::-webkit-inner-spin-button {
 }
 
 #saved-drink-info {
-  font-size: 1.8rem;
+  font-size: $font-xlarge;
 }
 
 #saved-drink-select {
@@ -598,7 +660,7 @@ input::-webkit-inner-spin-button {
 
 #nav-alkkis {
   font-family: "Eraser";
-  font-size: 1.4rem;
+  font-size: $font-xlarge;
   background: url("./images/painted_wood_navbar.png"), linear-gradient(#4c3e2d, #342a1f);
   background-blend-mode: soft-light;
   border: 0;
@@ -636,7 +698,7 @@ input::-webkit-inner-spin-button {
   text-align: center;
   height: 3rem !important;
   /*width: 36.8rem !important; */
-  font-size: 1.2rem !important;
+  font-size: $font-large !important;
   font-family: "Eraser";
   width: 100% !important;
 }

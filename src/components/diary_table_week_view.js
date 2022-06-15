@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import moment from "moment";
-import { formatJSDate, calculateTotalUnits, sortEntriesbyDrinkDate } from '../helpers/functions';
+import { formatJSDate, calculateTotalUnits, sortEntriesbyDrinkDate } from '../utils/functions';
 
 export default class DiaryTableWeekView extends Component {
 

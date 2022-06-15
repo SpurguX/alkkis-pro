@@ -8,11 +8,7 @@ import DiaryTableWeekView from "./diary_table_week_view";
 import DiaryTableMonthView from "./diary_table_month_view";
 import DiaryTabs from "./diary_tabs";
 import EditEntryModal from "./edit_entry_modal";
-import {
-  allEntriesTab,
-  weeklyViewTab,
-  monthlyViewTab
-} from "../reducers/reducer_diary_selected_tab";
+import { diaryTabs } from '../utils/constants';
 import LoggedInContainer from "./logged_in_container";
 
 class Diary extends Component {
@@ -22,11 +18,11 @@ class Diary extends Component {
 
   renderDiaryTable() {
     switch (this.props.selectedTab) {
-      case allEntriesTab:
+      case diaryTabs.ALL_ENTRIES_TAB:
         return <DiaryTableAllEntries entries={this.props.drinkEntries} />;
-      case weeklyViewTab:
+      case diaryTabs.WEEKLY_VIEW_TAB:
         return <DiaryTableWeekView entries={this.props.drinkEntries} />;
-      case monthlyViewTab:
+      case diaryTabs.MONTHLY_VIEW_TAB:
         return <DiaryTableMonthView entries={this.props.drinkEntries} />;
       default:
         return <DiaryTableWeekView entries={this.props.drinkEntries} />;

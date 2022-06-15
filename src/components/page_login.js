@@ -16,12 +16,12 @@ export default class LoginPage extends Component {
         return (
             <div id="main" className="container-fluid container-bg-img px-0">
                 <div className="container login-wrapper d-flex flex-column justify-content-center">
-                    <div className="mb-4 logo--login--wrapper rounded px-1">
+                    <div className="mt-5 mb-4 logo--login--wrapper rounded px-1">
                         <img src={logo} className="logo--login" />
                     </div>
                     <div className="login-content">
                         <LoginForm />
-                        <div id="kirjautumissivu-kuvaus" className="text-center">
+                        <div className="login-description text-center font-christmas">
                             Nyt vasta aletaan ryyppäämään!
                         </div>
                     </div>

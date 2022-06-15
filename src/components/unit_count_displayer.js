@@ -6,9 +6,9 @@ class UnitCountDisplayer extends Component {
   render() {
     let totalUnits = this.props.unitsInList.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     return (
-      <div className="header-container-borders">
+      <div className="container-wooden-borders">
         <div className="header-wrapper">
-          <h3 className="unit-count-header">Annoksia: <span className="unit-count-number">{totalUnits}</span></h3>
+          <h3 className="unit-count-header">ANNOKSIa: <span className="unit-count-number">{totalUnits}</span></h3>
         </div>
         <UnitCounter />
       </div>

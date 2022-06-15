@@ -6,7 +6,7 @@ import {
   formatDBDate,
   calculateTotalUnits,
   sortEntriesbyDrinkDate
-} from "../helpers/functions";
+} from "../utils/functions";
 
 export default class DiaryTableAllEntries extends Component {
   calculateTotalQuantity() {

@@ -71,3 +71,7 @@ export function styleTabIfActive(thisTab, tabInState) {
 export function capitalizeFirstLetter(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+export function isEmptyString(string) {
+	return string === ''
+}

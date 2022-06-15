@@ -87,7 +87,7 @@ class UnitCalculator extends Component {
         <div className="row pt-3">
           <div className="col-xl-6 col-lg-6 col-md-12 text-white">
             <div className="d-flex justify-content-center">
-              <div className="header-container-borders">
+              <div className="container-wooden-borders">
                 <div className="header-wrapper">
                   <h4 className="text-center">Valitse juomia</h4>
                 </div>
@@ -96,7 +96,7 @@ class UnitCalculator extends Component {
           </div>
           <div className="col-xl-6 col-lg-6 col-md-12 text-center text-white">
             <div className="d-flex justify-content-center">
-              <div className="header-container-borders">
+              <div className="container-wooden-borders">
                 <div className="header-wrapper">
                   <h4>Juodut juomat</h4>
                 </div>
@@ -131,7 +131,7 @@ class UnitCalculator extends Component {
         <div className="row pt-3">
           <div className="col-xl-6 col-lg-6 col-md-12">
             <div className="row justify-content-center">
-              <div className="header-container-borders">
+              <div className="container-wooden-borders">
                 <DrinkFilterBtnGroup />
               </div>
             </div> 

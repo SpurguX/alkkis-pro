@@ -15,9 +15,9 @@ class DrinkDatePicker extends Component {
   render() {
     console.log(this.props.drinkDate);
     return (
-      <div className="btn-group ml-2 mr-2 header-container-borders" role="group">
+      <div className="btn-group ml-2 mr-2 container-wooden-borders" role="group">
         {/* <div class="input-group-prepend"> */}
-          <div class="btn py-2 px-2 btn-chosen-drink-control btn-chosen-drink-control--font-eraser">Juomispäivä</div>
+        <div className="btn py-2 px-2 btn-wood">Juomispäivä</div>
         {/* </div> */}
         <DatePicker
           selected={this.props.drinkDate}

@@ -2,12 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { updateDrinkFilterConditions } from "../actions";
-import {
-  MILD,
-  WINE,
-  LIQUEUR,
-  BOOZE,
-} from "../reducers/reducer_drink_filter_conditions";
+import { drinkType } from '../utils/constants';
 import _ from "lodash";
 
 class DrinkFilterBtnGroup extends Component {
@@ -28,18 +23,24 @@ class DrinkFilterBtnGroup extends Component {
     console.log("getButtonClass");
     for (const t of types) {
       const idx = _.indexOf(this.props.drinkFilterConditions, t);
-      console.log("idx :>> ", idx);
-      if (idx === -1) return "btn-filter--unselected";
+      if (idx === -1) return "btn-blackboard--unselected";
     }
     return "";
   }
 
   render() {
+    const {
+      MILD,
+      WINE,
+      LIQUEUR,
+      BOOZE,
+    } = drinkType
+
     return (
       <div className="btn-group btn-group-lg" role="group">
         <button
           type="button"
-          className={`btn btn-filter ${this.getButtonClass([MILD])}`}
+          className={`btn btn-blackboard ${this.getButtonClass([MILD])}`}
           onClick={() => this.handleClick([MILD])}
         >
           Miedot
@@ -47,14 +48,14 @@ class DrinkFilterBtnGroup extends Component {
 
         <button
           type="button"
-          className={`btn btn-filter ${this.getButtonClass([WINE])}`}
+          className={`btn btn-blackboard ${this.getButtonClass([WINE])}`}
           onClick={() => this.handleClick([WINE])}
         >
           Viinit
         </button>
         <button
           type="button"
-          className={`btn btn-filter ${this.getButtonClass([LIQUEUR, BOOZE])}`}
+          className={`btn btn-blackboard ${this.getButtonClass([LIQUEUR, BOOZE])}`}
           onClick={() => this.handleClick([LIQUEUR, BOOZE])}
         >
           Liköörit ja väkevät

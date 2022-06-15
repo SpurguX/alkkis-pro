@@ -123,7 +123,7 @@ export function showOthDrinkModal() {
 }
 
 export function hideOthDrinkModal() {
-    return{
+    return {
         type: HIDE_OTH_DRINK_MODAL
     }
 }

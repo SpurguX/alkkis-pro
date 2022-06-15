@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { hideOthDrinkModal, updateDrinkList, fetchSavedDrinks } from "../actions";
-import { renderDrinksAsOptions } from '../helpers/functions';
+import { renderDrinksAsOptions } from '../utils/functions';
 
 class SavedDrinks extends Component {
 

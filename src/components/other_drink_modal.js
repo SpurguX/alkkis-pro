@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import OtherDrinkForm from "./other_drink_form";
 import SavedDrinks from './saved_drinks';
-import { styleTabIfActive } from '../helpers/functions';
 
 const modalRoot = document.getElementById("modal-root");
 const addDrinkTab = 'addDrinkTab';
@@ -39,24 +38,27 @@ export default class OtherDrinkModal extends Component {
 
   render() {
     return ReactDOM.createPortal(
-      <div className="modal-content">
-        <div className="modal-header oth-mod-header">
-          <button 
-            className={`btn btn-default col-sm-6 alkkis-tab ${styleTabIfActive(addDrinkTab, this.state.selectedTab)}`}
-            onClick={this.handleAddTabClick}
-          >
-            Muu juoma - syötä arvot
-          </button>
-          <button 
-            className={`btn btn-default col-sm-6 alkkis-tab ${styleTabIfActive(savedDrinksTab, this.state.selectedTab)}`}
-            onClick={this.handleSavedTabClick}
-          >
-            Tallennetut juomat
-          </button>          
+      <div className="modal-content bg-transparent">
+        <div className="container-wooden-borders">
+          <div className="btn-group btn-group-lg d-flex" role="group">
+            <button
+                  className={`btn btn-blackboard ${this.state.selectedTab !== addDrinkTab && 'btn-blackboard--unselected'}`}
+                  onClick={this.handleAddTabClick}
+                >
+                  Muu juoma - syötä arvot
+                </button>
+            <button
+              type="button"
+              className={`btn btn-blackboard ${this.state.selectedTab !== savedDrinksTab && 'btn-blackboard--unselected'}`}
+              onClick={this.handleSavedTabClick}
+            >
+              Tallennetut juomat
+            </button>
+          </div>
         </div>
-        <div className="modal-body">
-          {this.renderPage()}
-        </div>
+          <div className="modal-body bg-blackboard">
+            {this.renderPage()}
+          </div>
       </div>,
       this.el
     );

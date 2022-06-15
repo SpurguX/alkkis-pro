@@ -10,7 +10,7 @@ import {
 } from "../actions";
 import axios from "axios";
 import moment from "moment";
-import { renderDrinksAsOptions } from "../helpers/functions";
+import { renderDrinksAsOptions } from "../utils/functions";
 import DrinkDatePicker from "./drink_datepicker";
 
 class EditEntryForm extends Component {
@@ -165,7 +165,7 @@ class EditEntryForm extends Component {
         <div className="form-group edit-entry-form-group">
           <label className="control-label col-sm-3">Annokset:</label>
           <div className="col-sm-2">
-            <div id="units-text">{this.state.drink_entry_units.toFixed(1)}</div>
+            <div className="units-text">{this.state.drink_entry_units.toFixed(1)}</div>
           </div>
         </div>
         <div className="form-group">

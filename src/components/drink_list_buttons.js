@@ -6,7 +6,7 @@ export default class DrinkListButtons extends Component {
 
     render() {
         return (
-            <div class="row drink-list-buttons justify-content-center">
+            <div className="row justify-content-center">
                 <AddToDiaryBtn />
                 <EmptyDrinkListBtn />
             </div>
