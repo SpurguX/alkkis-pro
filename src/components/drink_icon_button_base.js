@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { getVolumeDisplayValue } from '../utils/functions';
 
 class DrinkIconButtonBase extends Component {
     constructor(props) {
@@ -31,7 +32,7 @@ class DrinkIconButtonBase extends Component {
                     {/* <svg src={icon} alt="img" className="drink-icon"/> */}
                     {/* <p className="mb-0">{this.props.drinkName} <span className="drink-icon-button-volume-text">{this.volumeDisplayValue()}</span></p> */}
                     <p className="mb-0">{this.props.drinkName}</p>
-                    <p className="mt-0 mb-0">{alcContent} %, {this.volumeDisplayValue()}</p>
+                    <p className="mt-0 mb-0">{alcContent} %, {getVolumeDisplayValue(this.props.volume)}</p>
                     {/* <div className="drink-icon-button-badge drink-icon-button-badge--alcohol">{alcContent}&#8202;%</div> */}
                     {this.props.quantity && <div className="drink-icon-button-badge drink-icon-button-badge--quantity">{this.props.quantity}</div>}
                 </div>

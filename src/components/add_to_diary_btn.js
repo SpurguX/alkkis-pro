@@ -11,7 +11,7 @@ class AddToDiaryBtn extends Component {
         const drinkListArray = _.map(drinkList, drinkListItem => {
             const entryUnits = drinkListItem.units * drinkListItem.quantity;
             return {
-                'drink_date': date._d,
+                'drink_date': date.toISOString(),
                 'drink': {'drinkId': drinkListItem.drinkId},
                 'drink_quantity': drinkListItem.quantity,
                 'drink_entry_units': entryUnits

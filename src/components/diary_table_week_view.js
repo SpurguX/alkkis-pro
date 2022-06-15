@@ -49,10 +49,10 @@ export default class DiaryTableWeekView extends Component {
       let { startOfWeek, endOfWeek } = row;
       return (
         <tr key={startOfWeek}>
+          <td><span className="badge">{weekNum}</span></td>
           <td>
           {formatJSDate(startOfWeek)} - {formatJSDate(endOfWeek)}
           </td>
-          <td><span className="badge">{weekNum}</span></td>
           <td>{units.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
         </tr>
       );
@@ -62,12 +62,12 @@ export default class DiaryTableWeekView extends Component {
   render() {
     let totalUnits = calculateTotalUnits(this.props.entries).toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     return (
-      <div id="diary-table-container" className="table-responsive">
-        <table className="table table-striped">
-          <thead>
+      <div className="container-wooden-borders">
+        <table className="alkkis-table bg-blackboard">
+          <thead className="">
             <tr>
-              <th>Päivämäärä</th>
               <th>Viikko</th>
+              <th>Päivämäärä</th>
               <th>Annokset</th>
             </tr>
           </thead>

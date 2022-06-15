@@ -84,7 +84,19 @@ button:focus,
 .btn.focus,
 .btn:active.focus,
 .btn:active:focus,
-.btn:focus {
+.btn:focus,
+input.active.focus,
+input.active:focus,
+input.focus,
+input:active.focus,
+input:active:focus,
+input:focus
+.form-control.active.focus,
+.form-control.active:focus,
+.form-control.focus,
+.form-control:active.focus,
+.form-control:active:focus,
+.form-control:focus {
     outline: 0;
     outline-color: transparent;
     outline-width: 0;
@@ -93,6 +105,16 @@ button:focus,
     // Specify per element if necessary
     outline: 2px solid rgba(#c48a2b, 0.8);
     border-radius: 4px;
+}
+
+::-moz-selection {
+  color: whitesmoke;
+  background: $golden-beer;
+}
+
+::selection {
+  color: whitesmoke;
+  background: $golden-beer;
 }
 
 /* GENERAL */
@@ -353,8 +375,9 @@ body {
 
 .drink-icon {
   height: 2rem;
-  margin-bottom: 0.24rem; 
+  margin-bottom: 0.24rem;
   filter: invert(73%) sepia(4%) saturate(518%) hue-rotate(352deg) brightness(96%) contrast(82%);
+  user-select: none;
 }
 
 .drink-icon-button {
@@ -640,20 +663,35 @@ input::-webkit-inner-spin-button {
 /* DIARY ----------------- */
 
 
+// IN progress, delete commented out stuff when ready
 
-#diary-table-container {
-  overflow-x: unset;
+// #diary-table-container {
+//   overflow-x: unset;
+// }
+
+// #diary-table-container th, td {
+//   text-align: center;
+// }
+
+
+// #diary-tabs-container {
+//   overflow: hidden;
+//   margin-bottom: 2rem;
+// }
+
+.alkkis-table {
+  width: 100%;
+  // color: whitesmoke;
 }
 
-#diary-table-container th, td {
-  text-align: center;
+.alkkis-table thead, .alkkis-table tbody, .alkkis-table tfoot tr th {
+  border-bottom: 2px solid whitesmoke;
 }
 
-
-#diary-tabs-container {
-  overflow: hidden;
-  margin-bottom: 2rem;
+.alkkis-table th, .alkkis-table td {
+  padding: 0.5rem;
 }
+
 
 
 /* NAVBAR ----------------- */
@@ -687,8 +725,8 @@ input::-webkit-inner-spin-button {
 /* DATEPICKER ------------- */
 
 .react-datepicker-wrapper {
-  display: block  !important;
-  width: 20rem !important ;
+  display: block !important;
+  width: 16rem !important ;
 }
 
 .react-datepicker__input-container > input {

@@ -7,6 +7,7 @@ import {
   calculateTotalUnits,
   sortEntriesbyDrinkDate
 } from "../utils/functions";
+import { getVolumeDisplayValue } from '../utils/functions';
 
 export default class DiaryTableAllEntries extends Component {
   calculateTotalQuantity() {
@@ -22,15 +23,16 @@ export default class DiaryTableAllEntries extends Component {
     const dateSortedEntries = sortEntriesbyDrinkDate(this.props.entries);
     return _.map(dateSortedEntries, entry => {
       const { drink } = entry;
-      const volume = drink.volume.toLocaleString('fi');
+      const volume = drink.volume;
       const alcContent = drink.alcContent.toLocaleString('fi');
       const units = entry.drink_entry_units.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
       return (
         <tr key={entry.drink_entry_id}>
           <td>{formatDBDate(entry.drink_date)}</td>
           <td>
-            {drink.drinkName} {volume} l - {alcContent} %
+            {drink.drinkName} {getVolumeDisplayValue(volume)}
           </td>
+          <td>{alcContent} <span className="font-christmas">%</span></td>
           <td>{entry.drink_quantity}</td>
           <td>{units}</td>
           <td>
@@ -47,12 +49,13 @@ export default class DiaryTableAllEntries extends Component {
   render() {
     let totalUnits = calculateTotalUnits(this.props.entries).toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     return (
-      <div id="diary-table-container" className="table-responsive">
-        <table className="table table-striped">
+      <div className="container-wooden-borders">
+        <table className="alkkis-table bg-blackboard">
           <thead>
             <tr>
               <th>Päivämäärä</th>
               <th>Juoma</th>
+              <th>Vahvuus</th>
               <th>Kappalemäärä</th>
               <th>Annokset</th>
             </tr>
@@ -62,10 +65,14 @@ export default class DiaryTableAllEntries extends Component {
             <tr>
               <th />
               <th />
+              <th />
               <th>Kpl yht.</th>
               <th>Annokset yht.</th>
+              <th />
+              <th />
             </tr>
             <tr>
+              <td />
               <td />
               <td />
               <td>{this.calculateTotalQuantity()}</td>

@@ -56,9 +56,9 @@ export default class OtherDrinkModal extends Component {
             </button>
           </div>
         </div>
-          <div className="modal-body bg-blackboard">
-            {this.renderPage()}
-          </div>
+        <div className="modal-body bg-blackboard">
+          {this.renderPage()}
+        </div>
       </div>,
       this.el
     );

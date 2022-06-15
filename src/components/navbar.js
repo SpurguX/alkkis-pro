@@ -14,7 +14,7 @@ export default class Navbar extends Component {
         return (
             <nav className="navbar navbar-expand-md" id="nav-alkkis">
                 {/* <div className="container-fluid"> */}
-                    <a className="navbar-brand" href="/">Alkkis Pro</a>
+                    <a className="navbar-brand font-xlarge font-christmas" href="/">Alkkis Pro</a>
                     <button type="button" className="navbar-toggler" data-toggle="collapse" data-target="#myNavbar">
                         <a href="#"><i className="bi bi-list"></i></a>
                     </button>
@@ -28,7 +28,7 @@ export default class Navbar extends Component {
                                 <a className="nav-link" href={ROUTE_DIARY}>Päiväkirja</a>
                             </li>
                         </ul>
-                        <ul className="nav navbar-nav navbar-right">
+                        <ul className="nav navbar-nav navbar-right font-christmas">
                             <li><a className="nav-link" href="/">Kirjaudu ulos <i className="bi bi-arrow-bar-right"></i></a></li>
                         </ul>
                     </div>

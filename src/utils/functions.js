@@ -75,3 +75,9 @@ export function capitalizeFirstLetter(string) {
 export function isEmptyString(string) {
 	return string === ''
 }
+
+export function getVolumeDisplayValue(volume) {
+	return volume > 0.24
+    ? `${volume.toLocaleString("fi")} l`
+    : `${volume * 100} cl`;
+}

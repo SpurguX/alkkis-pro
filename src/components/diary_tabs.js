@@ -10,34 +10,27 @@ class DiaryTabs extends Component {
   render() {
     const { selectedTab } = this.props;
     return (
-      <div id="diary-tabs-container">
-        <button
-          className={`btn btn-default col-sm-4 alkkis-tab ${styleTabIfActive(
-            diaryTabs.ALL_ENTRIES_TAB,
-            selectedTab
-          )}`}
-          onClick={() => this.props.selectDiaryTab(diaryTabs.ALL_ENTRIES_TAB)}
-        >
+      <div className="container-wooden-borders">
+        <div className="btn-group btn-group-lg d-flex" role="group">
+          <button
+            className={`btn btn-blackboard ${selectedTab !== diaryTabs.ALL_ENTRIES_TAB && 'btn-blackboard--unselected'}`}
+            onClick={() => this.props.selectDiaryTab(diaryTabs.ALL_ENTRIES_TAB)}
+          >
           Kaikki merkinnät
-        </button>
-        <button
-          className={`btn btn-default col-sm-4 alkkis-tab ${styleTabIfActive(
-            diaryTabs.WEEKLY_VIEW_TAB,
-            selectedTab
-          )}`}
-          onClick={() => this.props.selectDiaryTab(diaryTabs.WEEKLY_VIEW_TAB)}
-        >
-          Viikkonäkymä
-        </button>
-        <button
-          className={`btn btn-default col-sm-4 alkkis-tab ${styleTabIfActive(
-            diaryTabs.MONTHLY_VIEW_TAB,
-            selectedTab
-          )}`}
-          onClick={() => this.props.selectDiaryTab(diaryTabs.MONTHLY_VIEW_TAB)}
-        >
-          Kuukausinäkymä
-        </button>
+          </button>
+          <button
+            className={`btn btn-blackboard ${selectedTab !== diaryTabs.WEEKLY_VIEW_TAB && 'btn-blackboard--unselected'}`}
+            onClick={() => this.props.selectDiaryTab(diaryTabs.WEEKLY_VIEW_TAB)}
+          >
+            Viikkonäkymä
+          </button>
+          <button
+            className={`btn btn-blackboard ${selectedTab !== diaryTabs.MONTHLY_VIEW_TAB && 'btn-blackboard--unselected'}`}
+            onClick={() => this.props.selectDiaryTab(diaryTabs.MONTHLY_VIEW_TAB)}
+          >
+            Kuukausinäkymä
+          </button>
+        </div>
       </div>
     );
   }

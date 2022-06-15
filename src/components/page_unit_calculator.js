@@ -81,10 +81,10 @@ class UnitCalculator extends Component {
       <LoggedInContainer>
       <div className="container-unit-calculator">
         {/* <div className="col-sm-2 hidden-xs" /> */}
-        <div className="row pt-5 justify-content-center">
+        <div className="row pt-4 justify-content-center">
           <UnitCountDisplayer />
         </div>
-        <div className="row pt-3">
+        <div className="row pt-2">
           <div className="col-xl-6 col-lg-6 col-md-12 text-white">
             <div className="d-flex justify-content-center">
               <div className="container-wooden-borders">

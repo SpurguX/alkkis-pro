@@ -6,6 +6,7 @@ import { bindActionCreators } from "redux";
 import { hideOthDrinkModal, updateDrinkList } from "../actions";
 import axios from "axios";
 import qs from "qs";
+import { drinkType } from '../utils/constants';
 
 
 const OtherDrinkForm = (props) => {
@@ -13,6 +14,7 @@ const OtherDrinkForm = (props) => {
   const [volume, setVolume] = useState(0.33);
   const [alcContent, setAlcContent] = useState(4.7);
   const [units, setUnits] = useState(0.0);
+  const [type, setType] = useState(drinkType.MILD);
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const volumeSlider = useRef(null);
   const alcContentSlider = useRef(null);
@@ -53,6 +55,10 @@ const OtherDrinkForm = (props) => {
   const handleAlcContentFieldChange = event => {
     setAlcContent(event.target.value);
   };
+
+  const handleTypeSelection = event => {
+    setType(event.target.value)
+  }
 
   const updateUnits = () => {
     let units = 0.0;
@@ -104,8 +110,13 @@ const OtherDrinkForm = (props) => {
       drinkName: drinkName,
       volume: volume,
       alcContent: alcContent,
-      units: units
+      units: units,
+      type: type,
     };
+
+    // TODO FIX POST
+
+    console.log('data :>> ', data);
     const options = {
       method: "POST",
       headers: { "content-type": "application/x-www-form-urlencoded" },
@@ -126,16 +137,17 @@ const OtherDrinkForm = (props) => {
   const handleAdd = event => {
     console.log('handleAdd');
     event.preventDefault();
-    try {
-      handleSubmit(() => {
-        console.log('handleSubmit called!');
-      })
-    } catch (e) {
-      console.log('e :>> ', e);
-    }
+    // TODO VALIDATION
+    // try {
+    //   handleSubmit(() => {
+    //     console.log('handleSubmit called!');
+    //   })
+    // } catch (e) {
+    //   console.log('e :>> ', e);
+    // }
 
-    // addNewDrinkToDbAndList();
-    // props.hideOthDrinkModal();
+    addNewDrinkToDbAndList();
+    props.hideOthDrinkModal();
   };
 
   const unitsFormatted = () => units.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
@@ -165,8 +177,8 @@ const OtherDrinkForm = (props) => {
       </div>
       <div className="form-group">
         <label className="control-label font-large">
-          Tilavuus <span className="font-open-sans">(</span>litraa
-          <span className="font-open-sans">)</span>:
+          Tilavuus <span className="font-christmas">(</span>litraa
+          <span className="font-christmas">)</span>:
         </label>
         <div className="row">
           <div className="col-lg-2">
@@ -196,7 +208,7 @@ const OtherDrinkForm = (props) => {
       </div>
       <div className="form-group">
         <label className="control-label font-large">
-          Vahvuus <span className="font-open-sans">(%)</span>:
+          Vahvuus <span className="font-christmas">(%)</span>:
         </label>
         <div className="row">
           <div className="col-sm-2">
@@ -223,6 +235,18 @@ const OtherDrinkForm = (props) => {
             />
           </div>
         </div>
+      </div>
+
+      <div className="form-group">
+        <label className="control-label font-large">
+          Luokitus
+        </label>
+        <select class="form-control" id="exampleFormControlSelect1" onInput={handleTypeSelection}>
+          <option value={drinkType.MILD}>MIedot</option>
+          <option value={drinkType.WINE}>VIINIt</option>
+          <option value={drinkType.LIQUEUR}>LIköörIt</option>
+          <option value={drinkType.BOOZE}>Väkevät</option>
+        </select>
       </div>
 
       {/* { errors } */}

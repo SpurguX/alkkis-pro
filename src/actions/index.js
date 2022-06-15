@@ -110,6 +110,7 @@ export function countUnitsInList(units) {
 }
 
 export function updateDrinkDate(date) {
+    console.log('updateDrinkDate, date :>> ', date);
     return {
         type: UPDATE_DRINK_DATE,
         payload: date

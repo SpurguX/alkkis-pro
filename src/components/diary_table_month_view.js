@@ -13,7 +13,7 @@ export default class DiaryTableMonthView extends Component {
       for (var index in entries) {
         let drinkDate = new Date(Date.parse(entries[index].drink_date));
         let dateAsMoment = moment(drinkDate);
-        let monthAndYear = dateAsMoment.format("MMMM YYYY");
+        let monthAndYear = dateAsMoment.format("YYYY MMMM");
         if (Object.keys(monthlyRows).includes(monthAndYear)) {
           monthlyRows[monthAndYear].units +=  entries[index].drink_entry_units;
         } else {
@@ -44,8 +44,8 @@ export default class DiaryTableMonthView extends Component {
   render() {
     let totalUnits = calculateTotalUnits(this.props.entries).toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     return (
-      <div id="diary-table-container" className="table-responsive">
-        <table className="table table-striped">
+      <div className="container-wooden-borders">
+        <table className="alkkis-table bg-blackboard">
           <thead>
             <tr>
               <th>Kuukausi</th>
