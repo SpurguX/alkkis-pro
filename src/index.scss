@@ -36,21 +36,27 @@ $font-h1: 2.5rem;
   &-small {
     font-size: $font-small;
   }
+
   &-regular {
     font-size: $font-regular;
   }
+
   &-large {
     font-size: $font-large;
   }
+
   &-xlarge {
     font-size: $font-xlarge;
   }
+
   &-h3 {
     font-size: $font-h3;
   }
+
   &-h2 {
     font-size: $font-h2;
   }
+
   &-h1 {
     font-size: $font-h1;
   }
@@ -64,6 +70,11 @@ $font-h1: 2.5rem;
 .font-christmas {
   letter-spacing: 2px;
   font-family: "Christmas", sans-serif;
+}
+
+.font-segoe {
+  letter-spacing: 0px;
+  font-family: "Segoe UI", sans-serif;
 }
 
 /* BOOTSRAP OVERRIDES */
@@ -100,22 +111,22 @@ input:active.focus,
 .form-control:active:focus,
 .form-control:focus {
   border: 0;
-    outline: 0;
-    outline-color: transparent;
-    outline-width: 0;
-    outline-style: none;
-    box-shadow: 0 0 0 0px rgba(black, 0.5);
-    // Specify per element if necessary
-    outline: 2px solid rgba(#c48a2b, 0.8);
-    border-radius: 4px;
+  outline: 0;
+  outline-color: transparent;
+  outline-width: 0;
+  outline-style: none;
+  box-shadow: 0 0 0 0px rgba(black, 0.5);
+  // Specify per element if necessary
+  outline: 2px solid rgba(#c48a2b, 0.8);
+  border-radius: 4px;
 }
 
 ::-moz-selection {
-  color: whitesmoke;
+  color: $golden-beer;
 }
 
 ::selection {
-  color: whitesmoke;
+  color: $golden-beer;
 }
 
 .btn-group-lg > .btn.font-large {
@@ -128,7 +139,12 @@ input:active.focus,
 
 /* GENERAL */
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
 }
 
@@ -158,7 +174,7 @@ body {
   display: block;
   top: 0;
   left: 0;
-  background-image: url('./images/counter_fancy.jpg');
+  background-image: url("./images/counter_fancy.jpg");
   background-repeat: repeat;
   min-height: 100%;
   width: 100%;
@@ -167,11 +183,10 @@ body {
 }
 
 .container-bg-img--opaque {
-
 }
 
 .container-bg-img--opaque:before {
-  box-shadow: inset 0px 0px 200px 100px rgba(0,0,0, 1);
+  box-shadow: inset 0px 0px 200px 100px rgba(0, 0, 0, 1);
 }
 
 .bg-overlay {
@@ -181,7 +196,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  box-shadow: inset 0px 24px 100px 50px rgba(0,0,0, 1);  
+  box-shadow: inset 0px 24px 100px 50px rgba(0, 0, 0, 1);
   background-color: rgba($darkwood, 0.15);
 }
 
@@ -209,13 +224,12 @@ body {
   color: whitesmoke;
 }
 
-
 .btn-blackboard {
   text-transform: uppercase;
   font-family: "Eraser";
   background: $blackboard-gradient;
   border: 0;
-  color: whitesmoke
+  color: whitesmoke;
 }
 
 .btn-blackboard--unselected {
@@ -223,7 +237,8 @@ body {
 }
 
 .btn-wood {
-  background: url("./images/painted_wood_colorized.png"), radial-gradient($wood, $darkwood);
+  background: url("./images/painted_wood_colorized.png"),
+    radial-gradient($wood, $darkwood);
   background-blend-mode: soft-light;
   color: $gray-text;
   text-transform: uppercase;
@@ -237,7 +252,6 @@ body {
 .text-underline {
   text-decoration: underline;
 }
-
 
 /* LOGIN PAGE */
 
@@ -256,7 +270,6 @@ body {
     font-size: 2.4rem; */
 /* } */
 
-
 .login-wrapper {
   position: relative;
   height: calc(100% - 4.8rem);
@@ -264,7 +277,7 @@ body {
 
 .logo--login--wrapper {
   margin: 0 auto;
-  background: rgba(0,0,0, 0.3);
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .logo--login {
@@ -283,13 +296,13 @@ body {
   background: linear-gradient(to bottom, rgba(255,0,0,0) 0%,rgba(255,0,0,0.65) 100%); */
 /* } */
 
-
 .login-content {
   padding: 3.6rem;
   margin: -0rem auto 0rem;
   border-radius: 4px;
   max-width: 600px;
-  background: url("./images/painted_wood_colorized.png"), radial-gradient(#4c3e2d, #342a1f);
+  background: url("./images/painted_wood_colorized.png"),
+    radial-gradient(#4c3e2d, #342a1f);
   // background-color: transparent;
 }
 
@@ -327,13 +340,13 @@ body {
 
 @media (min-width: 960px) {
   .container-unit-calculator {
-      padding: 0 4rem;
+    padding: 0 4rem;
   }
 }
 
 @media (min-width: 1440px) {
   .container-unit-calculator {
-      padding: 0 6rem;
+    padding: 0 6rem;
   }
 }
 
@@ -345,6 +358,7 @@ body {
 .drink-icon-button-col--drinks {
   border-right: 4px solid $shady-gray;
 }
+
 .drink-icon-button-col--chosen-drinks {
   /* border-left:4px solid rgba(0, 0, 0, 0.41); */
   border-left: 4px solid $shady-gray;
@@ -353,9 +367,10 @@ body {
 .unit-count-wrapper {
   padding: 0.6rem 1.2rem;
   border-radius: 0.32rem;
-  background: url("./images/painted_wood_colorized.png"), radial-gradient(#4c3e2d, #342a1f);
+  background: url("./images/painted_wood_colorized.png"),
+    radial-gradient(#4c3e2d, #342a1f);
   background-blend-mode: soft-light;
-  box-shadow: 0 0.125rem 0.25rem .125rem rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0.125rem 0.25rem 0.125rem rgba(0, 0, 0, 0.5);
 }
 
 .unit-count-header {
@@ -369,9 +384,10 @@ body {
 .container-wooden-borders {
   padding: 0.5rem;
   border-radius: 0.2rem;
-  background: url("./images/painted_wood_colorized.png"), radial-gradient(#4c3e2d, #342a1f);
+  background: url("./images/painted_wood_colorized.png"),
+    radial-gradient(#4c3e2d, #342a1f);
   background-blend-mode: soft-light;
-  box-shadow: 0 0.125rem 0.25rem .125rem rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0.125rem 0.25rem 0.125rem rgba(0, 0, 0, 0.5);
 }
 
 .header-wrapper {
@@ -388,7 +404,7 @@ body {
   padding: 1rem;
   padding-bottom: 4rem;
   margin-bottom: -1rem;
-  background-color: #BBF3A3;
+  background-color: #bbf3a3;
   width: 100%;
   border: 0.1rem solid gray;
   border-radius: 1rem;
@@ -402,10 +418,10 @@ body {
 .drink-icon-button-container {
   animation-name: fadeIn;
   -webkit-animation-name: fadeIn;
-  animation-duration: 0.15s;
-  -webkit-animation-duration: 0.15;
-  animation-timing-function: ease-in-out;
-  -webkit-animation-timing-function: ease-in-out;
+  animation-duration: 0.12s;
+  -webkit-animation-duration: 0.12s;
+  animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
   padding: 1rem;
   text-align: center;
 }
@@ -415,27 +431,29 @@ body {
   -webkit-animation-name: fadeOut;
   animation-duration: 0.12s;
   -webkit-animation-duration: 0.12s;
-  animation-timing-function: ease-in-out;
-  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
 }
 
 .drink-icon {
   height: 2rem;
   margin-bottom: 0.24rem;
-  filter: invert(73%) sepia(4%) saturate(518%) hue-rotate(352deg) brightness(96%) contrast(82%);
+  filter: invert(73%) sepia(4%) saturate(518%) hue-rotate(352deg)
+    brightness(96%) contrast(82%);
   user-select: none;
 }
 
 .drink-icon-button {
   position: relative;
-  // color: #b0aaa3; 
-  color: $pale-gray; 
-  background: url("./images/painted_wood_colorized.png"), radial-gradient($wood, $darkwood);
+  // color: #b0aaa3;
+  color: $pale-gray;
+  background: url("./images/painted_wood_colorized.png"),
+    radial-gradient($wood, $darkwood);
   background-blend-mode: soft-light;
   width: 8.4rem;
   margin-left: auto;
   margin-right: auto;
-  padding: 0.8rem 0.4rem ;
+  padding: 0.8rem 0.4rem;
   font-size: $font-small;
   // font-size: $font-large;
   // letter-spacing: 2px;
@@ -444,7 +462,7 @@ body {
   font-weight: 600;
   // font-family: "Christmas";
   border-radius: 36px;
-  box-shadow: 0 0.125rem 0.25rem .125rem rgba(0, 0, 0, 0.5)
+  box-shadow: 0 0.125rem 0.25rem 0.125rem rgba(0, 0, 0, 0.5);
 }
 
 .drink-icon-button-volume-text {
@@ -467,16 +485,16 @@ body {
 .drink-icon-button-badge {
   position: absolute;
   /* top: 0.4rem; */
-  
+
   font-weight: 400;
   font-size: $font-small;
   /* background-color: rgba(255, 255, 255, 0.501); */
-  background-color: #b0aaa3;;
+  background-color: #b0aaa3;
   /* background: linear-gradient(-110deg, #b3d8a2, rgb(216, 237, 207)); */
   border-radius: 1.6rem;
   padding: 0 0.2rem 0.1rem;
   letter-spacing: -0.02rem;
-  box-shadow: 0.075rem .125rem rgba(0, 0, 0, .075);
+  box-shadow: 0.075rem 0.125rem rgba(0, 0, 0, 0.075);
 }
 
 .drink-icon-button-badge--alcohol {
@@ -490,15 +508,14 @@ body {
 }
 
 .drink-icon-button-badge--quantity {
-  display:inline-block;
+  display: inline-block;
   min-width: 1.6rem;
   font-size: $font-regular;
   top: 0.5rem;
   right: 0.8rem;
   left: auto;
-  color: #342a1f;;
+  color: #342a1f;
 }
-
 
 /* Range slider *******************/
 
@@ -526,13 +543,13 @@ body {
 .alkkis-range::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  margin-top: -0.5rem; /* Centers thumb on the track */
+  margin-top: -0.5rem;
+  /* Centers thumb on the track */
   background: $pale-gray;
   height: 1.5rem;
   width: 1.5rem;
   border-radius: 1rem;
 }
-
 
 .alkkis-range:focus::-webkit-slider-thumb {
   outline: 2px solid rgba(#c48a2b, 0.8);
@@ -545,9 +562,9 @@ body {
   border-radius: 1rem;
 }
 
-
 .alkkis-range::-moz-range-thumb {
-  border: none; /*Removes extra border that FF applies*/
+  border: none;
+  /*Removes extra border that FF applies*/
   background: $pale-gray;
   height: 1.5rem;
   width: 1.5rem;
@@ -558,7 +575,6 @@ body {
   outline: 2px solid rgba($golden-beer, 0.8);
   outline-offset: 0.1rem;
 }
-
 
 #juomalista {
   margin-top: 2rem;
@@ -579,7 +595,8 @@ body {
   padding: 0;
 }
 
-.list-item-minus, .list-item-plus {
+.list-item-minus,
+.list-item-plus {
   font-size: 1.8rem;
   height: 3rem;
 }
@@ -594,15 +611,15 @@ body {
   border-radius: 1rem;
 }
 
-.list-item-minus:hover, .list-item-plus:hover {
-  background-color: #D8D8D8;
-
+.list-item-minus:hover,
+.list-item-plus:hover {
+  background-color: #d8d8d8;
 }
 
 .list-item-data {
-  text-overflow: ellipsis; /* mieti miten saa pysymään vain yhel rivil */
+  text-overflow: ellipsis;
+  /* mieti miten saa pysymään vain yhel rivil */
 }
-
 
 /* OTHER DRINK MODAL ------ */
 
@@ -615,7 +632,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0,0,0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
 
@@ -632,14 +649,14 @@ body {
   border: 0;
 }
 
-input[type='number'] {
-  -moz-appearance:textfield;
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .units-text {
@@ -664,11 +681,11 @@ input::-webkit-inner-spin-button {
 }
 
 .alkkis-tab-active {
-  background-color: #BBF3A3;
+  background-color: #bbf3a3;
 }
 
 .alkkis-tab-active:focus {
-  background-color: #BBF3A3;
+  background-color: #bbf3a3;
 }
 
 #saved-drink-info {
@@ -687,9 +704,7 @@ input::-webkit-inner-spin-button {
   text-align: center;
 }
 
-
 /* DIARY ----------------- */
-
 
 // IN progress, delete commented out stuff when ready
 
@@ -700,7 +715,6 @@ input::-webkit-inner-spin-button {
 // #diary-table-container th, td {
 //   text-align: center;
 // }
-
 
 // #diary-tabs-container {
 //   overflow: hidden;
@@ -715,30 +729,36 @@ input::-webkit-inner-spin-button {
   width: 100%;
 }
 
-.alkkis-table thead, .alkkis-table tbody, .alkkis-table tfoot tr th {
+.alkkis-table thead,
+.alkkis-table tbody,
+.alkkis-table tfoot tr th {
   border-bottom: 2px solid whitesmoke;
 }
 
-.alkkis-table th, .alkkis-table td {
+.alkkis-table th,
+.alkkis-table td {
   padding: 0.5rem 1rem;
 }
-
-
 
 /* NAVBAR ----------------- */
 
 #nav-alkkis {
   font-family: "Eraser";
   font-size: $font-xlarge;
-  background: url("./images/painted_wood_navbar.png"), linear-gradient(#4c3e2d, #342a1f);
+  background: url("./images/painted_wood_navbar.png"),
+    linear-gradient(#4c3e2d, #342a1f);
   background-blend-mode: soft-light;
   border: 0;
   color: black;
   margin: 0;
-  box-shadow: 0 0.125rem 0.25rem .125rem rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0.125rem 0.25rem 0.125rem rgba(0, 0, 0, 0.5);
 }
 
-#nav-alkkis a, .navbar-brand, .nav, .navbar-nav, li {
+#nav-alkkis a,
+.navbar-brand,
+.nav,
+.navbar-nav,
+li {
   // color: whitesmoke;
   color: $gray-text;
 }
@@ -755,7 +775,7 @@ input::-webkit-inner-spin-button {
 
 .react-datepicker-wrapper {
   display: block !important;
-  width: 16rem !important ;
+  width: 16rem !important;
 }
 
 .react-datepicker__input-container > input {
@@ -770,12 +790,98 @@ input::-webkit-inner-spin-button {
   width: 100% !important;
 }
 
+.react-datepicker__input-container > input:focus {
+  outline: red;
+}
+
+.react-datepicker {
+  border: 0;
+}
+
+.react-datepicker__month-container {
+  background: $blackboard-gradient;
+  font-family: "Eraser";
+  color: whitesmoke;
+  border-top-left-radius: 0.3rem !important;
+  border-top-right-radius: 0.3rem !important;
+}
+
+.react-datepicker__header {
+  font-size: $font-xlarge;
+  letter-spacing: 2px;
+  user-select: none;
+}
+
+.react-datepicker__current-month {
+  font-weight: 500 !important;
+  font-family: "Christmas";
+  text-transform: uppercase;
+}
+
+.react-datepicker__day {
+  color: whitesmoke !important;
+}
+
+.react-datepicker__day.active.focus,
+.react-datepicker__day.active:focus,
+.react-datepicker__day.focus,
+.react-datepicker__day:active.focus,
+.react-datepicker__day:active:focus,
+.react-datepicker__day:focus {
+  outline: 2px solid rgba(#c48a2b, 0.8);
+}
+
+.react-datepicker__day:hover {
+  background: $shady-gray !important;
+}
+
+.react-datepicker__day--selected {
+  background: $golden-beer !important;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background: $pale-gray !important;
+  background: $wood !important;
+}
+
+.react-datepicker__day-name {
+  font-family: "Christmas";
+  width: 1.75rem !important;
+}
+
+.react-datepicker-wrapper input.active.focus,
+.react-datepicker-wrapper input.active:focus,
+.react-datepicker-wrapper input.focus,
+.react-datepicker-wrapper input:active.focus,
+.react-datepicker-wrapper input:active:focus,
+.react-datepicker-wrapper input:focus {
+  outline: 2px solid rgba(#c48a2b, 0.8);
+}
+
+button.react-datepicker__navigation {
+  border: 0;
+  vertical-align: middle;
+}
+
+.react-datepicker__navigation-icon:hover {
+  opacity: 0.5;
+}
+
+.react-datepicker__year-read-view--down-arrow,
+.react-datepicker__month-read-view--down-arrow,
+.react-datepicker__month-year-read-view--down-arrow,
+.react-datepicker__navigation-icon::before {
+  border-color: black !important;
+  top: 16px !important;
+}
+
 /* ANIMATIONS */
 
 @keyframes fadeIn {
   0% {
-    opacity: 0.0;
+    opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
