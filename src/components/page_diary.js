@@ -36,15 +36,22 @@ class Diary extends Component {
 
     return (
       <LoggedInContainer>
-        <div className="container">
-          <div className="placeh col-sm-1 hidden-xs" />
-          <div className="col-sm-10 col-xs-12">
-          {/* <div className="col"> */}
-            <h2 className="otsikko">Juomapäiväkirja</h2>
-            <DiaryTabs />
-            {this.renderDiaryTable()}
+        <div className="container container-diary">
+          <div className="row pt-4 justify-content-center">
+            <div className="container-wooden-borders">
+                <div className="header-wrapper">
+                  <h3 className="unit-count-header">Juomapäiväkirja</h3>
+                </div>
+              </div>
           </div>
-          <div className="placeh col-sm-1 hidden-xs" />
+          <div className="row pt-4 justify-content-center">
+            <div className="col-sm-1 hidden-xs" />
+            <div className="col-sm-10 col-xs-12">
+              <DiaryTabs />
+              {this.renderDiaryTable()}
+            </div>
+            <div className="col-sm-1 hidden-xs" />
+          </div>
         </div>
         {editEntryModal}
       </LoggedInContainer>

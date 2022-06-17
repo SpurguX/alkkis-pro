@@ -24,11 +24,13 @@ class EditEntryModal extends Component {
 
   render() {
     return ReactDOM.createPortal(
-      <div className="modal-content">
-        <div className="modal-header">
-          Muokkaa päiväkirjamerkintää
+      <div className="modal-content bg-transparent">
+        <div className="container-wooden-borders">
+          <div className="bg-blackboard header-wrapper d-flex justify-content-center">
+            <h4>Muokkaa päiväkirjamerkintää</h4>
+          </div>
         </div>
-        <div className="modal-body">
+        <div className="modal-body bg-blackboard">
           <EditEntryForm />
         </div>
       </div>,

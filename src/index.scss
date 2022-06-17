@@ -3,10 +3,12 @@
 $wood: #4c3e2d;
 $darkwood: #342a1f;
 $shady-gray: rgba(38, 33, 39, 0.8);
+$shady-gray: #342a1f8b;
 $gray-text: #d8d1c8;
 $pale-gray: #b1aba8;
 $blackboard-gradient: linear-gradient(-10deg, rgb(26, 26, 26), black);
 $golden-beer: #c48a2b;
+$golden-beer-gradient: linear-gradient(-3deg, #c48a2b, #f4ad3b);
 
 /* FONTS */
 
@@ -86,17 +88,18 @@ button:focus,
 .btn:active:focus,
 .btn:focus,
 input.active.focus,
-input.active:focus,
-input.focus,
+// input.active:focus,
+// input.focus,
 input:active.focus,
-input:active:focus,
-input:focus
+// input:active:focus,
+// input:focus
 .form-control.active.focus,
 .form-control.active:focus,
 .form-control.focus,
 .form-control:active.focus,
 .form-control:active:focus,
 .form-control:focus {
+  border: 0;
     outline: 0;
     outline-color: transparent;
     outline-width: 0;
@@ -109,12 +112,18 @@ input:focus
 
 ::-moz-selection {
   color: whitesmoke;
-  background: $golden-beer;
 }
 
 ::selection {
   color: whitesmoke;
-  background: $golden-beer;
+}
+
+.btn-group-lg > .btn.font-large {
+  font-size: $font-large;
+}
+
+.btn-group-lg > .btn.font-xlarge {
+  font-size: $font-xlarge;
 }
 
 /* GENERAL */
@@ -183,6 +192,24 @@ body {
   color: whitesmoke;
 }
 
+.bg-blackboard input {
+  border: 0;
+  position: relative;
+  background: rgba(whitesmoke, 0.1);
+  color: whitesmoke;
+}
+
+.bg-blackboard input.active.focus,
+.bg-blackboard input.active:focus,
+.bg-blackboard input.focus,
+.bg-blackboard input:active.focus,
+.bg-blackboard input:active:focus,
+.bg-blackboard input:focus {
+  background: rgba(whitesmoke, 0.3);
+  color: whitesmoke;
+}
+
+
 .btn-blackboard {
   text-transform: uppercase;
   font-family: "Eraser";
@@ -196,7 +223,7 @@ body {
 }
 
 .btn-wood {
-  background: url("./images/painted_wood_colorized.png"), radial-gradient(#4c3e2d, #342a1f);
+  background: url("./images/painted_wood_colorized.png"), radial-gradient($wood, $darkwood);
   background-blend-mode: soft-light;
   color: $gray-text;
   text-transform: uppercase;
@@ -205,6 +232,10 @@ body {
   letter-spacing: 1px;
   font-family: "Christmas";
   border: none;
+}
+
+.text-underline {
+  text-decoration: underline;
 }
 
 
@@ -312,11 +343,11 @@ body {
 }
 
 .drink-icon-button-col--drinks {
-  border-right:4px solid rgba(38, 33, 39, 0.8);
+  border-right: 4px solid $shady-gray;
 }
 .drink-icon-button-col--chosen-drinks {
   /* border-left:4px solid rgba(0, 0, 0, 0.41); */
-  border-left:4px solid rgba(38, 33, 39, 0.8);
+  border-left: 4px solid $shady-gray;
 }
 
 .unit-count-wrapper {
@@ -369,8 +400,23 @@ body {
 }
 
 .drink-icon-button-container {
+  animation-name: fadeIn;
+  -webkit-animation-name: fadeIn;
+  animation-duration: 0.15s;
+  -webkit-animation-duration: 0.15;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-timing-function: ease-in-out;
   padding: 1rem;
   text-align: center;
+}
+
+.drink-icon-button-container--disappearing {
+  animation-name: fadeOut;
+  -webkit-animation-name: fadeOut;
+  animation-duration: 0.12s;
+  -webkit-animation-duration: 0.12s;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-timing-function: ease-in-out;
 }
 
 .drink-icon {
@@ -384,7 +430,7 @@ body {
   position: relative;
   // color: #b0aaa3; 
   color: $pale-gray; 
-  background: url("./images/painted_wood_colorized.png"), radial-gradient(#4c3e2d, #342a1f);
+  background: url("./images/painted_wood_colorized.png"), radial-gradient($wood, $darkwood);
   background-blend-mode: soft-light;
   width: 8.4rem;
   margin-left: auto;
@@ -641,24 +687,6 @@ input::-webkit-inner-spin-button {
   text-align: center;
 }
 
-/* EDIT ENTRY FORM ------- */
-
-.edit-entry-form-group {
-  height: 4.2rem;
-}
-
-.edit-entry-field {
-  height: 4.2rem;
-  text-align: center;
-}
-
-#edit-entry-select {
-  border: 1px solid #ccc;
-  border-radius: 0.3rem;
-  width: 36.8rem;
-}
-
-
 
 /* DIARY ----------------- */
 
@@ -679,9 +707,12 @@ input::-webkit-inner-spin-button {
 //   margin-bottom: 2rem;
 // }
 
+.container-diary {
+  position: relative;
+}
+
 .alkkis-table {
   width: 100%;
-  // color: whitesmoke;
 }
 
 .alkkis-table thead, .alkkis-table tbody, .alkkis-table tfoot tr th {
@@ -689,7 +720,7 @@ input::-webkit-inner-spin-button {
 }
 
 .alkkis-table th, .alkkis-table td {
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
 }
 
 
@@ -716,8 +747,6 @@ input::-webkit-inner-spin-button {
   filter: brightness(0.8);
 }
 
-
-
 .navbar {
   border-radius: 0;
 }
@@ -741,3 +770,23 @@ input::-webkit-inner-spin-button {
   width: 100% !important;
 }
 
+/* ANIMATIONS */
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

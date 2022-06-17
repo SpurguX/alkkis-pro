@@ -32,9 +32,9 @@ export default class DiaryTableAllEntries extends Component {
           <td>
             {drink.drinkName} {getVolumeDisplayValue(volume)}
           </td>
-          <td>{alcContent} <span className="font-christmas">%</span></td>
-          <td>{entry.drink_quantity}</td>
-          <td>{units}</td>
+          <td className="text-right">{alcContent} <span className="font-christmas">%</span></td>
+          <td className="text-right">{entry.drink_quantity}</td>
+          <td className="text-right">{units}</td>
           <td>
             <EditEntryBtn entry={entry} />
           </td>
@@ -55,9 +55,9 @@ export default class DiaryTableAllEntries extends Component {
             <tr>
               <th>Päivämäärä</th>
               <th>Juoma</th>
-              <th>Vahvuus</th>
-              <th>Kappalemäärä</th>
-              <th>Annokset</th>
+              <th className="text-right">Vahvuus</th>
+              <th className="text-right">Kpl</th>
+              <th className="text-right">Annokset</th>
             </tr>
           </thead>
           <tbody>{this.renderEntries()}</tbody>
@@ -66,8 +66,8 @@ export default class DiaryTableAllEntries extends Component {
               <th />
               <th />
               <th />
-              <th>Kpl yht.</th>
-              <th>Annokset yht.</th>
+              <th className="text-right">Kpl yht.</th>
+              <th className="text-right">Annokset yht.</th>
               <th />
               <th />
             </tr>
@@ -75,8 +75,8 @@ export default class DiaryTableAllEntries extends Component {
               <td />
               <td />
               <td />
-              <td>{this.calculateTotalQuantity()}</td>
-              <td>{totalUnits}</td>
+              <td className="text-right">{this.calculateTotalQuantity()}</td>
+              <td className="text-right">{totalUnits}</td>
             </tr>
           </tfoot>
         </table>

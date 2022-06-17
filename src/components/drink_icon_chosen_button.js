@@ -5,7 +5,15 @@ import { decreaseQuantity } from '../actions';
 
 class DrinkIconChosenButton extends DrinkIconButtonBase {
     handleClick() {
-        this.props.decreaseQuantity(this.props)
+        if (this.props.quantity === 1) {
+            this.setState({ aboutToDisappear: true });
+            const self = this;
+        setTimeout(() => {
+            self.props.decreaseQuantity(self.props)
+        }, 110);
+        } else {
+            this.props.decreaseQuantity(this.props)
+        }
     }
 }
 

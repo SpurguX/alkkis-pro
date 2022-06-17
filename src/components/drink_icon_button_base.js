@@ -4,6 +4,9 @@ import { getVolumeDisplayValue } from '../utils/functions';
 class DrinkIconButtonBase extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            aboutToDisappear: false
+        }
 
         this.handleClick = this.handleClick.bind(this);
     }
@@ -26,7 +29,7 @@ class DrinkIconButtonBase extends Component {
         const icon = require(`../images/${iconName}`);
   
         return (
-            <div className="drink-icon-button-container" onClick={this.handleClick} >
+            <div className={`drink-icon-button-container ${this.state.aboutToDisappear ? 'drink-icon-button-container--disappearing' : ''}`} onClick={this.handleClick} >
                 <div className="drink-icon-button">
                     <img src={icon} alt="img" className="drink-icon"/>
                     {/* <svg src={icon} alt="img" className="drink-icon"/> */}

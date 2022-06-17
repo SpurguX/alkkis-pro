@@ -12,7 +12,7 @@ class EditEntryBtn extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({  showEditEntryModal, fetchDrinkEntries }, dispatch)
+  return bindActionCreators({ showEditEntryModal, fetchDrinkEntries }, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(EditEntryBtn);

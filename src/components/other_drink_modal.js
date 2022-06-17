@@ -42,14 +42,14 @@ export default class OtherDrinkModal extends Component {
         <div className="container-wooden-borders">
           <div className="btn-group btn-group-lg d-flex" role="group">
             <button
-                  className={`btn btn-blackboard ${this.state.selectedTab !== addDrinkTab && 'btn-blackboard--unselected'}`}
-                  onClick={this.handleAddTabClick}
-                >
-                  Muu juoma - syötä arvot
-                </button>
+              className={`btn btn-blackboard font-xlarge ${this.state.selectedTab !== addDrinkTab && 'btn-blackboard--unselected'}`}
+              onClick={this.handleAddTabClick}
+            >
+              Muu juoma - syötä arvot
+            </button>
             <button
               type="button"
-              className={`btn btn-blackboard ${this.state.selectedTab !== savedDrinksTab && 'btn-blackboard--unselected'}`}
+              className={`btn btn-blackboard font-xlarge ${this.state.selectedTab !== savedDrinksTab && 'btn-blackboard--unselected'}`}
               onClick={this.handleSavedTabClick}
             >
               Tallennetut juomat

@@ -22,7 +22,7 @@ export default class LoginPage extends Component {
                     <div className="login-content">
                         <LoginForm />
                         <div className="login-description text-center font-christmas">
-                            Nyt vasta aletaan ryyppäämään!
+                            Nyt vasta <span className="text-underline">aletaan</span> ryyppäämään!
                         </div>
                     </div>
                 </div>

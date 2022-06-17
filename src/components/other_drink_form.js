@@ -77,6 +77,7 @@ const OtherDrinkForm = (props) => {
   }
 
   const styleBackgroundImage = (slider) => {
+    // Use gradient to fill the left side of the slider track based on the value or the position of the slider thumb.
     slider.current.style.backgroundImage = getLinearGradientCSS(slider.current);
   }
 
@@ -88,7 +89,8 @@ const OtherDrinkForm = (props) => {
       'linear, ',
       'left top, ',
       'right top, ',
-      'color-stop(' + ratio + ', #c48a2b), ',
+      'color-stop('+ 0 + ', #c48a2b), ',
+      'color-stop(' + ratio + ', #f4ad3b), ',
       'color-stop(' + ratio + ', whitesmoke)',
       ')'
     ].join('');
@@ -114,9 +116,6 @@ const OtherDrinkForm = (props) => {
       type: type,
     };
 
-    // TODO FIX POST
-
-    console.log('data :>> ', data);
     const options = {
       method: "POST",
       headers: { "content-type": "application/x-www-form-urlencoded" },
@@ -241,7 +240,7 @@ const OtherDrinkForm = (props) => {
         <label className="control-label font-large">
           Luokitus
         </label>
-        <select class="form-control" id="exampleFormControlSelect1" onInput={handleTypeSelection}>
+        <select className="form-control" id="exampleFormControlSelect1" onInput={handleTypeSelection}>
           <option value={drinkType.MILD}>MIedot</option>
           <option value={drinkType.WINE}>VIINIt</option>
           <option value={drinkType.LIQUEUR}>LIköörIt</option>

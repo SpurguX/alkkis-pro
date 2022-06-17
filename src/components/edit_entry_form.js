@@ -24,13 +24,13 @@ class EditEntryForm extends Component {
       drink_quantity
     } = this.props.entry;
     let drinkDate = new Date(Date.parse(this.props.entry.drink_date));
-    let drinkDateMoment = moment(drinkDate);
+    // let drinkDateMoment = moment(drinkDate);
 
     this.state = {
       drink: drink,
       drink_entry_id: drink_entry_id,
       drink_entry_units: drink_entry_units,
-      drink_date: drinkDateMoment,
+      drink_date: drinkDate,
       drink_quantity: drink_quantity
     };
   }
@@ -115,12 +115,17 @@ class EditEntryForm extends Component {
     this.editEntry();
   }
 
-  editEntry = () => { 
+  editEntry = () => {
+    const data = {
+      ...this.state,
+      drink_date: this.props.drinkDate
+    }
+
     axios({
       method: "post",
       // url: "http://jessetaina.info:8080/edit_entry",
       url: "http://localhost:8080/edit_entry",
-      data: this.state
+      data: data,
     }).then(response => {
       console.log(response);
       this.props.fetchDrinkEntries();
@@ -128,60 +133,72 @@ class EditEntryForm extends Component {
     });
   };
 
+  unitsFormatted = () => this.state.drink_entry_units.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+
   render() {
     this.setInitialOption()
 
     return (
       <form className="form-horizontal">
-        <div className="form-group edit-entry-form-group">
+        <div className="form-group">
           <label className="control-label col-sm-3">Juontipäivä: </label>
-          <div className="col-sm-8">
-            <DrinkDatePicker />
-          </div>
-        </div>
-        <div className="form-group edit-entry-form-group">
-          <label className="control-label col-sm-3">Juoma: </label>
-          <div className="col-sm-8">
-            <select onChange={this.handleSelection} className="edit-entry-field" id="edit-entry-select">
-              {renderDrinksAsOptions(this.props.drinks)}
-              {renderDrinksAsOptions(this.props.savedDrinks)}
-            </select>
-          </div>
-        </div>
-        <div className="form-group edit-entry-form-group">
-          <label className="control-label col-sm-3">Kappalemäärä:</label>
-          <div className="col-sm-2">
-            <input
-              type="number"
-              name="quantity"
-              step={1}
-              max={100}
-              className="form-control input-lg edit-entry-field"
-              value={this.state.drink_quantity}
-              onChange={this.handleQuantityChange}
-            />
-          </div>
-        </div>
-        <div className="form-group edit-entry-form-group">
-          <label className="control-label col-sm-3">Annokset:</label>
-          <div className="col-sm-2">
-            <div className="units-text">{this.state.drink_entry_units.toFixed(1)}</div>
+          <div className="row">
+            <div className="col-lg-6 col-sm-8">
+              <DrinkDatePicker />
+            </div>
           </div>
         </div>
         <div className="form-group">
-          <div className="col-sm-6 col-sm-offset-3">
-            <button className="btn btn-default" onClick={this.handleAdd}>
+          <label className="control-label font-large">Juoma</label>
+          <div className="row">
+            <div className="col-lg-6 col-sm-8">
+              <select
+                onChange={this.handleSelection}
+                className="edit-entry-field"
+              >
+                {renderDrinksAsOptions(this.props.drinks)}
+                {renderDrinksAsOptions(this.props.savedDrinks)}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div className="form-group">
+          <label className="control-label col-sm-3">Kappalemäärä:</label>
+          <div className="row">
+            <div className="col-lg-2 col-sm-4">
+              <input
+                type="number"
+                name="quantity"
+                step={1}
+                max={100}
+                className="form-control input-lg edit-entry-field"
+                value={this.state.drink_quantity}
+                onChange={this.handleQuantityChange}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="form-group">
+          <div className="col font-xlarge">
+            <div className="units-text">Annokset: {this.unitsFormatted()}</div>
+          </div>
+        </div>
+        <div className="form-group mt-4 mb-0">
+          <div className="row no-gutters justify-content-between">
+            <button
+              type="button"
+              className="btn btn-lg btn-wood"
+              onClick={this.props.hideEditEntryModal}
+            >
+              Sulje
+            </button>
+            <button
+              type="button"
+              className="btn btn-lg btn-wood"
+              onClick={this.handleAdd}
+            >
               Vahvista muokkaus
             </button>
-          </div>
-          <div  className="col-sm-2 close-btn-div">
-          <button
-            type="button"
-            className="btn btn-default"
-            onClick={this.props.hideEditEntryModal}
-          >
-            Sulje
-          </button>
           </div>
         </div>
       </form>
