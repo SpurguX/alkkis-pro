@@ -1,9 +1,9 @@
-import { UPDATE_DRINK_LIST, EMPTY_DRINK_LIST, DECREASE_QUANTITY, POPULATE_DRINK_LIST } from '../actions';
+import { INCREASE_QUANTITY, EMPTY_DRINK_LIST, DECREASE_QUANTITY, POPULATE_DRINK_LIST } from '../actions';
 import _ from 'lodash';
 
 export default function (state = {}, action) {
     switch (action.type) {
-        case UPDATE_DRINK_LIST:
+        case INCREASE_QUANTITY:
             let { drinkId } = action.payload;
             if (Object.keys(state).includes(drinkId.toString())) {
                 let modifiedDrinkObject = _.get(state, drinkId);

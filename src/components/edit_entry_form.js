@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
+  addSnackbar,
   hideEditEntryModal,
   fetchDrinks,
   fetchSavedDrinks,
@@ -9,8 +10,7 @@ import {
   updateDrinkDate
 } from "../actions";
 import axios from "axios";
-import moment from "moment";
-import { renderDrinksAsOptions, transformDrinksIntoOptions } from "../utils/functions";
+import { transformDrinksIntoOptions } from "../utils/functions";
 import DrinkDatePicker from "./drink_datepicker";
 import ReactSelect from 'react-select';
 
@@ -83,13 +83,11 @@ class EditEntryForm extends Component {
   };
 
   updateDrinkToState(drinkIdOfSelected) {
-    console.log('updateDrinkToState');
     const allDrinks = {...this.props.drinks, ...this.props.savedDrinks};
     const drink = allDrinks[drinkIdOfSelected] 
+
     this.setState({ drink }, () => {
-      console.log('this.state.drinkOptions :>> ', this.state.drinkOptions);
       const drinkOption = this.state.drinkOptions.find(drinkOption => drinkOption.value === drinkIdOfSelected)
-      console.log('drinkOption :>> ', drinkOption);
       this.setState({
         drink_entry_units: this.countUnitsInEntry(
           this.state.drink.units,
@@ -97,10 +95,8 @@ class EditEntryForm extends Component {
         ),
         selectedDrink: drinkOption,
       })
-    }
-    );
+    });
   }
-
 
   setInitialOption() {
     const { drinkId } = this.state.drink;
@@ -113,22 +109,33 @@ class EditEntryForm extends Component {
     this.editEntry();
   }
 
-  editEntry = () => {
+  editEntry = async () => {
     const data = {
       ...this.state,
       drink_date: this.props.drinkDate
     }
 
-    axios({
-      method: "post",
-      // url: "http://jessetaina.info:8080/edit_entry",
-      url: "http://localhost:8080/edit_entry",
-      data: data,
-    }).then(response => {
-      console.log(response);
+    let resultText = 'Merkintä on päivitetty'
+    try {
+      const response = await axios({
+        method: "post",
+        // url: "http://jessetaina.info:8080/edit_entry",
+        url: "http://localhost:8080/edit_entry",
+        data: data,
+      })
+  
       this.props.fetchDrinkEntries();
       this.props.hideEditEntryModal();
-    });
+      
+      if (!(response.status === 200)) {
+        resultText = 'Merkinnän päivitys epäonnistui'
+      }
+    } catch (error) {
+      console.log('error :>> ', error);
+      resultText = 'Merkinnän päivitys epäonnistui'
+    } finally {
+      this.props.addSnackbar({ text: resultText });
+    }
   };
 
   // TODO Purkkaa - keksi parempi ratkaisu?
@@ -235,7 +242,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
-    { hideEditEntryModal, fetchDrinks, fetchSavedDrinks, updateDrinkDate, fetchDrinkEntries },
+    { addSnackbar, hideEditEntryModal, fetchDrinks, fetchSavedDrinks, updateDrinkDate, fetchDrinkEntries },
     dispatch
   );
 }

@@ -12,6 +12,7 @@ import reducerAddResultModal from './reducer_add_result_modal';
 import reducerEditEntryModal from './reducer_edit_entry_modal';
 import reducerSavedDrinks from './reducer_saved_drinks';
 import reducerDiarySelectedTab from './reducer_diary_selected_tab';
+import reducerSnackbar from './reducer_snackbar';
 
 const rootReducer = combineReducers({
     addResultModal: reducerAddResultModal,
@@ -26,7 +27,8 @@ const rootReducer = combineReducers({
     editEntryModal: reducerEditEntryModal,
     othDrinkModal: reducerOtherDrinkModal,
     savedDrinks: reducerSavedDrinks,
-    unitsInList: reducerUnitsInList, 
+    unitsInList: reducerUnitsInList,
+    snackbars: reducerSnackbar
 });
 
 export default rootReducer;

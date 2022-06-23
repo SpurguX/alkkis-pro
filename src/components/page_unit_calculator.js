@@ -14,6 +14,7 @@ import DrinkListButtons from "./drink_list_buttons";
 import AddResultModal from "./drink_list_add_result_modal";
 import { fetchDrinks } from "../actions";
 import LoggedInContainer from "./logged_in_container";
+import { Snackbar } from "./snackbar";
 
 class UnitCalculator extends Component {
 
@@ -77,6 +78,12 @@ class UnitCalculator extends Component {
       : null
     );
 
+    // const addResultSnackbar = (
+    //   <Snackbar
+    //     text="Juomat on lisätty päiväkirjaan"
+    //   />
+    // )
+
     return (
       <LoggedInContainer>
       <div className="container-unit-calculator">
@@ -115,7 +122,7 @@ class UnitCalculator extends Component {
                 <OtherDrinkButton />
               </div>
               {otherDrinkModal}
-              {addResultModal}
+              {/* {addResultModal} */}
             </div>
           </div>
           <div className="col-xl-6 col-lg-6 col-md-12 drink-icon-button-col--chosen-drinks">
@@ -147,12 +154,15 @@ class UnitCalculator extends Component {
               {/* <div className="col flex-grow-1"> */}
               <DrinkListButtons />
               {/* </div> */}
-              
+              {/* {addResultSnackbar} */}
               
             </div> 
           </div>
         </div>
       </div>
+      {/* <Snackbar 
+        text="Maapähkinät on jees"
+      /> */}
       </LoggedInContainer>
     );
   }
