@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateDrinkList, decreaseQuantity } from '../actions';
+import { increaseQuantity, decreaseQuantity } from '../actions';
 
 class DrinkListItem extends Component {
     constructor(props) {
@@ -12,7 +12,7 @@ class DrinkListItem extends Component {
     }
     
     handlePlusClick() {
-        this.props.updateDrinkList(this.props);
+        this.props.increaseQuantity(this.props);
     }
 
     handleMinusClick() {
@@ -36,7 +36,7 @@ class DrinkListItem extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators( { updateDrinkList, decreaseQuantity } , dispatch);
+    return bindActionCreators( { increaseQuantity, decreaseQuantity } , dispatch);
 
 }
 

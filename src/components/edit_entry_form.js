@@ -10,8 +10,10 @@ import {
 } from "../actions";
 import axios from "axios";
 import moment from "moment";
-import { renderDrinksAsOptions } from "../utils/functions";
+import { renderDrinksAsOptions, transformDrinksIntoOptions } from "../utils/functions";
 import DrinkDatePicker from "./drink_datepicker";
+import ReactSelect from 'react-select';
+
 
 class EditEntryForm extends Component {
   constructor(props) {
@@ -31,14 +33,26 @@ class EditEntryForm extends Component {
       drink_entry_id: drink_entry_id,
       drink_entry_units: drink_entry_units,
       drink_date: drinkDate,
-      drink_quantity: drink_quantity
+      drink_quantity: drink_quantity,
+      drinkOptions: [],
+      selectedDrink: null
     };
   }
 
   componentDidMount() {
-    this.props.fetchDrinks();
-    this.props.fetchSavedDrinks();
-    this.props.updateDrinkDate(this.state.drink_date);
+    Promise.all([
+      this.props.fetchDrinks(),
+      this.props.fetchSavedDrinks()
+    ]).then(async () => {
+      try {
+        const drinkOptions = transformDrinksIntoOptions({...this.props.drinks, ...this.props.savedDrinks})
+        this.setState({...this.state, drinkOptions })
+        await this.props.updateDrinkDate(this.state.drink_date);
+        this.setInitialOption()
+      } catch (error) {
+        console.log(error);
+      }
+    });
   }
 
   countUnitsInEntry = (units, quantity) => units * quantity;
@@ -63,51 +77,35 @@ class EditEntryForm extends Component {
     );
   };
 
-  handleSelection = () => {
-    const { drinks, savedDrinks } = this.props;
-    let drinkIdOfSelected = "";
-    const options = document.getElementsByTagName("option");
-    for (var i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        drinkIdOfSelected = options[i].getAttribute("drink_id");
-        break;
-      }
-    }
-    this.updateDrinkToState(drinks, savedDrinks, drinkIdOfSelected);
+  handleDrinkSelection = (option) => {
+    this.updateDrinkToState(option.value);
+    this.styleSingleValuePercentages()
   };
 
-  updateDrinkToState(drinks, savedDrinks, drinkIdOfSelected) {
-    if (Object.keys(drinks).includes(drinkIdOfSelected)) {
-      this.setState({ drink: drinks[drinkIdOfSelected] }, () =>
-        this.setState({
-          drink_entry_units: this.countUnitsInEntry(
-            this.state.drink.units,
-            this.state.drink_quantity
-          )
-        })
-      ); // rumaa toistoa, refaktoroi
-    } else if (Object.keys(savedDrinks).includes(drinkIdOfSelected)) {
-      this.setState({ drink: savedDrinks[drinkIdOfSelected] }, () =>
-        this.setState({
-          drink_entry_units: this.countUnitsInEntry(
-            this.state.drink.units,
-            this.state.drink_quantity
-          )
-        })
-      );
+  updateDrinkToState(drinkIdOfSelected) {
+    console.log('updateDrinkToState');
+    const allDrinks = {...this.props.drinks, ...this.props.savedDrinks};
+    const drink = allDrinks[drinkIdOfSelected] 
+    this.setState({ drink }, () => {
+      console.log('this.state.drinkOptions :>> ', this.state.drinkOptions);
+      const drinkOption = this.state.drinkOptions.find(drinkOption => drinkOption.value === drinkIdOfSelected)
+      console.log('drinkOption :>> ', drinkOption);
+      this.setState({
+        drink_entry_units: this.countUnitsInEntry(
+          this.state.drink.units,
+          this.state.drink_quantity
+        ),
+        selectedDrink: drinkOption,
+      })
     }
+    );
   }
 
+
   setInitialOption() {
-    const options = document.getElementsByTagName("option");
     const { drinkId } = this.state.drink;
-    for (var i = 0; i < options.length; i++) {
-      if (options[i].getAttribute("drink_id") === drinkId.toString()) {
-        let el = document.querySelector(`option[drink_id='${drinkId}']`)
-        el.setAttribute("selected", true)
-        break;
-      }
-    }
+    this.updateDrinkToState(drinkId)
+    this.styleSingleValuePercentages()
   }
 
   handleAdd = (event) => {
@@ -133,37 +131,57 @@ class EditEntryForm extends Component {
     });
   };
 
+  // TODO Purkkaa - keksi parempi ratkaisu?
+  styleSingleValuePercentages = () => {
+    this.stylePercentages('react-select__single-value');
+  }
+
+  styleOptionPercentages = () => {
+    this.stylePercentages('react-select__option');
+  }
+
+  stylePercentages (className) {
+    const elements = document.getElementsByClassName(className);
+
+    setTimeout(() => {
+      for (const el of elements) {
+        if (!el.innerHTML.includes('span')) {
+          el.innerHTML = el.innerHTML.substring(0, el.innerHTML.length - 1) + '<span class="font-christmas">%</span>'
+        }
+      }
+    }, 0)
+  }
+
   unitsFormatted = () => this.state.drink_entry_units.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
   render() {
-    this.setInitialOption()
-
     return (
-      <form className="form-horizontal">
+      <form className="form-horizontal px-3 py-3">
         <div className="form-group">
-          <label className="control-label col-sm-3">Juontipäivä: </label>
+          <label className="control-label font-large chalk-underline">Juontipäivä: </label>
           <div className="row">
             <div className="col-lg-6 col-sm-8">
-              <DrinkDatePicker />
+              <DrinkDatePicker minimalist />
             </div>
           </div>
         </div>
         <div className="form-group">
-          <label className="control-label font-large">Juoma</label>
+          <label className="control-label font-large chalk-underline">Juoma</label>
           <div className="row">
             <div className="col-lg-6 col-sm-8">
-              <select
-                onChange={this.handleSelection}
-                className="edit-entry-field"
-              >
-                {renderDrinksAsOptions(this.props.drinks)}
-                {renderDrinksAsOptions(this.props.savedDrinks)}
-              </select>
+              <ReactSelect
+                value={this.state.selectedDrink}
+                onChange={this.handleDrinkSelection}
+                onMenuOpen={this.styleOptionPercentages}
+                className="react-select font-large"
+                classNamePrefix="react-select"
+                options={this.state.drinkOptions}
+              />
             </div>
           </div>
         </div>
         <div className="form-group">
-          <label className="control-label col-sm-3">Kappalemäärä:</label>
+          <label className="control-label font-large chalk-underline">Kappalemäärä</label>
           <div className="row">
             <div className="col-lg-2 col-sm-4">
               <input

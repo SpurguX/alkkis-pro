@@ -4,11 +4,13 @@ $wood: #4c3e2d;
 $darkwood: #342a1f;
 $shady-gray: rgba(38, 33, 39, 0.8);
 $shady-gray: #342a1f8b;
+$shadow: rgba(0, 0, 0, 0.5);
 $gray-text: #d8d1c8;
 $pale-gray: #b1aba8;
 $blackboard-gradient: linear-gradient(-10deg, rgb(26, 26, 26), black);
 $golden-beer: #c48a2b;
 $golden-beer-gradient: linear-gradient(-3deg, #c48a2b, #f4ad3b);
+$golden-outline: 2px solid rgba(#c48a2b, 0.8);
 
 /* FONTS */
 
@@ -20,8 +22,8 @@ $golden-beer-gradient: linear-gradient(-3deg, #c48a2b, #f4ad3b);
 
 @font-face {
   font-family: "Christmas";
-  src: local("ChristmasRespiteRegular"),
-    url("./fonts/ChristmasRespiteRegular.ttf") format("truetype");
+  src: local("ChristmasRespite"),
+    url("./fonts/ChristmasRespite.ttf") format("truetype");
 }
 
 $font-small: 0.8rem;
@@ -129,12 +131,31 @@ input:active.focus,
   color: $golden-beer;
 }
 
-.btn-group-lg > .btn.font-large {
+.btn-group-lg>.btn.font-large {
   font-size: $font-large;
 }
 
-.btn-group-lg > .btn.font-xlarge {
+.btn-group-lg>.btn.font-xlarge {
   font-size: $font-xlarge;
+}
+
+.chalk-underline {
+  position: relative;
+}
+
+.chalk-underline:after {
+  content: "";
+  position: absolute;
+  bottom: 0.1rem;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-image: linear-gradient(to right, rgba(whitesmoke, 0.9) 0%, rgba(whitesmoke, 0.8) 40%, rgba(whitesmoke, 0.7) 90%);
+  background-size: 100% 2px;
+  transform: rotate(-0.75deg);
+  border-radius: 4px;
+  box-shadow: 1px 0 1px 0px rgba(whitesmoke, 0.6);
+  border-collapse: separate;
 }
 
 /* GENERAL */
@@ -179,11 +200,9 @@ body {
   min-height: 100%;
   width: 100%;
   opacity: 1;
-  // opacity: 0.9;
 }
 
-.container-bg-img--opaque {
-}
+.container-bg-img--opaque {}
 
 .container-bg-img--opaque:before {
   box-shadow: inset 0px 0px 200px 100px rgba(0, 0, 0, 1);
@@ -211,6 +230,140 @@ body {
   border: 0;
   position: relative;
   background: rgba(whitesmoke, 0.1);
+  color: whitesmoke;
+
+  option {
+    font-family: "Eraser" !important;
+  }
+}
+
+.bg-blackboard select.active.focus,
+.bg-blackboard select.active:focus,
+.bg-blackboard select.focus,
+.bg-blackboard select:active.focus,
+.bg-blackboard select:active:focus,
+.bg-blackboard select:focus {
+  background: rgba(whitesmoke, 0.3);
+  color: whitesmoke;
+}
+
+* {
+  /* -- Firefox */
+  scrollbar-color: $golden-beer $pale-gray;
+  scrollbar-width: thin;
+
+  /* --Webkit browsers */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: $pale-gray;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: $golden-beer;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    // background: rgb(137, 3, 3);
+  }
+}
+
+
+
+.react-select {
+  &__control {
+    border: 0 !important;
+    background: rgba(whitesmoke, 0.1) !important;
+  }
+
+  &__control--is-focused {
+    border: 0 !important;
+    background: rgba(whitesmoke, 0.3) !important;
+    box-shadow: none !important;
+  }
+
+  &__menu {
+    background: $blackboard-gradient !important;
+    border-radius: 4px !important;
+    font-size: $font-regular;
+  }
+
+  &__menu,
+  &__single-value {
+    animation-name: fadeIn  !important;
+    -webkit-animation-name: fadeIn  !important;
+    animation-duration: 0.125s  !important;
+    -webkit-animation-duration: 0.125s  !important;
+    animation-timing-function: linear  !important;
+    -webkit-animation-timing-function: linear !important;
+  }
+
+  &__menu-list {
+    background: rgba(whitesmoke, 0.1) !important;
+    border-radius: 4px !important;
+  }
+
+
+  &__value-container {
+    padding: 4px 10px !important; 
+  }
+
+  &__single-value {
+    color: whitesmoke !important;
+  }
+
+  &__option--is-focused {
+    background: $shady-gray !important;
+  }
+
+  &__option--is-selected {
+    background: $golden-beer-gradient !important;
+  }
+
+  &__indicator-separator {
+    display: none !important;
+  }
+
+  &__indicator {
+    color: whitesmoke !important;
+  }
+
+  &__indicator:hover {
+    opacity: 0.5 !important;
+  }
+
+  &__multi-value {
+    background: $golden-beer-gradient !important;
+
+    &__label {
+      color: whitesmoke !important;
+      font-size: $font-regular !important;
+    }
+
+    &__remove:hover {
+      background: $shady-gray !important;
+      color: inherit !important;
+    }
+  }
+}
+
+.react-select .react-select__control--is-focused {
+  outline: 2px solid rgba(#c48a2b, 0.8) !important;
+}
+
+
+
+.bg-blackboard select.active.focus,
+.bg-blackboard select.active:focus,
+.bg-blackboard select.focus,
+.bg-blackboard select:active.focus,
+.bg-blackboard select:active:focus,
+.bg-blackboard select:focus {
+  background: rgba(whitesmoke, 0.3);
   color: whitesmoke;
 }
 
@@ -242,15 +395,30 @@ body {
   background-blend-mode: soft-light;
   color: $gray-text;
   text-transform: uppercase;
-  // font-weight: 600;
   font-size: $font-xlarge;
   letter-spacing: 1px;
   font-family: "Christmas";
   border: none;
+
+  &--no-shadow {
+    box-shadow: 0;
+  }
+
+  &--compact {
+    padding: 1px 12px;
+  }
+
+  &--delete {
+    background-blend-mode: hard-light;
+  }
 }
 
 .text-underline {
   text-decoration: underline;
+}
+
+.shadow-block {
+  box-shadow: 0.125rem -0.125rem 0.25rem 0.125rem rgba(0, 0, 0, 0.5);
 }
 
 /* LOGIN PAGE */
@@ -303,7 +471,6 @@ body {
   max-width: 600px;
   background: url("./images/painted_wood_colorized.png"),
     radial-gradient(#4c3e2d, #342a1f);
-  // background-color: transparent;
 }
 
 .login-form-wrapper {
@@ -368,7 +535,7 @@ body {
   padding: 0.6rem 1.2rem;
   border-radius: 0.32rem;
   background: url("./images/painted_wood_colorized.png"),
-    radial-gradient(#4c3e2d, #342a1f);
+    radial-gradient($wood, $darkwood);
   background-blend-mode: soft-light;
   box-shadow: 0 0.125rem 0.25rem 0.125rem rgba(0, 0, 0, 0.5);
 }
@@ -385,7 +552,7 @@ body {
   padding: 0.5rem;
   border-radius: 0.2rem;
   background: url("./images/painted_wood_colorized.png"),
-    radial-gradient(#4c3e2d, #342a1f);
+    radial-gradient($wood, $darkwood);
   background-blend-mode: soft-light;
   box-shadow: 0 0.125rem 0.25rem 0.125rem rgba(0, 0, 0, 0.5);
 }
@@ -438,14 +605,12 @@ body {
 .drink-icon {
   height: 2rem;
   margin-bottom: 0.24rem;
-  filter: invert(73%) sepia(4%) saturate(518%) hue-rotate(352deg)
-    brightness(96%) contrast(82%);
+  filter: invert(73%) sepia(4%) saturate(518%) hue-rotate(352deg) brightness(96%) contrast(82%);
   user-select: none;
 }
 
 .drink-icon-button {
   position: relative;
-  // color: #b0aaa3;
   color: $pale-gray;
   background: url("./images/painted_wood_colorized.png"),
     radial-gradient($wood, $darkwood);
@@ -455,14 +620,11 @@ body {
   margin-right: auto;
   padding: 0.8rem 0.4rem;
   font-size: $font-small;
-  // font-size: $font-large;
-  // letter-spacing: 2px;
-  // line-height: 1;
   text-transform: uppercase;
   font-weight: 600;
-  // font-family: "Christmas";
   border-radius: 36px;
-  box-shadow: 0 0.125rem 0.25rem 0.125rem rgba(0, 0, 0, 0.5);
+  // box-shadow: 0 0 0.25rem 0.125rem rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0.2rem 0.2rem $shadow;
 }
 
 .drink-icon-button-volume-text {
@@ -478,7 +640,7 @@ body {
 
 .drink-icon-button:active {
   position: relative;
-  top: 2px;
+  top: -2px;
   left: 1px;
 }
 
@@ -524,7 +686,7 @@ body {
   appearance: none;
   background: transparent;
   cursor: pointer;
-  width: 15rem;
+  width: 100%;
   height: 0.5rem;
   border-radius: 1rem;
 }
@@ -638,8 +800,6 @@ body {
 
 .modal-content {
   max-width: 40rem;
-  // height: 40rem;
-  // background-color: white;
 }
 
 .modal-footer {
@@ -665,35 +825,6 @@ input::-webkit-inner-spin-button {
   // font-size: $font-h3;
   // line-height: 1.3333333;
   // color: #555;
-}
-
-.oth-mod-header {
-  padding: 0;
-}
-
-.alkkis-tab {
-  height: 3.2rem;
-  font-size: $font-large;
-  border-top-left-radius: 0.6rem;
-  border-top-right-radius: 0.6rem;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.alkkis-tab-active {
-  background-color: #bbf3a3;
-}
-
-.alkkis-tab-active:focus {
-  background-color: #bbf3a3;
-}
-
-#saved-drink-info {
-  font-size: $font-xlarge;
-}
-
-#saved-drink-select {
-  height: 20.3rem;
 }
 
 /* ADD RESULT MODAL ------ */
@@ -784,18 +915,19 @@ li {
   border: none;
   text-align: center;
   height: 3rem !important;
-  /*width: 36.8rem !important; */
   font-size: $font-large !important;
   font-family: "Eraser";
   width: 100% !important;
 }
 
-.react-datepicker__input-container > input:focus {
-  outline: red;
-}
 
 .react-datepicker {
-  border: 0;
+  border: 0 !important;
+  box-shadow: 0 0 0.2rem 0.2rem $shadow;
+}
+
+.react-datepicker__input-container > input.react-datepicker--minimalist {
+  background: rgba(whitesmoke, 0.1);
 }
 
 .react-datepicker__month-container {
@@ -807,7 +939,9 @@ li {
 }
 
 .react-datepicker__header {
+  border: 0 !important;
   font-size: $font-xlarge;
+  background: whitesmoke !important;
   letter-spacing: 2px;
   user-select: none;
 }
@@ -875,6 +1009,37 @@ button.react-datepicker__navigation {
   top: 16px !important;
 }
 
+.react-datepicker-popper[data-placement^="top"] .react-datepicker__triangle::before,
+.react-datepicker-popper[data-placement^="top"] .react-datepicker__triangle::after {
+  border-top-color: whitesmoke !important;
+}
+
+/* ALKKIS-SNACKBAR */
+
+.alkkis-snackbar {
+  position: fixed;
+  top: 6rem;
+  right: 1rem;
+  background: url("./images/painted_wood_colorized.png"),
+  radial-gradient($wood, $darkwood);
+  background-blend-mode: soft-light;
+  border-radius: .3rem;
+  box-shadow: 0 0 0.5rem 0.5rem $shadow;
+
+  animation-name: fadeIn, fallingSign !important;
+  -webkit-animation-name: fadeIn, fallingSign !important;
+  animation-duration: 0.3s !important;
+  -webkit-animation-duration: 0.3s !important;
+  animation-timing-function: ease-out !important;
+  -webkit-animation-timing-function: ease-out  !important;
+}
+
+.alkkis-snackbar__text {
+  font-size: $font-xlarge;
+  color: $gray-text;
+  padding: 0.6rem 1.2rem;
+}
+
 /* ANIMATIONS */
 
 @keyframes fadeIn {
@@ -894,5 +1059,17 @@ button.react-datepicker__navigation {
 
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes fallingSign {
+  0% {
+    transform: rotate(180deg);
+    transform-origin: right;
+  }
+
+  100% {
+    transform: rotate(0deg);
+    transform-origin: right;
   }
 }

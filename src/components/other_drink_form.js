@@ -3,18 +3,25 @@ import { useForm } from "react-hook-form";
 import { countUnits, formatJSDate, isEmptyString } from "../utils/functions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { hideOthDrinkModal, updateDrinkList } from "../actions";
+import { hideOthDrinkModal, increaseQuantity } from "../actions";
 import axios from "axios";
 import qs from "qs";
 import { drinkType } from '../utils/constants';
+import ReactSelect from 'react-select';
 
+const typeSelectOptions = [
+  { value: drinkType.MILD, label: 'MIedot' },
+  { value: drinkType.WINE, label: 'VIINIt' },
+  { value: drinkType.LIQUEUR, label: 'LIköörIt' },
+  { value: drinkType.BOOZE, label: 'Väkevät' },
+]
 
 const OtherDrinkForm = (props) => {
   const [drinkName, setDrinkName] = useState('');
   const [volume, setVolume] = useState(0.33);
   const [alcContent, setAlcContent] = useState(4.7);
   const [units, setUnits] = useState(0.0);
-  const [type, setType] = useState(drinkType.MILD);
+  const [type, setType] = useState(typeSelectOptions[0]);
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const volumeSlider = useRef(null);
   const alcContentSlider = useRef(null);
@@ -56,8 +63,8 @@ const OtherDrinkForm = (props) => {
     setAlcContent(event.target.value);
   };
 
-  const handleTypeSelection = event => {
-    setType(event.target.value)
+  const handleTypeSelection = option => {
+    setType(option)
   }
 
   const updateUnits = () => {
@@ -126,7 +133,7 @@ const OtherDrinkForm = (props) => {
 
     axios(options)
       .then(response => {
-        props.updateDrinkList(response.data);
+        props.increaseQuantity(response.data);
       })
       .catch(response => {
         console.log("Error", response.status);
@@ -160,13 +167,13 @@ const OtherDrinkForm = (props) => {
       })}
     >
       <div className="form-group">
-        <label className="control-label font-large">Juoman nimi:</label>
+        <label className="control-label font-large chalk-underline">Juoman nimi</label>
         <div className="row">
-          <div className="col-lg-6 col-sm-8">
+          <div className="col-lg-8 col-sm-10">
             <input
               type="text"
               name="drinkName"
-              className="form-control input-lg"
+              className="form-control input-lg font-large"
               {...register("drinkName", { required: true })}
               value={drinkName}
               onChange={handleDrinkNameChange}
@@ -175,9 +182,9 @@ const OtherDrinkForm = (props) => {
         </div>
       </div>
       <div className="form-group">
-        <label className="control-label font-large">
+        <label className="control-label font-large chalk-underline">
           Tilavuus <span className="font-christmas">(</span>litraa
-          <span className="font-christmas">)</span>:
+          <span className="font-christmas">)</span>
         </label>
         <div className="row">
           <div className="col-lg-2">
@@ -185,7 +192,7 @@ const OtherDrinkForm = (props) => {
               type="number"
               step={0.01}
               name="volume"
-              className="form-control input-lg"
+              className="form-control input-lg font-large"
               {...register("volume", { required: true, min: 0, max: 1 })}
               value={volume}
               onChange={handleVolumeFieldChange}
@@ -206,8 +213,8 @@ const OtherDrinkForm = (props) => {
         </div>
       </div>
       <div className="form-group">
-        <label className="control-label font-large">
-          Vahvuus <span className="font-christmas">(%)</span>:
+        <label className="control-label font-large chalk-underline">
+          Vahvuus <span className="font-christmas">(%)</span>
         </label>
         <div className="row">
           <div className="col-sm-2">
@@ -215,7 +222,7 @@ const OtherDrinkForm = (props) => {
               type="number"
               step={0.1}
               // name="alc-content"
-              className="form-control input-lg"
+              className="form-control input-lg font-large"
               value={alcContent}
               onInput={handleAlcContentFieldChange}
               // {...register("alc-content", { required: true, min: 0, max: 100 })}
@@ -237,22 +244,33 @@ const OtherDrinkForm = (props) => {
       </div>
 
       <div className="form-group">
-        <label className="control-label font-large">
+        <label className="control-label font-large chalk-underline">
           Luokitus
         </label>
-        <select className="form-control" id="exampleFormControlSelect1" onInput={handleTypeSelection}>
+        <div className="row">
+          <div className="col-lg-8">
+            <ReactSelect
+              value={type}
+              onChange={handleTypeSelection}
+              className="react-select font-large"
+              classNamePrefix="react-select"
+              options={typeSelectOptions}
+            />
+          </div>
+        </div>
+        {/* <select className="form-control" id="exampleFormControlSelect1" onInput={handleTypeSelection}>
           <option value={drinkType.MILD}>MIedot</option>
           <option value={drinkType.WINE}>VIINIt</option>
           <option value={drinkType.LIQUEUR}>LIköörIt</option>
           <option value={drinkType.BOOZE}>Väkevät</option>
-        </select>
+        </select> */}
       </div>
 
       {/* { errors } */}
       <div className="form-group mt-4">
         <div className="row">
           <div className="col font-xlarge">
-            <div className="units-text">Annokset: {unitsFormatted()}</div>
+            <label className="units-text chalk-underline">Annokset: {unitsFormatted()}</label>
           </div>
         </div>
       </div>
@@ -282,7 +300,7 @@ const OtherDrinkForm = (props) => {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ hideOthDrinkModal, updateDrinkList }, dispatch);
+  return bindActionCreators({ hideOthDrinkModal, increaseQuantity }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(OtherDrinkForm);

@@ -20,6 +20,19 @@ export function renderDrinksAsOptions(savedDrinks) {
 	return options;
 }
 
+export const transformDrinksIntoOptions = (drinks) => {
+  const options = _.map(drinks, drink => {
+		const { drinkId, drinkName, volume, alcContent } = drink;
+
+		return {
+			value: drinkId,
+			label: `${drinkName} ${getVolumeDisplayValue(volume)} ${alcContent} %`
+		}
+	});
+
+	return options;
+}
+
 export function sortEntriesbyDrinkDate(entries) {
 	let dateSortedEntries = [];
 	Object.keys(entries).forEach((key) => {

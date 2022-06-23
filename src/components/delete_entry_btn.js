@@ -20,7 +20,7 @@ class DeleteEntryBtn extends Component {
 
     render() {
         return (
-            <button className="btn btn-danger" onClick={this.deleteEntry}>Poista</button>
+            <button className="btn btn-wood btn-wood--compact btn-wood--delete" onClick={this.deleteEntry}>&nbsp;Poista&nbsp;</button>
         )
     }
 }

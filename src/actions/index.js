@@ -62,7 +62,7 @@ export function postDrinkListFailure() {
     }
  }
 
-export function updateDrinkList(DrinkObj) {
+export function increaseQuantity(DrinkObj) {
     return {
         type: UPDATE_DRINK_LIST,
         payload: DrinkObj
