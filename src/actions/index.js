@@ -181,9 +181,10 @@ export function hideEditEntryModal() {
     }
 }
 
-export function showDeleteEntryModal() {
+export function showDeleteEntryModal(deleteFunc) {
     return {
-        type: SHOW_DELETE_ENTRY_MODAL
+        type: SHOW_DELETE_ENTRY_MODAL,
+        payload: deleteFunc
     }
 }
 export function hideDeleteEntryModal() {

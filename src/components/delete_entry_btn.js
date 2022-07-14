@@ -3,14 +3,14 @@ import { } from '../actions';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addSnackbar, fetchDrinkEntries } from '../actions';
+import { showDeleteEntryModal, addSnackbar, fetchDrinkEntries } from '../actions';
 
 class DeleteEntryBtn extends Component {
 
     handleClick = (event) => {
       // The user can delete an entry without triggering a confirmation dialog when they do ctrl + click.
       if (!event.ctrlKey) {
-        // TODO shoWEditEntryModal
+        this.props.showDeleteEntryModal(this.deleteEntry.bind(this))
       } else {
         this.deleteEntry()
       }
@@ -46,7 +46,7 @@ class DeleteEntryBtn extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchDrinkEntries, addSnackbar }, dispatch)
+  return bindActionCreators({ showDeleteEntryModal, fetchDrinkEntries, addSnackbar }, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(DeleteEntryBtn);

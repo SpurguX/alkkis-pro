@@ -6,7 +6,6 @@ import { hideDeleteEntryModal } from '../actions';
 
 const modalRoot = document.getElementById("modal-root");
 
-/** The component requires the function deleteEntry to be passed as a prop */
 class DeleteEntryModal extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +19,16 @@ class DeleteEntryModal extends Component {
 
   componentWillUnmount() {
     modalRoot.removeChild(this.el);
+  }
+
+  async deleteEntry() {
+    try {
+      await this.props.deleteFunc()
+    } catch (error) {
+      this.props.addSnackbar({ text: 'Poistaminen epäonnistui' });
+    } finally {
+      this.props.hideDeleteEntryModal()
+    }
   }
 
   render() {
@@ -36,13 +45,13 @@ class DeleteEntryModal extends Component {
               <button
                 type="button"
                 className="btn btn-lg btn-wood"
-                onClick={props.hideDeleteEntryModal}
+                onClick={this.props.hideDeleteEntryModal}
               >
                 Sulje
               </button>
               <button
                 className="btn btn-lg btn-wood"
-                onClick={this.props.deleteEntry}
+                onClick={() => this.deleteEntry()}
               >
                 Poista merkintä
               </button>
@@ -55,9 +64,15 @@ class DeleteEntryModal extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    deleteFunc: state.deleteEntryModal.deleteFunc,
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   return bindActionCreators( { hideDeleteEntryModal }, dispatch);
 
 }
 
-export default connect(null, mapDispatchToProps)(DeleteEntryModal);
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteEntryModal);

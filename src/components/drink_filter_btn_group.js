@@ -20,7 +20,6 @@ class DrinkFilterBtnGroup extends Component {
   }
 
   getButtonClass(types) {
-    console.log("getButtonClass");
     for (const t of types) {
       const idx = _.indexOf(this.props.drinkFilterConditions, t);
       if (idx === -1) return "btn-blackboard--unselected";

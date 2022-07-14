@@ -165,7 +165,9 @@ class EditEntryForm extends Component {
     return (
       <form className="form-horizontal px-3 py-3">
         <div className="form-group">
-          <label className="control-label font-large chalk-underline">Juontipäivä: </label>
+          <label className="control-label font-large chalk-underline">
+            Juontipäivä:{" "}
+          </label>
           <div className="row">
             <div className="col-lg-6 col-sm-8">
               <DrinkDatePicker minimalist />
@@ -173,7 +175,9 @@ class EditEntryForm extends Component {
           </div>
         </div>
         <div className="form-group">
-          <label className="control-label font-large chalk-underline">Juoma</label>
+          <label className="control-label font-large chalk-underline">
+            Juoma
+          </label>
           <div className="row">
             <div className="col-lg-6 col-sm-8">
               <ReactSelect
@@ -188,7 +192,9 @@ class EditEntryForm extends Component {
           </div>
         </div>
         <div className="form-group">
-          <label className="control-label font-large chalk-underline">Kappalemäärä</label>
+          <label className="control-label font-large chalk-underline">
+            Kappalemäärä
+          </label>
           <div className="row">
             <div className="col-lg-2 col-sm-4">
               <input
@@ -204,8 +210,12 @@ class EditEntryForm extends Component {
           </div>
         </div>
         <div className="form-group">
-          <div className="col font-xlarge">
-            <div className="units-text">Annokset: {this.unitsFormatted()}</div>
+          <div className="row">
+            <div className="col font-xlarge">
+              <label className="units-text chalk-underline">
+                Annokset: {this.unitsFormatted()}
+              </label>
+            </div>
           </div>
         </div>
         <div className="form-group mt-4 mb-0">

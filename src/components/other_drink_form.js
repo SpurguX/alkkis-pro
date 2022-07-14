@@ -26,7 +26,6 @@ const OtherDrinkForm = (props) => {
   const volumeSlider = useRef(null);
   const alcContentSlider = useRef(null);
 
-  console.log('errors', errors);
 
   const handleDrinkNameChange = event => {
     setDrinkName(event.target.value);

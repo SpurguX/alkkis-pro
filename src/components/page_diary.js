@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchDrinkEntries } from "../actions";
-import Navbar from "./navbar";
 import DiaryTableAllEntries from "./diary_table_all_entries";
 import DiaryTableWeekView from "./diary_table_week_view";
 import DiaryTableMonthView from "./diary_table_month_view";
 import DiaryTabs from "./diary_tabs";
 import EditEntryModal from "./edit_entry_modal";
+import DeleteEntryModal from "./delete_entry_modal";
 import { diaryTabs } from '../utils/constants';
 import LoggedInContainer from "./logged_in_container";
 
@@ -33,6 +33,9 @@ class Diary extends Component {
     const editEntryModal = this.props.editEntryModal.show ? (
       <EditEntryModal />
     ) : null;
+    const deleteEntryModal = this.props.deleteEntryModal.show ? (
+      <DeleteEntryModal />
+    ) : null;
 
     return (
       <LoggedInContainer>
@@ -54,6 +57,7 @@ class Diary extends Component {
           </div>
         </div>
         {editEntryModal}
+        {deleteEntryModal}
       </LoggedInContainer>
     );
   }
@@ -63,6 +67,7 @@ function mapStateToProps(state) {
   return {
     drinkEntries: state.allDrinkEntries,
     editEntryModal: state.editEntryModal,
+    deleteEntryModal: state.deleteEntryModal,
     selectedTab: state.diarySelectedTab
   };
 }
