@@ -12,6 +12,10 @@ import LoggedInContainer from './components/logged_in_container';
 import LoginPage from './components/page_login';
 import Diary from './components/page_diary';
 import PageUnitCalculator from './components/page_unit_calculator';
+import moment from 'moment';
+import localeFi from './moment-locale-fi' // relevant import
+
+moment.locale('fi')
 
 const reduxStore = applyMiddleware(promise)(createStore);
 

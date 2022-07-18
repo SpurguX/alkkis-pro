@@ -2,8 +2,28 @@ import React, { Component } from "react";
 import _ from "lodash";
 import moment from "moment";
 import { sortEntriesbyDrinkDate, calculateTotalUnits, capitalizeFirstLetter } from '../utils/functions';
+import $ from "jquery"
+
+$.Datatable = require('datatables.net')
 
 export default class DiaryTableMonthView extends Component {
+  constructor(props) {
+    super(props)
+    this.tableRef = React.createRef()
+    this.table = {}
+    this.data = this.getEntryDisplayData()
+  }
+
+  componentDidMount() {
+    this.table = $(this.tableRef.current).DataTable({
+      data: this.data,
+      columns: [
+        { title: "Kuukausi"},
+        { title: "Annokset"},
+      ],
+      destroy: true
+    })
+  }
 
   entriesToMonthlyForm() {
     const entries = sortEntriesbyDrinkDate(this.props.entries);
@@ -15,7 +35,7 @@ export default class DiaryTableMonthView extends Component {
         let dateAsMoment = moment(drinkDate);
         let monthAndYear = dateAsMoment.format("YYYY MMMM");
         if (Object.keys(monthlyRows).includes(monthAndYear)) {
-          monthlyRows[monthAndYear].units +=  entries[index].drink_entry_units;
+          monthlyRows[monthAndYear].units += entries[index].drink_entry_units;
         } else {
           let monthlyRow = {};
           monthlyRow.units = entries[index].drink_entry_units;
@@ -25,6 +45,19 @@ export default class DiaryTableMonthView extends Component {
       }
       return monthlyRows;
     }
+  }
+
+  getEntryDisplayData() {
+    const monthlyRows = this.entriesToMonthlyForm();
+    return _.map(monthlyRows, row => {
+      let { units, monthAndYear } = row;
+      monthAndYear = capitalizeFirstLetter(monthAndYear);
+      units = units.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+      return [
+        monthAndYear,
+        units
+      ]
+    });
   }
 
   renderEntries() {
@@ -45,7 +78,9 @@ export default class DiaryTableMonthView extends Component {
     let totalUnits = calculateTotalUnits(this.props.entries).toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     return (
       <div className="container-wooden-borders">
-        <table className="alkkis-table bg-blackboard">
+        <div className="bg-blackboard">
+        <table className="alkkis-table" ref={this.tableRef}></table>
+        {/* <table className="alkkis-table bg-blackboard">
           <thead>
             <tr>
               <th>Kuukausi</th>
@@ -65,7 +100,8 @@ export default class DiaryTableMonthView extends Component {
               <td>{totalUnits}</td>
             </tr>
           </tfoot>
-        </table>
+        </table> */}
+        </div>
       </div>
     );
   }

@@ -309,7 +309,7 @@ body {
 
 
   &__value-container {
-    padding: 4px 10px !important; 
+    padding: 4px 10px !important;
   }
 
   &__single-value {
@@ -347,6 +347,12 @@ body {
     &__remove:hover {
       background: $shady-gray !important;
       color: inherit !important;
+    }
+  }
+
+  &--compact {
+    .react-select__value-container {
+      padding: 0px 10px !important;
     }
   }
 }
@@ -1075,24 +1081,24 @@ button.react-datepicker__navigation {
 @keyframes fallingSign {
   0% {
     transform: rotate(180deg);
-    transform-origin: right && top;
+    transform-origin: right top;
   }
 
   100% {
     transform: rotate(0deg);
-    transform-origin: right && top;
+    transform-origin: right top;
   }
 }
 
 @keyframes risingSign {
   0% {
     transform: rotate(0deg);
-    transform-origin: right && top;
+    transform-origin: right top;
   }
 
   100% {
     transform: rotate(180deg);
-    transform-origin: right && top;
+    transform-origin: right top;
   }
 }
 
