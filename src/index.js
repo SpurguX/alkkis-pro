@@ -18,9 +18,10 @@ import localeFi from './moment-locale-fi' // relevant import
 moment.locale('fi')
 
 const reduxStore = applyMiddleware(promise)(createStore);
+export const initializedReduxStore = reduxStore(reducers)
 
 ReactDOM.render(
-    <Provider store={reduxStore(reducers)}>
+    <Provider store={initializedReduxStore}>
         <BrowserRouter>
             <Switch>
                 <Route path="/calculator" component={PageUnitCalculator}/>

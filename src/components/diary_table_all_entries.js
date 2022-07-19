@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactDOM from 'react-dom';
 import _ from "lodash";
 import DeleteEntryBtn from "./delete_entry_btn";
 import EditEntryBtn from "./edit_entry_btn";
@@ -10,6 +11,8 @@ import {
 import { getVolumeDisplayValue } from '../utils/functions';
 import $ from "jquery"
 import ReactSelect from 'react-select';
+import { Provider } from 'react-redux';
+import { initializedReduxStore } from '../index'
 
 $.Datatable = require('datatables.net')
 
@@ -33,8 +36,17 @@ export default class DiaryTableAllEntries extends Component {
     }
   }
 
-  // <"pagination-container"pi>
   componentDidMount() {
+    this.initializeDatatable()
+  }
+
+  componentDidUpdate() {
+    // updateDatatable when row is deleted/updated??
+  }
+
+  initializeDatatable () {
+    const self = this;
+
     this.table = $(this.tableRef.current).DataTable({
       data: this.data,
       dom: 'rt<"pagination-container"ip>',
@@ -45,17 +57,20 @@ export default class DiaryTableAllEntries extends Component {
         { title: "Vahvuus", data: 'alcContent'},
         { title: "Kpl", data: 'drinkQuantity'},
         { title: "Annokset", data: 'units'},
-        { title: "", data: 'entry'},
-        { title: "", data: 'drinkEntryId'},
+        { title: "", data: 'entry', searchable: false, },
+        { title: "", data: 'drinkEntryId', searchable: false },
       ],
       language: {
-        info:           "Näytetään rivit _START_ &ndash; _END_ &nbsp;&nbsp; yhteensä _TOTAL_ riviä",
+        info: "Näytetään rivit _START_ &ndash; _END_ &nbsp;&nbsp; yhteensä _TOTAL_ riviä",
         paginate: {
-            previous:   "Edellinen",
-            next:       "Seuraava",
+            previous: "Edellinen",
+            next: "Seuraava",
         },
       },
-      destroy: true // I think some clean up is happening here
+      createdRow: function(row, data, dataIndex) {
+        self.addRowButtons(row, data);
+      },
+      destroy: true // Clean up possibly existing table
     })
 
     // initialize pageInfo
@@ -67,6 +82,23 @@ export default class DiaryTableAllEntries extends Component {
       const pageInfo = this.table.page.info()
       this.setState({ ...this.state, pageInfo })
     });
+  }
+
+  addRowButtons(row, data) {
+    const editEntryBtn = (
+      // Need to provide access to store when injecting the component this way
+      <Provider store={initializedReduxStore}>
+        <EditEntryBtn entry={data.entry} />
+      </Provider>
+    )
+    ReactDOM.render(editEntryBtn, row.cells[5]);
+
+    const deleteEntryBtn = (
+      <Provider store={initializedReduxStore}>
+        <DeleteEntryBtn drink_entry_id={data.entry.drink_entry_id} />
+      </Provider>
+    )
+    ReactDOM.render(deleteEntryBtn, row.cells[6]);
   }
 
   calculateTotalQuantity() {
@@ -93,7 +125,6 @@ export default class DiaryTableAllEntries extends Component {
         alcContent,
         drinkQuantity: entry.drink_quantity,
         units,
-        // entry: entry.drink_entry_id, // hox
         entry: entry,
         drinkEntryId: entry.drink_entry_id
       }
@@ -162,7 +193,7 @@ export default class DiaryTableAllEntries extends Component {
     return (
       <div className="container-wooden-borders">
         <div className="bg-blackboard">
-          <div className="p-2 d-flex flex-row align-items-center">
+          <div className="p-3 d-flex flex-row align-items-center mb-2">
             <label className="control-label font-medium mr-2 mb-0">
               Sivun pituus
             </label>

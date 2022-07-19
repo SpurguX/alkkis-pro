@@ -882,7 +882,7 @@ input::-webkit-inner-spin-button {
 
 .pagination-container {
   text-align: center;
-  padding: 8px;
+  padding: 1rem;
 
   .paginate_button {
     @extend .btn-wood;
@@ -903,7 +903,7 @@ input::-webkit-inner-spin-button {
   }
 
   .dataTables_info {
-    margin: 8px;
+    margin-bottom: 8px;
   }
 }
 
