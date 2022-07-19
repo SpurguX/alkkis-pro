@@ -22,6 +22,7 @@ export default class DiaryTableAllEntries extends Component {
     this.pageSizeOptions = [
       { value: -1, label: 'Kaikki'},
       { value: 10, label: 10 },
+      { value: 25, label: 25 },
       { value: 50, label: 50},
       { value: 100, label: 100}
     ]
@@ -32,10 +33,11 @@ export default class DiaryTableAllEntries extends Component {
     }
   }
 
+  // <"pagination-container"pi>
   componentDidMount() {
     this.table = $(this.tableRef.current).DataTable({
       data: this.data,
-      dom: 'rtpi',
+      dom: 'rt<"pagination-container"ip>',
       serverSide: false,
       columns: [
         { title: "Päivämäärä", data: 'drinkDate' },
@@ -43,9 +45,16 @@ export default class DiaryTableAllEntries extends Component {
         { title: "Vahvuus", data: 'alcContent'},
         { title: "Kpl", data: 'drinkQuantity'},
         { title: "Annokset", data: 'units'},
-        { title: "a", data: 'entry'},
-        { title: "b", data: 'drinkEntryId'},
-    ],
+        { title: "", data: 'entry'},
+        { title: "", data: 'drinkEntryId'},
+      ],
+      language: {
+        info:           "Näytetään rivit _START_ &ndash; _END_ &nbsp;&nbsp; yhteensä _TOTAL_ riviä",
+        paginate: {
+            previous:   "Edellinen",
+            next:       "Seuraava",
+        },
+      },
       destroy: true // I think some clean up is happening here
     })
 
@@ -57,7 +66,7 @@ export default class DiaryTableAllEntries extends Component {
     this.table.on('page.dt',() => {
       const pageInfo = this.table.page.info()
       this.setState({ ...this.state, pageInfo })
-    } );
+    });
   }
 
   calculateTotalQuantity() {
@@ -175,9 +184,9 @@ export default class DiaryTableAllEntries extends Component {
               onChange={(event) => this.handleSearch(event)}
             />
           </div>
-          <div className="p-2 d-flex flex-row align-items-center">
+          {/* <div className="p-2 d-flex flex-row align-items-center">
             Sivu: {this.state.pageInfo?.page + 1}  -  Sivuja yht: {this.state.pageInfo?.pages}
-          </div>
+          </div> */}
           <table className="alkkis-table" ref={this.tableRef}>
             {/* TODO decide whether footer is needed */}
             {/* <tfoot>

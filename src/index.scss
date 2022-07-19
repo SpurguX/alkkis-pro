@@ -877,6 +877,37 @@ input::-webkit-inner-spin-button {
   padding: 0.5rem 1rem;
 }
 
+
+/* DATATABLE -------------- */
+
+.pagination-container {
+  text-align: center;
+  padding: 8px;
+
+  .paginate_button {
+    @extend .btn-wood;
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin: 4px;
+
+    &.disabled {
+      opacity: 0.65;
+    }
+  }
+
+  .paginate_button:hover {
+    text-decoration: none;
+    cursor: pointer;
+    transition: color .15s ease-in-out;
+    color: #212529;
+  }
+
+  .dataTables_info {
+    margin: 8px;
+  }
+}
+
+
 /* NAVBAR ----------------- */
 
 #nav-alkkis {
