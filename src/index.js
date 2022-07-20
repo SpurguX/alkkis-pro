@@ -18,7 +18,7 @@ import localeFi from './moment-locale-fi' // relevant import
 moment.locale('fi')
 
 const reduxStore = applyMiddleware(promise)(createStore);
-export const initializedReduxStore = reduxStore(reducers)
+export const initializedReduxStore = reduxStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 ReactDOM.render(
     <Provider store={initializedReduxStore}>

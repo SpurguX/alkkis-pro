@@ -86,7 +86,7 @@ class SavedDrinks extends Component {
                 value={this.state.selectedDrinks}
                 onChange={this.handleSelection}
                 onMenuOpen={this.styleOptionPercentages}
-                className="react-select font-large"
+                className="react-select react-select--style-percentages font-large"
                 classNamePrefix="react-select"
                 options={this.state.options}
                 placeholder="Valitse juomia"

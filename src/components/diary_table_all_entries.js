@@ -6,7 +6,7 @@ import EditEntryBtn from "./edit_entry_btn";
 import {
   formatJSDate,
   calculateTotalUnits,
-  sortEntriesbyDrinkDate
+  sortEntriesbyDrinkDate,
 } from "../utils/functions";
 import { getVolumeDisplayValue } from '../utils/functions';
 import $ from "jquery"
@@ -24,10 +24,10 @@ export default class DiaryTableAllEntries extends Component {
     this.data = this.getEntryDisplayData()
     this.pageSizeOptions = [
       { value: -1, label: 'Kaikki'},
-      { value: 10, label: 10 },
-      { value: 25, label: 25 },
-      { value: 50, label: 50},
-      { value: 100, label: 100}
+      { value: 10, label: "10" },
+      { value: 25, label: "25" },
+      { value: 50, label: "50" },
+      { value: 100, label: "100" }
     ]
     this.state = {
       pageSize: this.pageSizeOptions[1],
@@ -40,8 +40,31 @@ export default class DiaryTableAllEntries extends Component {
     this.initializeDatatable()
   }
 
-  componentDidUpdate() {
-    // updateDatatable when row is deleted/updated??
+  componentDidUpdate(prevProps) {
+    this.conditionallyRefreshTableWithNewData(prevProps)
+  }
+
+  conditionallyRefreshTableWithNewData(prevProps) {
+    const prevEntries = prevProps.entries
+    const currEntries = this.props.entries
+
+    if (
+      typeof currEntries === 'object' &&
+      typeof prevEntries === 'object' &&
+      (
+        Object.keys(currEntries).length !== Object.keys(prevEntries).length ||
+       !(_.isEqual(currEntries, prevEntries))
+      )
+    ) {
+      this.refreshTableWithNewData()
+    }
+  }
+
+  refreshTableWithNewData() {
+    this.data = this.getEntryDisplayData()
+    this.table.clear()
+    this.table.rows.add(this.data)
+    this.table.draw()
   }
 
   initializeDatatable () {
@@ -111,6 +134,7 @@ export default class DiaryTableAllEntries extends Component {
   }
 
   getEntryDisplayData() {
+    console.log('getEntryDisplayData');
     const dateSortedEntries = sortEntriesbyDrinkDate(this.props.entries);
     return _.map(dateSortedEntries, entry => {
       const { drink } = entry;

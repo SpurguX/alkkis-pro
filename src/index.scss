@@ -533,7 +533,6 @@ body {
 }
 
 .drink-icon-button-col--chosen-drinks {
-  /* border-left:4px solid rgba(0, 0, 0, 0.41); */
   border-left: 4px solid $shady-gray;
 }
 
@@ -568,20 +567,6 @@ body {
   border-radius: 0.32rem;
   background: $blackboard-gradient;
   font-family: "Eraser";
-}
-
-#unit-calculator-controls {
-  padding-top: 1rem;
-  position: relative;
-  z-index: 1;
-  padding: 1rem;
-  padding-bottom: 4rem;
-  margin-bottom: -1rem;
-  background-color: #bbf3a3;
-  width: 100%;
-  border: 0.1rem solid gray;
-  border-radius: 1rem;
-  opacity: 0.94;
 }
 
 .drink-icon-button-grid-container {
@@ -628,8 +613,7 @@ body {
   font-size: $font-small;
   text-transform: uppercase;
   font-weight: 600;
-  border-radius: 36px;
-  // box-shadow: 0 0 0.25rem 0.125rem rgba(0, 0, 0, 0.5);
+  border-radius: 100% / 90%;
   box-shadow: 0 0 0.2rem 0.2rem $shadow;
 }
 
@@ -638,9 +622,7 @@ body {
 }
 
 .drink-icon-button:hover {
-  /* background-color: #D8D8D8; */
   cursor: pointer;
-  /* background: url("./images/painted_wood.png"), radial-gradient(#a08f7c, #725c42, #4c3e2d); */
   filter: brightness(0.8);
 }
 
@@ -652,13 +634,9 @@ body {
 
 .drink-icon-button-badge {
   position: absolute;
-  /* top: 0.4rem; */
-
   font-weight: 400;
   font-size: $font-small;
-  /* background-color: rgba(255, 255, 255, 0.501); */
   background-color: #b0aaa3;
-  /* background: linear-gradient(-110deg, #b3d8a2, rgb(216, 237, 207)); */
   border-radius: 1.6rem;
   padding: 0 0.2rem 0.1rem;
   letter-spacing: -0.02rem;
@@ -668,7 +646,6 @@ body {
 .drink-icon-button-badge--alcohol {
   top: 0.8rem;
   left: 1rem;
-  /* transform: rotate(-6deg); */
 }
 
 .drink-icon-button-badge--volume {
@@ -679,8 +656,8 @@ body {
   display: inline-block;
   min-width: 1.6rem;
   font-size: $font-regular;
-  top: 0.5rem;
-  right: 0.8rem;
+  top: 1rem;
+  right: 1.2rem;
   left: auto;
   color: #342a1f;
 }

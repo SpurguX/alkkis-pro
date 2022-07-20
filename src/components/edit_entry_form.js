@@ -10,10 +10,12 @@ import {
   updateDrinkDate
 } from "../actions";
 import axios from "axios";
-import { transformDrinksIntoOptions } from "../utils/functions";
+import {
+  transformDrinksIntoOptions,
+  recursiveTimeout,
+} from "../utils/functions";
 import DrinkDatePicker from "./drink_datepicker";
 import ReactSelect from 'react-select';
-
 
 class EditEntryForm extends Component {
   constructor(props) {
@@ -138,17 +140,24 @@ class EditEntryForm extends Component {
     }
   };
 
-  // TODO Purkkaa - keksi parempi ratkaisu?
   styleSingleValuePercentages = () => {
-    this.stylePercentages('react-select__single-value');
+    this.stylePercentages('.react-select--style-percentages .react-select__single-value');
   }
 
   styleOptionPercentages = () => {
-    this.stylePercentages('react-select__option');
+    const foundElements = this.stylePercentages('.react-select__option');
+    // XXX Hacky XXX
+    // Elements might not yet be rendered when this function is called so make additional attempts later.
+    if (!foundElements) {
+      recursiveTimeout(this.stylePercentages, ['.react-select__option'], 2)
+    }
   }
 
+  // XXX Hacky XXX
+  // Font Eraser does not contain a glyph % so replace the character with a span using a font that does have the glyph
   stylePercentages (className) {
-    const elements = document.getElementsByClassName(className);
+    const elements = document.querySelectorAll(className)
+    let success = elements.length ? true : false
 
     setTimeout(() => {
       for (const el of elements) {
@@ -157,6 +166,8 @@ class EditEntryForm extends Component {
         }
       }
     }, 0)
+
+    return success
   }
 
   unitsFormatted = () => this.state.drink_entry_units.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
@@ -184,7 +195,7 @@ class EditEntryForm extends Component {
                 value={this.state.selectedDrink}
                 onChange={this.handleDrinkSelection}
                 onMenuOpen={this.styleOptionPercentages}
-                className="react-select font-large"
+                className="react-select react-select--style-percentages font-large"
                 classNamePrefix="react-select"
                 options={this.state.drinkOptions}
               />
