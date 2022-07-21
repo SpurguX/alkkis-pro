@@ -419,6 +419,12 @@ body {
   }
 }
 
+.bg-wood-force {
+  background: url("./images/painted_wood_colorized.png"),
+  radial-gradient($wood, $darkwood) !important;
+  background-blend-mode: soft-light !important;
+}
+
 .text-underline {
   text-decoration: underline;
 }
@@ -429,63 +435,46 @@ body {
 
 /* LOGIN PAGE */
 
-/* #banner {
-  margin: 0 ;
-  height: 4.8rem;
-  background: linear-gradient(-110deg, #7add50f9, #bbf3a3f6);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  resize: vertical;
-}
-
-#banner h1 {
-    text-align: center;
-    font-size: 2.4rem; */
-/* } */
 
 .login-wrapper {
   position: relative;
   height: calc(100% - 4.8rem);
+  max-width: 600px;
 }
 
 .logo--login--wrapper {
   margin: 0 auto;
-  background: rgba(0, 0, 0, 0.3);
 }
 
 .logo--login {
-  object-fit: none;
-  height: auto;
-  filter: invert(95%);
+  background: url("./images/painted_wood_navbar.png"),
+    linear-gradient(#4c3e2d, #342a1f);
+  background-blend-mode: soft-light;
+  font-size: 4.8rem;
+  font-family: "Christmas", sans-serif;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  color: $gray-text;
+  box-shadow: 0 0.125rem 0.25rem 0.125rem rgba(0, 0, 0, 0.5);
 }
-
-/* .logo--login:after {
-  position: absolute;
-  content:"";
-  height:100%;
-  width:100%;
-  top:0;
-  left:0;
-  background: linear-gradient(to bottom, rgba(255,0,0,0) 0%,rgba(255,0,0,0.65) 100%); */
-/* } */
 
 .login-content {
   padding: 3.6rem;
   margin: -0rem auto 0rem;
   border-radius: 4px;
   max-width: 600px;
-  background: url("./images/painted_wood_colorized.png"),
-    radial-gradient(#4c3e2d, #342a1f);
+  border-radius: 8px;
+  // background: url("./images/painted_wood_colorized.png"),
+  //   radial-gradient(#4c3e2d, #342a1f);
+    background: url("./images/painted_wood_navbar.png"),
+    linear-gradient(to top, #4c3e2d, #342a1f);
+  background-blend-mode: soft-light;
+  box-shadow: 0 0.125rem 0.25rem 0.25rem rgba(0, 0, 0, 0.5);
 }
 
 .login-form-wrapper {
   max-width: 500px;
   margin: 0 auto;
-}
-
-.login-form-wrapper .form-group {
-  margin-bottom: 2.4rem;
 }
 
 .login-icon {

@@ -1,23 +1,23 @@
 export default function LoginForm() {
     return (
-        <div className="login-form-wrapper">
-        <form className="form-horizontal" action="/calculator">
-            <div className="form-group">
-                <div>
-                    <input type="text" className="form-control form-control-lg" placeholder="Käyttäjänimi" />
+        <div className="login-form-wrapper container-wooden-borders">
+            <form className="form-horizontal bg-blackboard p-4" action="/calculator">
+                <div className="form-group mb-4">
+                    <div className="">
+                        <input type="text" className="form-control form-control-lg" placeholder="KutsumaNimi" />
+                    </div>
                 </div>
-            </div>
-            <div className="form-group">
-                <div>
-                    <input type="password" className="form-control form-control-lg" placeholder="Salasana" />
+                <div className="form-group mb-4">
+                    <div>
+                        <input type="password" className="form-control form-control-lg" placeholder="TunnussaNa" />
+                    </div>
                 </div>
-            </div>
-            <div className="form-group">
-                <div>
-                <input type="submit" className="btn btn-info btn-block btn-lg" value="SISÄÄN" />
+                <div className="form-group mt-4 mb-0">
+                    <div>
+                        <input type="submit" className="btn btn-block btn-lg btn-wood bg-wood-force" value="KÄY SISÄÄN" />
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
     );
 }
