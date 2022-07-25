@@ -26,6 +26,33 @@ export default class DiaryTableMonthView extends Component {
     this.initializeDatatable()
   }
 
+  componentDidUpdate(prevProps) {
+    this.conditionallyRefreshTableWithNewData(prevProps)
+  }
+
+  conditionallyRefreshTableWithNewData(prevProps) {
+    const prevEntries = prevProps.entries
+    const currEntries = this.props.entries
+
+    if (
+      typeof currEntries === 'object' &&
+      typeof prevEntries === 'object' &&
+      (
+        Object.keys(currEntries).length !== Object.keys(prevEntries).length ||
+       !(_.isEqual(currEntries, prevEntries))
+      )
+    ) {
+      this.refreshTableWithNewData()
+    }
+  }
+
+  refreshTableWithNewData() {
+    this.data = this.formatDataforDatatable()
+    this.table.clear()
+    this.table.rows.add(this.data)
+    this.table.draw()
+  }
+
   formatDataforDatatable() {
     return _.reduce(this.props.entries, (monthlyData, entry) => {
       let drinkDate = new Date(Date.parse(entry.drink_date));
