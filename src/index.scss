@@ -158,6 +158,10 @@ input:active.focus,
   border-collapse: separate;
 }
 
+.text-whitesmoke {
+  color: whitesmoke;
+}
+
 /* GENERAL */
 
 h1,
@@ -497,7 +501,7 @@ body {
 
 .container-unit-calculator {
   position: relative;
-  padding: 0 2.4rem;
+  padding: 0 1rem;
 }
 
 @media (min-width: 960px) {
@@ -514,15 +518,22 @@ body {
 
 .drink-icon-button-grid-wrapper {
   height: 100%;
-  padding: 0 2.4rem;
+  padding: 0;
 }
 
-.drink-icon-button-col--drinks {
-  border-right: 4px solid $shady-gray;
-}
+@media only screen and (min-width: 768px) {
+  .drink-icon-button-grid-wrapper {
+    height: 100%;
+    padding: 0 2.4rem;
+  }
 
-.drink-icon-button-col--chosen-drinks {
-  border-left: 4px solid $shady-gray;
+  .drink-icon-button-col--drinks {
+    border-right: 4px solid $shady-gray;
+  }
+
+  .drink-icon-button-col--chosen-drinks {
+    border-left: 4px solid $shady-gray;
+  }
 }
 
 .unit-count-wrapper {
@@ -535,6 +546,7 @@ body {
 }
 
 .unit-count-header {
+  min-width: 11rem;
   color: whitesmoke;
 }
 
@@ -569,8 +581,20 @@ body {
   -webkit-animation-duration: 0.12s;
   animation-timing-function: linear;
   -webkit-animation-timing-function: linear;
-  padding: 1rem;
+  padding: 0.4rem;
   text-align: center;
+}
+
+@media only screen and (min-width: 960px) {
+  .drink-icon-button-container {
+    padding: 0.6rem;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .drink-icon-button-container {
+    padding: 1rem;
+  }
 }
 
 .drink-icon-button-container--disappearing {
@@ -595,7 +619,7 @@ body {
   background: url("./images/painted_wood_colorized.png"),
     radial-gradient($wood, $darkwood);
   background-blend-mode: soft-light;
-  width: 8.4rem;
+  width: 7.6rem;
   margin-left: auto;
   margin-right: auto;
   padding: 0.8rem 0.4rem;
@@ -604,6 +628,12 @@ body {
   font-weight: 600;
   border-radius: 100% / 90%;
   box-shadow: 0 0 0.2rem 0.2rem $shadow;
+}
+
+@media only screen and (min-width: 960px) {
+  .drink-icon-button {
+    width: 8.4rem;
+  }
 }
 
 .drink-icon-button-volume-text {
@@ -948,8 +978,15 @@ li {
 
 .react-datepicker-wrapper {
   display: block !important;
-  width: 16rem !important;
+  width: 10rem !important;
 }
+
+@media only screen and (min-width: 768px) {
+  .react-datepicker-wrapper {
+    width: 16rem !important;
+  }
+}
+
 
 .react-datepicker__input-container > input {
   background: $blackboard-gradient;

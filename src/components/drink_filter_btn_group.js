@@ -27,6 +27,10 @@ class DrinkFilterBtnGroup extends Component {
     return "";
   }
 
+  getBtnGroupClass () {
+    return this.props.screenSize.smallScreen ? 'btn-group-md' : 'btn-group-lg'
+  }
+
   render() {
     const {
       MILD,
@@ -36,7 +40,7 @@ class DrinkFilterBtnGroup extends Component {
     } = drinkType
 
     return (
-      <div className="btn-group btn-group-lg" role="group">
+      <div className={`btn-group ${this.getBtnGroupClass()}`} role="group">
         <button
           type="button"
           className={`btn btn-blackboard ${this.getButtonClass([MILD])}`}
@@ -57,7 +61,7 @@ class DrinkFilterBtnGroup extends Component {
           className={`btn btn-blackboard ${this.getButtonClass([LIQUEUR, BOOZE])}`}
           onClick={() => this.handleClick([LIQUEUR, BOOZE])}
         >
-          Liköörit ja väkevät
+          { this.props.screenSize.smallScreen ? 'Väkevät' : 'Liköörit ja väkevät'}
         </button>
       </div>
     );
@@ -67,6 +71,7 @@ class DrinkFilterBtnGroup extends Component {
 function mapStateToProps(state) {
   return {
     drinkFilterConditions: state.drinkFilterConditions,
+    screenSize: state.screenSize
   };
 }
 

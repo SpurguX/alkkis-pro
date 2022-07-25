@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import OtherDrinkForm from "./other_drink_form";
 import SavedDrinks from './saved_drinks';
+import { connect } from "react-redux";
 
 const modalRoot = document.getElementById("modal-root");
 const addDrinkTab = 'addDrinkTab';
 const savedDrinksTab = 'savedDrinksTab';
 
-export default class OtherDrinkModal extends Component {
+class OtherDrinkModal extends Component {
   constructor(props) {
     super(props);
     this.el = document.createElement("div");
@@ -36,20 +37,28 @@ export default class OtherDrinkModal extends Component {
     this.setState({selectedTab: savedDrinksTab});
   }
 
+  getBtnGroupClass() {
+    return this.props.screenSize.smallScreen ? 'btn-group-md' : 'btn-group-lg'
+  }
+
+  getButtonFontSize() {
+    return this.props.screenSize.smallScreen ? 'font-large' : 'font-xlarge'
+  }
+
   render() {
     return ReactDOM.createPortal(
       <div className="modal-content bg-transparent">
         <div className="container-wooden-borders">
-          <div className="btn-group btn-group-lg d-flex" role="group">
+          <div className={`btn-group ${this.getBtnGroupClass()} d-flex`} role="group">
             <button
-              className={`btn btn-blackboard font-xlarge ${this.state.selectedTab !== addDrinkTab && 'btn-blackboard--unselected'}`}
+              className={`btn btn-blackboard ${this.getButtonFontSize()} ${this.state.selectedTab !== addDrinkTab && 'btn-blackboard--unselected'}`}
               onClick={this.handleAddTabClick}
             >
               Muu juoma - syötä arvot
             </button>
             <button
               type="button"
-              className={`btn btn-blackboard font-xlarge ${this.state.selectedTab !== savedDrinksTab && 'btn-blackboard--unselected'}`}
+              className={`btn btn-blackboard ${this.getButtonFontSize()} ${this.state.selectedTab !== savedDrinksTab && 'btn-blackboard--unselected'}`}
               onClick={this.handleSavedTabClick}
             >
               Tallennetut juomat
@@ -64,3 +73,12 @@ export default class OtherDrinkModal extends Component {
     );
   }
 }
+
+
+function mapStateToProps(state) {
+  return {
+    screenSize: state.screenSize
+  };
+}
+
+export default connect(mapStateToProps, null)(OtherDrinkModal);

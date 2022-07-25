@@ -29,6 +29,8 @@ export const SELECT_DIARY_TAB = 'SELECT_DIARY_TAB';
 export const ADD_SNACKBAR = 'ADD_SNACKBAR';
 export const REMOVE_SNACKBAR = 'REMOVE_SNACKBAR';
 
+export const SAVE_CURRENT_SCREEN_SIZE = 'SAVE_CURRENT_SCREEN_SIZE'
+
 // CALCULATOR PAGE ---------------------------------------------
 
 export function fetchDrinks() {
@@ -213,5 +215,12 @@ export function removeSnackbar(snackbar) {
     return {
         type: REMOVE_SNACKBAR,
         payload: snackbar
+    }
+}
+
+export function saveCurrentScreenSize(screenSize) {
+    return {
+        type: SAVE_CURRENT_SCREEN_SIZE,
+        payload: screenSize
     }
 }

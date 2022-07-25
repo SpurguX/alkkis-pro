@@ -8,15 +8,15 @@ import reducerDrinkEntries from './reducer_drink_entries';
 import reducerDrinkDate from './reducer_drink_date';
 import reducerDrinkListPostStatus from './reducer_drink_list_post_status';
 import reducerOtherDrinkModal from './reducer_other_drink_modal';
-import reducerAddResultModal from './reducer_add_result_modal';
 import reducerEditEntryModal from './reducer_edit_entry_modal';
 import reducerDeleteEntryModal from './reducer_delete_entry_modal';
 import reducerSavedDrinks from './reducer_saved_drinks';
 import reducerDiarySelectedTab from './reducer_diary_selected_tab';
 import reducerSnackbar from './reducer_snackbar';
+import reducerScreenSize from './reducer_screen_size';
+
 
 const rootReducer = combineReducers({
-    addResultModal: reducerAddResultModal,
     allDrinkEntries: reducerDrinkEntries,
     diarySelectedTab: reducerDiarySelectedTab,
     drinks: reducerDrinks,
@@ -30,7 +30,8 @@ const rootReducer = combineReducers({
     othDrinkModal: reducerOtherDrinkModal,
     savedDrinks: reducerSavedDrinks,
     unitsInList: reducerUnitsInList,
-    snackbars: reducerSnackbar
+    snackbars: reducerSnackbar,
+    screenSize: reducerScreenSize
 });
 
 export default rootReducer;
