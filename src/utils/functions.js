@@ -54,7 +54,9 @@ function compareDrinkDates(a, b) {
 
 export function formatDBDate(date) {
 	let dd = date.substring(8,10);
+	if (dd[0] === '0') dd = dd[1];
 	let mm = date.substring(5,7);
+	if (mm[0] === '0') mm = mm[1];
 	let yyyy = date.substring(0,4);
 	return (`${dd}.${mm}.${yyyy}`);
 }
@@ -119,3 +121,11 @@ const typeSizes = {
     .keys(item)
     .reduce((total, key) => sizeOf(key) + sizeOf(item[key]) + total, 0)
 };
+
+export const formatUnits = (units) => {
+	if (typeof units !== 'number') {
+		throw new Error('Argument "units" is not of type "number"')
+	}
+
+	return units.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+}

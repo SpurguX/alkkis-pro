@@ -874,6 +874,45 @@ input::-webkit-inner-spin-button {
 }
 
 
+
+.dataTables_wrapper {
+
+  /* Sorting arrows */
+  th.sorting {
+    cursor: pointer;
+    position: relative;
+    padding-right: 30px;
+
+    &.sorting_desc:before {
+      border-color: whitesmoke;
+      border-style: solid;
+      border-width: 3px 3px 0 0;
+      content: "";
+      display: block;
+      height: 9px;
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;;
+      width: 9px;
+      transform: rotate(135deg);
+    }
+
+    &.sorting_asc:before {
+      border-color: whitesmoke;
+      border-style: solid;
+      border-width: 3px 3px 0 0;
+      content: "";
+      display: block;
+      height: 9px;
+      position: absolute;
+      top: 1rem;
+      right: 0.75rem;
+      width: 9px;
+      transform: rotate(-45deg);
+    }
+  }
+}
+
 /* NAVBAR ----------------- */
 
 #nav-alkkis {

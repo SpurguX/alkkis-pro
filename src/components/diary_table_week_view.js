@@ -1,10 +1,71 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import moment from "moment";
-import { formatJSDate, calculateTotalUnits, sortEntriesbyDrinkDate } from '../utils/functions';
+import { formatJSDate, formatUnits } from '../utils/functions';
+import { DATATABLE_PAGE_SIZE_OPTIONS } from "../utils/constants";
+import $ from "jquery"
+import { DiaryTableSearch } from "./diary_table_search";
+import { langDatatable } from '../utils/lang';
+
+$.Datatable = require('datatables.net')
 
 export default class DiaryTableWeekView extends Component {
+  constructor(props) {
+    super(props)
+    this.tableRef = React.createRef()
+    this.table = {}
+    this.data = this.formatDataforDatatable()
+    this.state = {
+      pageSize: DATATABLE_PAGE_SIZE_OPTIONS[1],
+      searchQuery: '',
+      pageInfo: {},
+    }
+  }
 
+  componentDidMount() {
+    this.initializeDatatable()
+  }
+
+  formatDataforDatatable() {
+    return _.reduce(this.props.entries, (weeklyData, entry) => {
+      let drinkDate = new Date(Date.parse(entry.drink_date));
+      let dateAsMoment = moment(drinkDate);
+      let weekNumOfDate = dateAsMoment.isoWeek();
+      let yearAndWeek = dateAsMoment.year() + ":" + weekNumOfDate;
+
+      let existingWeek = _.find(weeklyData, (obj) => {
+        return obj.yearAndWeek === yearAndWeek
+      })
+
+      if (existingWeek) {
+        existingWeek.units.value += entry.drink_entry_units
+        existingWeek.units.display = formatUnits(existingWeek.units.value)
+      } else {
+        const [startOfWeek, endOfWeek ] = this.getStartAndEndOfWeekDates(dateAsMoment);
+        const formattedDateRange = `${formatJSDate(startOfWeek)} - ${formatJSDate(endOfWeek)}`;
+
+        weeklyData.push({
+          yearAndWeek,
+          week: {
+            display: weekNumOfDate,
+            value: drinkDate
+          },
+          dateRange: {
+            display: formattedDateRange,
+            value: drinkDate
+          },
+          units: {
+            display: formatUnits(entry.drink_entry_units),
+            value: entry.drink_entry_units
+          }
+        })
+      }
+
+      return weeklyData
+    }, [])
+  }
+
+  
   getStartAndEndOfWeekDates(dateAsMoment) {
     let weekdayOfEntry = dateAsMoment.isoWeekday();
     let startOfWeekDate = _.cloneDeep(dateAsMoment);
@@ -16,77 +77,80 @@ export default class DiaryTableWeekView extends Component {
     return [startOfWeekDate, endOfWeekDate];
   }
 
-  entriesToWeeklyForm() {
-    const entries = sortEntriesbyDrinkDate(this.props.entries);
-    let entry = entries[Object.keys(entries)[0]];
-    let weeklyRows = {};
-    if (entry !== undefined) {
-      for (let index in entries) {
-        let drinkDate = new Date(Date.parse(entries[index].drink_date));
-        let dateAsMoment = moment(drinkDate);
-        let weekOfDate = dateAsMoment.isoWeek();
-        let yearAndWeek = dateAsMoment.year() + ":" + weekOfDate;
-        if (Object.keys(weeklyRows).includes(yearAndWeek)) {
-          weeklyRows[yearAndWeek].units +=  entries[index].drink_entry_units;
-        } else {
-          let weeklyRow = {};
-          weeklyRow.units = entries[index].drink_entry_units;
-          weeklyRow.weekNum = weekOfDate;
-          let startAndEnd = this.getStartAndEndOfWeekDates(dateAsMoment);
-          weeklyRow.startOfWeek = startAndEnd[0];
-          weeklyRow.endOfWeek = startAndEnd[1];
-          weeklyRows[`${yearAndWeek}`] = weeklyRow;
-        }
-      }
-      return weeklyRows;
-    }
-  }
+  initializeDatatable () {
+    this.table = $(this.tableRef.current).DataTable(this.getDatatableConfig())
 
-  renderEntries() {
-    let weeklyRows = this.entriesToWeeklyForm();
-    return _.map(weeklyRows, row => {
-      let { units, weekNum } = row;
-      let { startOfWeek, endOfWeek } = row;
-      return (
-        <tr key={startOfWeek}>
-          <td><span className="badge">{weekNum}</span></td>
-          <td>
-          {formatJSDate(startOfWeek)} - {formatJSDate(endOfWeek)}
-          </td>
-          <td>{units.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
-        </tr>
-      );
+    // initialize pageInfo
+    const pageInfo = this.table.page.info()
+    this.setState({ ...this.state, pageInfo })
+
+    // add event listener
+    this.table.on('page.dt',() => {
+      const pageInfo = this.table.page.info()
+      this.setState({ ...this.state, pageInfo })
     });
   }
 
+  getDatatableConfig () {
+    const columns = this.getColumnsDefinition()
+
+    return {
+      data: this.data,
+      dom: 'rt<"pagination-container"ip>',
+      serverSide: false,
+      columns,
+      order: [1, 'desc'], // initial order
+      language: langDatatable,
+      destroy: true // Clean up possibly existing table
+    }
+  }
+
+  getColumnsDefinition () {
+    return [
+      {
+        title: 'Viikko',
+        data: 'week',
+        type: 'date',
+        render: { _: 'display', sort: 'value' },
+      },
+      {
+        title: 'Päivämäärät',
+        data: 'dateRange',
+        type: 'date',
+        render: { _: 'display', sort: 'value' },
+      },
+      { title: 'Annokset',
+        data: 'units',
+        type: 'numeric',
+        render: { _: 'display', sort: 'value' },
+      },
+    ];
+  }
+
+  handlePageSizeSelection(item) {
+    this.setState({ ...this.state, pageSize: item })
+    this.table.page.len(item.value).draw()
+  }
+
+  handleSearch(event) {
+    const query = event.target.value
+    this.setState({ ...this.state, searchQuery: query })
+    this.table.search(query).draw()
+  }
+
   render() {
-    let totalUnits = calculateTotalUnits(this.props.entries).toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     return (
       <div className="container-wooden-borders">
-        <table className="alkkis-table bg-blackboard">
-          <thead className="">
-            <tr>
-              <th>Viikko</th>
-              <th>Päivämäärä</th>
-              <th>Annokset</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderEntries()}
-          </tbody> 
-          <tfoot>
-            <tr>
-              <th />
-              <th />
-              <th>Annokset yht.</th>
-            </tr>
-            <tr>
-              <td />
-              <td />
-              <td>{totalUnits}</td>
-            </tr>
-          </tfoot>
-        </table>
+        <div className="bg-blackboard">
+          <DiaryTableSearch
+            pageSize={this.state.pageSize}
+            searchQuery={this.state.searchQuery}
+            handlePageSizeSelection={this.handlePageSizeSelection.bind(this)}
+            handleSearch={this.handleSearch.bind(this)}
+          />
+          <table className="alkkis-table" ref={this.tableRef}>
+          </table>
+        </div>
       </div>
     );
   }
