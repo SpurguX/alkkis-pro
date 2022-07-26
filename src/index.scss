@@ -276,6 +276,9 @@ body {
   }
 }
 
+.force-width-100 {
+  width: 100% !important;
+}
 
 
 .react-select {
@@ -870,7 +873,21 @@ input::-webkit-inner-spin-button {
 
 .alkkis-table th,
 .alkkis-table td {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
+
+  &:first-child {
+    padding-left: 1rem;
+  }
+  &:last-child {
+    padding-right: 1rem;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .alkkis-table th,
+  .alkkis-table td {
+    padding: 0.5rem 1rem;
+  }
 }
 
 

@@ -6,12 +6,15 @@ import { diaryTabs } from '../utils/constants';
 import { styleTabIfActive } from '../utils/functions';
 
 class DiaryTabs extends Component {
+  getBtnGroupClass () {
+    return this.props.screenSize.smallScreen ? 'btn-group-md' : 'btn-group-lg'
+  }
 
   render() {
     const { selectedTab } = this.props;
     return (
       <div className="container-wooden-borders">
-        <div className="btn-group btn-group-lg d-flex" role="group">
+        <div className={`btn-group ${this.getBtnGroupClass()} d-flex`} role="group">
           <button
             className={`btn btn-blackboard ${selectedTab !== diaryTabs.ALL_ENTRIES_TAB && 'btn-blackboard--unselected'}`}
             onClick={() => this.props.selectDiaryTab(diaryTabs.ALL_ENTRIES_TAB)}
@@ -38,7 +41,8 @@ class DiaryTabs extends Component {
 
 function mapStateToProps(state) {
   return {
-    selectedTab: state.diarySelectedTab
+    selectedTab: state.diarySelectedTab,
+    screenSize: state.screenSize
   };
 }
 

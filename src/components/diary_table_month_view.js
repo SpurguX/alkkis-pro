@@ -4,7 +4,7 @@ import moment from "moment";
 import { formatUnits } from '../utils/functions';
 import { DATATABLE_PAGE_SIZE_OPTIONS } from "../utils/constants";
 import $ from "jquery"
-import { DiaryTableSearch } from "./diary_table_search";
+import DiaryTableSearch from "./diary_table_search";
 import { langDatatable } from '../utils/lang';
 
 $.Datatable = require('datatables.net')

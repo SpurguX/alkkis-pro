@@ -4,10 +4,23 @@ import moment from "moment";
 import { formatJSDate, formatUnits } from '../utils/functions';
 import { DATATABLE_PAGE_SIZE_OPTIONS } from "../utils/constants";
 import $ from "jquery"
-import { DiaryTableSearch } from "./diary_table_search";
+import DiaryTableSearch from "./diary_table_search";
 import { langDatatable } from '../utils/lang';
 
-$.Datatable = require('datatables.net')
+const DataTable = require('datatables.net');
+require('datatables.net-responsive-dt');
+
+// Add functions to $.fn manually so that responsive datatables does not throw
+// <TypeError: this is undefined>
+// Source: https://datatables.net/forums/discussion/50003/datatables-with-webpack-fn-datatable-undefined
+$.fn.dataTable = DataTable;
+$.fn.dataTableSettings = DataTable.settings;
+$.fn.dataTableExt = DataTable.ext;
+DataTable.$ = $;
+
+$.Datatable = function (opts) {
+  return $(this).dataTable(opts).api()
+}
 
 export default class DiaryTableWeekView extends Component {
   constructor(props) {
@@ -128,7 +141,8 @@ export default class DiaryTableWeekView extends Component {
       columns,
       order: [1, 'desc'], // initial order
       language: langDatatable,
-      destroy: true // Clean up possibly existing table
+      destroy: true, // Clean up possibly existing table
+      responsive: true,
     }
   }
 
@@ -139,17 +153,20 @@ export default class DiaryTableWeekView extends Component {
         data: 'week',
         type: 'date',
         render: { _: 'display', sort: 'value' },
+        responsivePriority: 1,
       },
       {
         title: 'Päivämäärät',
         data: 'dateRange',
         type: 'date',
         render: { _: 'display', sort: 'value' },
+        responsivePriority: 2,
       },
       { title: 'Annokset',
         data: 'units',
         type: 'numeric',
         render: { _: 'display', sort: 'value' },
+        responsivePriority: 1,
       },
     ];
   }

@@ -39,14 +39,23 @@ class DeleteEntryBtn extends Component {
     }
 
     render() {
-        return (
-            <button className="btn btn-wood btn-wood--compact btn-wood--delete" onClick={this.handleClick}>&nbsp;Poista&nbsp;</button>
-        )
+      const btnContent = this.props.screenSize.smallScreen ? <i className="bi bi-trash"></i> : '\u00a0Poista\u00a0'
+
+      return (
+          <button className="btn btn-wood btn-wood--compact btn-wood--delete" onClick={this.handleClick}>{btnContent}</button>
+      )
     }
 }
+
+function mapStateToProps(state) {
+  return {
+      screenSize: state.screenSize
+  };
+}
+
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ showDeleteEntryModal, fetchDrinkEntries, addSnackbar }, dispatch)
 }
 
-export default connect(null, mapDispatchToProps)(DeleteEntryBtn);
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteEntryBtn);

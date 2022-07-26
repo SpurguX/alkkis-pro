@@ -48,12 +48,12 @@ class Diary extends Component {
               </div>
           </div>
           <div className="row pt-4 justify-content-center">
-            <div className="col-sm-1 hidden-xs" />
-            <div className="col-sm-10 col-xs-12">
+            <div className="col-md-1 hidden-sm" />
+            <div className="col-md-10 col-sm-12">
               <DiaryTabs />
               {this.renderDiaryTable()}
             </div>
-            <div className="col-sm-1 hidden-xs" />
+            <div className="col-md-1 hidden-sm" />
           </div>
         </div>
         {editEntryModal}

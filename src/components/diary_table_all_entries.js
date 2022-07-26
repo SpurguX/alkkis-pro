@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
 import _ from "lodash";
 import DeleteEntryBtn from "./delete_entry_btn";
 import EditEntryBtn from "./edit_entry_btn";
@@ -12,13 +13,26 @@ import {
 import { DATATABLE_PAGE_SIZE_OPTIONS } from "../utils/constants";
 import { langDatatable } from '../utils/lang';
 import $ from "jquery"
-import { DiaryTableSearch } from "./diary_table_search";
+import DiaryTableSearch from "./diary_table_search";
 import { Provider } from 'react-redux';
 import { initializedReduxStore } from '../index'
 
-$.Datatable = require('datatables.net')
+const DataTable = require('datatables.net');
+require('datatables.net-responsive-dt');
 
-export default class DiaryTableAllEntries extends Component {
+// Add functions to $.fn manually so that responsive datatables does not throw
+// <TypeError: this is undefined>
+// Source: https://datatables.net/forums/discussion/50003/datatables-with-webpack-fn-datatable-undefined
+$.fn.dataTable = DataTable;
+$.fn.dataTableSettings = DataTable.settings;
+$.fn.dataTableExt = DataTable.ext;
+DataTable.$ = $;
+
+$.Datatable = function (opts) {
+  return $(this).dataTable(opts).api()
+}
+
+class DiaryTableAllEntries extends Component {
   constructor(props) {
     super(props)
     this.tableRef = React.createRef()
@@ -115,7 +129,27 @@ export default class DiaryTableAllEntries extends Component {
       createdRow: function(row, data, dataIndex) {
         self.renderRowButtons(row, data);
       },
-      destroy: true // Clean up possibly existing table
+      destroy: true, // Clean up possibly existing table
+      responsive: {
+        details: {
+          target: 'tr',
+          type: '',
+          renderer: (api, rowIdx, columns) => {
+            let rowData = self.table.row(rowIdx).data()
+
+            let subRowHtml = '<td>'
+            for (const col of columns) {
+              if (col.hidden && col.title) {
+                const colData = rowData[Object.keys(rowData)[col.columnIndex]]
+                const displayValue = colData.display ? colData.display : colData
+                subRowHtml += col.title + ": " + displayValue + "<br>"
+              }
+            }
+            subRowHtml += '</td>'
+            return subRowHtml
+          }
+        }
+      }
     }
   }
 
@@ -126,41 +160,56 @@ export default class DiaryTableAllEntries extends Component {
         data: 'drinkDate',
         type: 'date',
         render: { _: 'display', sort: 'value' },
+        responsivePriority: 1,
       },
-      { title: 'Juoma', data: 'drinkName' },
+      { title: 'Juoma', data: 'drinkName', responsivePriority: 2, className: 'text-nowrap' },
       {
         title: 'Vahvuus',
         data: 'alcContent',
         type: 'numeric',
         render: { _: 'display', sort: 'value' },
+        responsivePriority: 3,
       },
-      { title: 'Kpl', data: 'drinkQuantity', type: 'numeric' },
+      { title: 'Kpl', data: 'drinkQuantity', type: 'numeric', responsivePriority: 4, },
       {
         title: 'Annokset',
         data: 'units',
         type: 'numeric',
         render: { _: 'display', sort: 'value' },
+        responsivePriority: 1,
       },
-      { title: '', data: 'entry', searchable: false, orderable: false },
-      { title: '', data: 'drinkEntryId', searchable: false, orderable: false },
+      { title: '', data: 'entry', searchable: false, orderable: false, responsivePriority: 5, },
+      { title: '', data: 'drinkEntryId', searchable: false, orderable: false, responsivePriority: 6 },
     ];
   }
 
-  renderRowButtons(row, data) {
+  renderRowButtons(row, data, subRowParent = null) {
     const editEntryBtn = (
       // Need to provide access to store when injecting the component this way
       <Provider store={initializedReduxStore}>
         <EditEntryBtn entry={data.entry} />
       </Provider>
     )
-    ReactDOM.render(editEntryBtn, row.cells[5]);
 
     const deleteEntryBtn = (
       <Provider store={initializedReduxStore}>
         <DeleteEntryBtn drink_entry_id={data.entry.drink_entry_id} />
       </Provider>
     )
-    ReactDOM.render(deleteEntryBtn, row.cells[6]);
+
+    if (subRowParent) {
+      var buttonsTd = subRowParent.appendChild(document.createElement('td'))
+      buttonsTd.classList.add('d-flex', 'flex-row')
+      var btnDiv = buttonsTd.appendChild(document.createElement('div'))
+      btnDiv.classList.add('mr-3')
+      var btnDiv2 = buttonsTd.appendChild(document.createElement('div'))
+    }
+
+    const editEntryBtnParentEl = subRowParent ? btnDiv : row.cells[5]
+    ReactDOM.render(editEntryBtn, editEntryBtnParentEl);
+
+    const deleteEntryBtnParentEl = subRowParent ? btnDiv2 : row.cells[6]
+    ReactDOM.render(deleteEntryBtn, deleteEntryBtnParentEl);
   }
 
   addDatatableEventListeners() {
@@ -173,6 +222,15 @@ export default class DiaryTableAllEntries extends Component {
 
     this.table.on('search.dt', function (e) {
       self.updateFooterData()
+    })
+
+    this.table.on('responsive-display', function (e, datatable, row, isVisible) {
+      if (isVisible) {
+        const automaticallyGeneratedSubRow = row.child()[0]
+        const automaticallyGeneratedTd = automaticallyGeneratedSubRow.firstChild
+        automaticallyGeneratedTd.setAttribute("colspan", 1); // fixes autogenerated big colspan
+        self.renderRowButtons(null, row.data(), automaticallyGeneratedSubRow)
+      }
     })
   }
 
@@ -208,7 +266,12 @@ export default class DiaryTableAllEntries extends Component {
   createFooterHeadingRow () {
     const trHeadings = document.createElement('tr')
 
-    for (let i=0; i < 3; i++) trHeadings.appendChild(document.createElement('th'));
+    // <th></th> elements are created (somewhat) responsively based on the number of hidden columns
+    // Correct number of <th>s is needed to position footer data and borders correctly
+    const hiddenColsNum = document.getElementsByTagName('thead')[0].getElementsByClassName('dtr-hidden').length
+    const hiddenColsModifier = hiddenColsNum > 1 ? hiddenColsNum - 2 : 0
+
+    for (let i=0; i < (3 - hiddenColsModifier); i++) trHeadings.appendChild(document.createElement('th'));
 
     const thCount = document.createElement('th')
     thCount.innerText = 'Kpl yht.'
@@ -218,7 +281,7 @@ export default class DiaryTableAllEntries extends Component {
     thUnits.innerText = 'Annokset yht.'
     trHeadings.appendChild(thUnits)
 
-    for (let i=0; i < 2; i++) trHeadings.appendChild(document.createElement('th'));
+    for (let i=0; i < (2 - hiddenColsNum); i++) trHeadings.appendChild(document.createElement('th'));
 
     return trHeadings
   }
@@ -226,7 +289,9 @@ export default class DiaryTableAllEntries extends Component {
   createFooterDataRow () {
     const trData = document.createElement('tr')
 
-    for (let i=0; i < 3; i++) trData.appendChild(document.createElement('td'));
+    const hiddenColsNum = document.getElementsByTagName('thead')[0].getElementsByClassName('dtr-hidden').length
+    const hiddenColsModifier = hiddenColsNum > 1 ? hiddenColsNum - 2 : 0
+    for (let i=0; i < (3 - hiddenColsModifier); i++) trData.appendChild(document.createElement('td'));
 
     const tdCount = document.createElement('td')
     tdCount.setAttribute('id', 'total-quantity')
@@ -277,10 +342,19 @@ export default class DiaryTableAllEntries extends Component {
             handlePageSizeSelection={this.handlePageSizeSelection.bind(this)}
             handleSearch={this.handleSearch.bind(this)}
           />
-          <table className="alkkis-table" ref={this.tableRef}>
+          <table className="alkkis-table force-width-100" ref={this.tableRef}>
           </table>
         </div>
       </div>
     );
   }
 }
+
+
+function mapStateToProps(state) {
+  return {
+    screenSize: state.screenSize
+  };
+}
+
+export default connect(mapStateToProps, null)(DiaryTableAllEntries);
