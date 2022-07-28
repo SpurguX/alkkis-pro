@@ -1,4 +1,7 @@
 import axios from 'axios';
+import axiosApi from '../network/axiosApi';
+
+export const SET_AUTH_TOKEN = 'SET_AUTH_TOKEN';
 
 export const FETCH_DRINKS = 'FETCH_DRINKS';
 export const UPDATE_DRINK_FILTER_CONDITIONS = 'UPDATE_DRINK_FILTER_CONDITIONS';
@@ -31,11 +34,47 @@ export const REMOVE_SNACKBAR = 'REMOVE_SNACKBAR';
 
 export const SAVE_CURRENT_SCREEN_SIZE = 'SAVE_CURRENT_SCREEN_SIZE'
 
+// AUTH --------------------------------------------------------
+
+export async function login(credentials) {
+  const options = {
+    method: 'POST',
+    data: credentials,
+    url: 'authenticate',
+  };
+
+  let authToken = '';
+
+  let error;
+  try {
+    const response = await axiosApi.request(options);
+    authToken = response.data.token;
+  } catch (e) {
+    error = e
+  }
+
+  return {
+    type: SET_AUTH_TOKEN,
+    payload: authToken,
+    error,
+  };
+}
+
+export async function logout() {
+        // navigate to login page
+
+    return {
+        type: SET_AUTH_TOKEN,
+        payload: ''
+    }
+}
+
+
+
 // CALCULATOR PAGE ---------------------------------------------
 
 export function fetchDrinks() {
-    // const drinksPromise = axios.get("http://jessetaina.info:8080/all_default_drinks");
-    const drinksPromise = axios.get("http://localhost:8080/all_default_drinks");
+    const drinksPromise = axiosApi.get("all_default_drinks");
 
     return {
         type: FETCH_DRINKS,
@@ -137,8 +176,7 @@ export function hideOthDrinkModal() {
 }
 
 export function fetchSavedDrinks() {
-    // let savedDrinksPromise = axios.get("http://jessetaina.info:8080/all_saved_drinks")
-    let savedDrinksPromise = axios.get("http://localhost:8080/all_saved_drinks")
+    let savedDrinksPromise = axiosApi.get("all_saved_drinks")
 
     return {
         type: FETCH_SAVED_DRINKS,
@@ -161,8 +199,7 @@ export function hideAddResultModal() {
 // DIARY PAGE ----------------------------------------
 
 export function fetchDrinkEntries() {
-    // const drinkEntriesPromise = axios.get("http://jessetaina.info:8080/all_entries")
-    const drinkEntriesPromise = axios.get("http://localhost:8080/all_entries")
+    const drinkEntriesPromise = axiosApi.get("all_entries")
     
     return {
         type: FETCH_DRINK_ENTRIES,

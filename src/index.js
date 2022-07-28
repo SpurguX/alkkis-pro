@@ -12,7 +12,9 @@ import Diary from './components/page_diary';
 import PageUnitCalculator from './components/page_unit_calculator';
 import moment from 'moment';
 import localeFi from './moment-locale-fi' // relevant import
+import AxiosSetupInterceptors from './network/axiosSetupInterceptors'
 import ScreenSizeObserver from './components/screen_size_observer'
+import SnackbarRenderer from './components/snackbar_renderer'
 
 moment.locale('fi')
 
@@ -28,7 +30,9 @@ ReactDOM.render(
                 <Route path="/" component={LoginPage}/>
             </Switch>
         </BrowserRouter>
+        <AxiosSetupInterceptors />
         <ScreenSizeObserver />
+        <SnackbarRenderer />
     </Provider>,
     document.getElementById('root')
 );

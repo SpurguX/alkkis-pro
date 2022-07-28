@@ -1,17 +1,7 @@
 import React, { Component } from 'react';
-import logo from '../images/logo.png';
-import LoginForm from './login_form'
+import LoginForm from './login_form';
 
 export default class LoginPage extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            unameInput: '',
-            pwdInput: ''
-        }
-    }
-
     render() {
         return (
             <div id="main" className="container-fluid container-bg-img px-0">

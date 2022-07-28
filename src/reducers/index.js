@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import reducerAuthentication from './reducer_authentication';
 import reducerDrinks from './reducer_drinks';
 import reducerDrinkFilterConditions from './reducer_drink_filter_conditions';
 import reducerDrinkList from './reducer_drink_list';
@@ -18,20 +19,21 @@ import reducerScreenSize from './reducer_screen_size';
 
 const rootReducer = combineReducers({
     allDrinkEntries: reducerDrinkEntries,
+    authentication: reducerAuthentication,
+    deleteEntryModal: reducerDeleteEntryModal,
     diarySelectedTab: reducerDiarySelectedTab,
-    drinks: reducerDrinks,
-    drinkFilterConditions: reducerDrinkFilterConditions,
     drinkDate: reducerDrinkDate,
+    drinkFilterConditions: reducerDrinkFilterConditions,
     drinkList: reducerDrinkList,
     drinkListBu: reducerDrinkListBu,
     drinkListPostStatus: reducerDrinkListPostStatus,
+    drinks: reducerDrinks,
     editEntryModal: reducerEditEntryModal,
-    deleteEntryModal: reducerDeleteEntryModal,
     othDrinkModal: reducerOtherDrinkModal,
     savedDrinks: reducerSavedDrinks,
-    unitsInList: reducerUnitsInList,
+    screenSize: reducerScreenSize,
     snackbars: reducerSnackbar,
-    screenSize: reducerScreenSize
+    unitsInList: reducerUnitsInList,
 });
 
 export default rootReducer;

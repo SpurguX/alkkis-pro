@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Navbar from './navbar';
 import { useSelector, useDispatch } from 'react-redux'
 import { Snackbar } from './snackbar';
-import * as _ from 'lodash';
+import _ from 'lodash';
 
 const LoggedInContainer = (props) => {
     const snackbars = useSelector((state) => state.snackbars)
