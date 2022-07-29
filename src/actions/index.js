@@ -2,6 +2,7 @@ import axios from 'axios';
 import axiosApi from '../network/axiosApi';
 
 export const SET_AUTH_TOKEN = 'SET_AUTH_TOKEN';
+export const CLEAR_AUTH_TOKEN = 'CLEAR_AUTH_TOKEN';
 
 export const FETCH_DRINKS = 'FETCH_DRINKS';
 export const UPDATE_DRINK_FILTER_CONDITIONS = 'UPDATE_DRINK_FILTER_CONDITIONS';
@@ -60,12 +61,9 @@ export async function login(credentials) {
   };
 }
 
-export async function logout() {
-        // navigate to login page
-
+export async function clearAuthToken() {
     return {
-        type: SET_AUTH_TOKEN,
-        payload: ''
+        type: CLEAR_AUTH_TOKEN,
     }
 }
 

@@ -1,6 +1,6 @@
 'Use strict';
 
-import { SET_AUTH_TOKEN } from '../actions';
+import { SET_AUTH_TOKEN, CLEAR_AUTH_TOKEN } from '../actions';
 import _ from 'lodash';
 
 export default function (state = {
@@ -12,6 +12,9 @@ export default function (state = {
       const token = action.payload
       localStorage.setItem('token', token)
       return { token: token };
+    case CLEAR_AUTH_TOKEN:
+      localStorage.removeItem('token')
+      return { token: '' }
     default:
       return state;
   }

@@ -29,8 +29,8 @@ ReactDOM.render(
                 <Route path="/diary" component={Diary}/>
                 <Route path="/" component={LoginPage}/>
             </Switch>
+            <AxiosSetupInterceptors />
         </BrowserRouter>
-        <AxiosSetupInterceptors />
         <ScreenSizeObserver />
         <SnackbarRenderer />
     </Provider>,
