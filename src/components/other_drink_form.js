@@ -4,7 +4,7 @@ import { countUnits, formatJSDate, isEmptyString } from "../utils/functions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { hideOthDrinkModal, increaseQuantity } from "../actions";
-import axios from "axios";
+import axiosApi from '../network/axiosApi';
 import qs from "qs";
 import { drinkType } from '../utils/constants';
 import ReactSelect from 'react-select';
@@ -119,18 +119,17 @@ const OtherDrinkForm = (props) => {
       volume: volume,
       alcContent: alcContent,
       units: units,
-      type: type,
+      type: type.value,
     };
 
     const options = {
       method: "POST",
       headers: { "content-type": "application/x-www-form-urlencoded" },
       data: qs.stringify(data),
-      // url: "http://jessetaina.info:8080/save_other_drink"
-      url: "http://localhost:8080/save_other_drink"
+      url: "save_other_drink"
     };
 
-    axios(options)
+    axiosApi.request(options)
       .then(response => {
         props.increaseQuantity(response.data);
       })

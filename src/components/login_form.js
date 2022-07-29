@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux'
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { login, addSnackbar } from '../actions';
+import { ROUTE_CALCULATOR } from '../utils/paths';
 
 export default function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const location = useLocation();
-  const navigate = useHistory()
+  const history = useHistory()
 
   const handleUsernameChange = event => {
     setUsername(event.target.value)
@@ -21,8 +21,10 @@ export default function LoginForm() {
   const doLogin = async (e) => {
     e.preventDefault();
     const result = await dispatch(login({ username, password}))
-    if (result.payload) {
-      navigate.replace('calculator');
+    const token = result.payload
+
+    if (token) {
+      history.replace(ROUTE_CALCULATOR);
     } else {
       if (result?.error?.response?.status === 403) {
         dispatch(addSnackbar({ text: 'Sinua ei kyllä päästetä sisään!'}))

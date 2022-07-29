@@ -1,4 +1,3 @@
-import axios from 'axios';
 import axiosApi from '../network/axiosApi';
 
 export const SET_AUTH_TOKEN = 'SET_AUTH_TOKEN';
@@ -154,7 +153,6 @@ export function countUnitsInList(units) {
 }
 
 export function updateDrinkDate(date) {
-    console.log('updateDrinkDate, date :>> ', date);
     return {
         type: UPDATE_DRINK_DATE,
         payload: date
@@ -197,7 +195,7 @@ export function hideAddResultModal() {
 // DIARY PAGE ----------------------------------------
 
 export function fetchDrinkEntries() {
-    const drinkEntriesPromise = axiosApi.get("all_entries")
+    const drinkEntriesPromise = axiosApi.get("entry")
     
     return {
         type: FETCH_DRINK_ENTRIES,
@@ -238,7 +236,6 @@ export function selectDiaryTab(selectedTab) {
 }
 
 export function addSnackbar(snackbar) {
-    console.log('addSnackbar, snackbar :>> ', snackbar);
     return {
         type: ADD_SNACKBAR,
         payload: snackbar
@@ -246,7 +243,6 @@ export function addSnackbar(snackbar) {
 }
 
 export function removeSnackbar(snackbar) {
-    console.log('removeSnackbar, snackbar :>> ', snackbar);
     return {
         type: REMOVE_SNACKBAR,
         payload: snackbar

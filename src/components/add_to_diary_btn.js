@@ -2,14 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
-  postDrinkListOk,
-  postDrinkListFailure,
   emptyDrinkList,
-  showAddResultModal,
   addSnackbar,
 } from "../actions";
 import _ from "lodash";
-import axios from "axios";
+import axiosApi from '../network/axiosApi';
 
 class AddToDiaryBtn extends Component {
   async postDrinkList(drinkList, date) {
@@ -25,22 +22,18 @@ class AddToDiaryBtn extends Component {
 
     let resultText = 'Juomat on lisätty päiväkirjaan';
     try {
-      const response = await axios({
+      const response = await axiosApi.request({
         method: "post",
-        // url: "http://jessetaina.info:8080/add_entry", // TODO add domain to env config
-        url: "http://localhost:8080/add_entry",
+        url: "entry",
         data: drinkListArray,
       });
       if (response.status === 200) {
-        this.props.postDrinkListOk();
         this.props.emptyDrinkList();
       } else {
         resultText = 'Juomien lisääminen epäonnistui'
-        this.props.postDrinkListFailure();
       }
     } catch (error) {
         resultText = 'Juomien lisääminen epäonnistui'
-      this.props.postDrinkListFailure();
     } finally {
       this.props.addSnackbar({ text: resultText });
     }
@@ -89,10 +82,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      postDrinkListOk,
-      postDrinkListFailure,
       emptyDrinkList,
-      showAddResultModal,
       addSnackbar,
     },
     dispatch

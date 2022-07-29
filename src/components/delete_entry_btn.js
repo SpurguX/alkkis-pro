@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { } from '../actions';
-import axios from 'axios';
+import axiosApi from '../network/axiosApi';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { showDeleteEntryModal, addSnackbar, fetchDrinkEntries } from '../actions';
@@ -19,14 +19,12 @@ class DeleteEntryBtn extends Component {
     deleteEntry = async () => {
       let resultText = 'Merkintä poistettu'
       try {
-        const response = await axios({
+        const response = await axiosApi.request({
           method: 'delete',
-          // url: `http://jessetaina.info:8080/drinkEntries/${this.props.drink_entry_id}`,
-          url: `http://localhost:8080/drinkEntries/${this.props.drink_entry_id}`,
+          url: `drinkEntries/${this.props.drink_entry_id}`,
         })
 
         if (!(response.status === 204)) {
-          console.log('response.status :>> ', response.status);
           resultText = 'Merkinnän poistaminen epäonnistui'
         }
       } catch (error) {

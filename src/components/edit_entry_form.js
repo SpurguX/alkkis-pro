@@ -9,7 +9,7 @@ import {
   fetchDrinkEntries,
   updateDrinkDate
 } from "../actions";
-import axios from "axios";
+import axiosApi from '../network/axiosApi';
 import {
   transformDrinksIntoOptions,
   recursiveTimeout,
@@ -119,10 +119,9 @@ class EditEntryForm extends Component {
 
     let resultText = 'Merkintä on päivitetty'
     try {
-      const response = await axios({
-        method: "post",
-        // url: "http://jessetaina.info:8080/edit_entry",
-        url: "http://localhost:8080/edit_entry",
+      const response = await axiosApi.request({
+        method: "PUT",
+        url: "edit_entry",
         data: data,
       })
   
