@@ -1,7 +1,11 @@
-import axios from 'axios';
+import axiosApi from '../network/axiosApi';
 
-export const FETCH_DRINKS = 'FETCH_JUOMAT';
-export const UPDATE_DRINK_LIST = 'UPDATE_DRINK_LIST';
+export const SET_AUTH_TOKEN = 'SET_AUTH_TOKEN';
+export const CLEAR_AUTH_TOKEN = 'CLEAR_AUTH_TOKEN';
+
+export const FETCH_DRINKS = 'FETCH_DRINKS';
+export const UPDATE_DRINK_FILTER_CONDITIONS = 'UPDATE_DRINK_FILTER_CONDITIONS';
+export const INCREASE_QUANTITY = 'INCREASE_QUANTITY';
 export const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
 export const EMPTY_DRINK_LIST = 'EMPTY_DRINK_LIST';
 export const POPULATE_DRINK_LIST_BU = 'POPULATE_DRINK_LIST_BU';
@@ -21,18 +25,70 @@ export const FETCH_SAVED_DRINKS = 'FETCH_SAVED_DRINKS';
 export const FETCH_DRINK_ENTRIES = 'FETCH_DRINK_ENTRIES';
 export const SHOW_EDIT_ENTRY_MODAL = 'SHOW_EDIT_ENTRY_MODAL';
 export const HIDE_EDIT_ENTRY_MODAL = 'HIDE_EDIT_ENTRY_MODAL';
+export const SHOW_DELETE_ENTRY_MODAL = 'SHOW_DELETE_ENTRY_MODAL';
+export const HIDE_DELETE_ENTRY_MODAL = 'HIDE_DELETE_ENTRY_MODAL';
 export const SELECT_DIARY_TAB = 'SELECT_DIARY_TAB';
+
+export const ADD_SNACKBAR = 'ADD_SNACKBAR';
+export const REMOVE_SNACKBAR = 'REMOVE_SNACKBAR';
+
+export const SAVE_CURRENT_SCREEN_SIZE = 'SAVE_CURRENT_SCREEN_SIZE';
+
+export const SHOW_CHANGE_PASSWORD_MODAL = 'SHOW_CHANGE_PASSWORD_MODAL';
+export const HIDE_CHANGE_PASSWORD_MODAL = 'HIDE_CHANGE_PASSWORD_MODAL';
+
+// AUTH --------------------------------------------------------
+
+export async function login(credentials) {
+  const options = {
+    method: 'POST',
+    data: credentials,
+    url: 'authenticate',
+  };
+
+  let authToken = '';
+
+  let error;
+  try {
+    const response = await axiosApi.request(options);
+    authToken = response.data.token;
+  } catch (e) {
+    error = e
+  }
+
+  return {
+    type: SET_AUTH_TOKEN,
+    payload: authToken,
+    error,
+  };
+}
+
+export async function clearAuthToken() {
+    return {
+        type: CLEAR_AUTH_TOKEN,
+    }
+}
+
+
 
 // CALCULATOR PAGE ---------------------------------------------
 
 export function fetchDrinks() {
-    const drinksPromise = axios.get("http://jessetaina.info:8080/all_default_drinks");
+    const drinksPromise = axiosApi.get("all_default_drinks");
 
     return {
         type: FETCH_DRINKS,
         payload: drinksPromise
     }
 }
+
+export function updateDrinkFilterConditions(conditions) {
+    return {
+        type: UPDATE_DRINK_FILTER_CONDITIONS,
+        payload: conditions
+     }
+ }
+ 
 
 export function postDrinkListOk() {
    return {
@@ -52,9 +108,9 @@ export function postDrinkListFailure() {
     }
  }
 
-export function updateDrinkList(DrinkObj) {
+export function increaseQuantity(DrinkObj) {
     return {
-        type: UPDATE_DRINK_LIST,
+        type: INCREASE_QUANTITY,
         payload: DrinkObj
     }
 }
@@ -113,13 +169,13 @@ export function showOthDrinkModal() {
 }
 
 export function hideOthDrinkModal() {
-    return{
+    return {
         type: HIDE_OTH_DRINK_MODAL
     }
 }
 
 export function fetchSavedDrinks() {
-    let savedDrinksPromise = axios.get("http://jessetaina.info:8080/all_saved_drinks")
+    let savedDrinksPromise = axiosApi.get("all_saved_drinks")
 
     return {
         type: FETCH_SAVED_DRINKS,
@@ -142,7 +198,7 @@ export function hideAddResultModal() {
 // DIARY PAGE ----------------------------------------
 
 export function fetchDrinkEntries() {
-    const drinkEntriesPromise = axios.get("http://jessetaina.info:8080/all_entries")
+    const drinkEntriesPromise = axiosApi.get("entry")
     
     return {
         type: FETCH_DRINK_ENTRIES,
@@ -163,9 +219,56 @@ export function hideEditEntryModal() {
     }
 }
 
+export function showDeleteEntryModal(deleteFunc) {
+    return {
+        type: SHOW_DELETE_ENTRY_MODAL,
+        payload: deleteFunc
+    }
+}
+export function hideDeleteEntryModal() {
+    return {
+        type: HIDE_DELETE_ENTRY_MODAL
+    }
+}
+
 export function selectDiaryTab(selectedTab) {
     return {
         type: SELECT_DIARY_TAB,
         payload: selectedTab
     }
+}
+
+// GENERAL / MISC ----------------------------------
+
+export function addSnackbar(snackbar) {
+    return {
+        type: ADD_SNACKBAR,
+        payload: snackbar
+    }
+}
+
+export function removeSnackbar(snackbar) {
+    return {
+        type: REMOVE_SNACKBAR,
+        payload: snackbar
+    }
+}
+
+export function saveCurrentScreenSize(screenSize) {
+    return {
+        type: SAVE_CURRENT_SCREEN_SIZE,
+        payload: screenSize
+    }
+}
+
+export function showChangePasswordModal() {
+  return {
+      type: SHOW_CHANGE_PASSWORD_MODAL
+  }
+}
+
+export function hideChangePasswordModal() {
+  return{
+      type: HIDE_CHANGE_PASSWORD_MODAL
+  }
 }

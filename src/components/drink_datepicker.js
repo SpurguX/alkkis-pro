@@ -1,25 +1,44 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { updateDrinkDate } from "../actions";
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../datepicker.css";
-import "moment/locale/fi";
+import fi from "date-fns/locale/fi";
 
-class DrinkDatepicker extends Component {
+registerLocale(fi)
+
+class DrinkDatePicker extends Component {
   handleChange(date) {
     this.props.updateDrinkDate(date);
   }
 
   render() {
-    return (
-      <DatePicker
-        selected={this.props.drinkDate}
-        onChange={date => this.handleChange(date)}
-        locale="fi"
-      />
-    );
+    const { minimalist} = this.props
+    if (minimalist) {
+      return (
+        <DatePicker
+          className='react-datepicker--minimalist'
+          selected={this.props.drinkDate}
+          onChange={date => this.handleChange(date)}
+          dateFormat="d.M.yyyy"
+          locale={fi}
+        />
+      )
+    } else {
+      return (
+        <div className="btn-group ml-2 mr-2 container-wooden-borders" role="group">
+          <div className="pt-2 px-2 btn-wood btn-wood--no-shadow">Juomispäivä</div>
+          <DatePicker
+            selected={this.props.drinkDate}
+            onChange={date => this.handleChange(date)}
+            dateFormat="d.M.yyyy"
+            locale={fi}
+          />
+       </div>
+      )
+    }
   }
 }
 
@@ -33,4 +52,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ updateDrinkDate }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DrinkDatepicker);
+export default connect(mapStateToProps, mapDispatchToProps)(DrinkDatePicker);

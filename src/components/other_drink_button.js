@@ -6,11 +6,14 @@ import { showOthDrinkModal } from '../actions';
 class OtherDrinkButton extends Component {
 
     render() {
+        const icon = require('../images/tall-glass.svg').default
+
         return (
-            <div className="col-sm-3 col-xs-6 juomakuvake-container" onClick={this.props.showOthDrinkModal} >
-                <div className="juomakuvake">
-                    <img src={require('../images/tall-glass.svg')} alt="img" className="drink-icon"/>
-                    <p>Muu Juoma <br />? %</p>
+            <div className="drink-icon-button-container" onClick={this.props.showOthDrinkModal} >
+                <div className="drink-icon-button">
+                    <img src={icon} alt="img" className="drink-icon"/>
+                    <p className="mb-0">Muu Juoma</p>
+                    <p className="mt-0 mb-0">Syötä arvot</p>
                 </div>
             </div>
         )

@@ -2,17 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchDrinkEntries } from "../actions";
-import Navbar from "./navbar";
 import DiaryTableAllEntries from "./diary_table_all_entries";
 import DiaryTableWeekView from "./diary_table_week_view";
 import DiaryTableMonthView from "./diary_table_month_view";
 import DiaryTabs from "./diary_tabs";
 import EditEntryModal from "./edit_entry_modal";
-import {
-  allEntriesTab,
-  weeklyViewTab,
-  monthlyViewTab
-} from "../reducers/reducer_diary_selected_tab";
+import DeleteEntryModal from "./delete_entry_modal";
+import { diaryTabs } from '../utils/constants';
+import LoggedInContainer from "./logged_in_container";
 
 class Diary extends Component {
   componentDidMount() {
@@ -21,11 +18,11 @@ class Diary extends Component {
 
   renderDiaryTable() {
     switch (this.props.selectedTab) {
-      case allEntriesTab:
+      case diaryTabs.ALL_ENTRIES_TAB:
         return <DiaryTableAllEntries entries={this.props.drinkEntries} />;
-      case weeklyViewTab:
+      case diaryTabs.WEEKLY_VIEW_TAB:
         return <DiaryTableWeekView entries={this.props.drinkEntries} />;
-      case monthlyViewTab:
+      case diaryTabs.MONTHLY_VIEW_TAB:
         return <DiaryTableMonthView entries={this.props.drinkEntries} />;
       default:
         return <DiaryTableWeekView entries={this.props.drinkEntries} />;
@@ -36,21 +33,32 @@ class Diary extends Component {
     const editEntryModal = this.props.editEntryModal.show ? (
       <EditEntryModal />
     ) : null;
+    const deleteEntryModal = this.props.deleteEntryModal.show ? (
+      <DeleteEntryModal />
+    ) : null;
 
     return (
-      <div id="main" className="container">
-        <Navbar />
-        <div id="diary-container">
-          <div className="placeh col-sm-1 hidden-xs" />
-          <div className="col-sm-10 col-xs-12">
-            <h2 className="otsikko">Juomapäiväkirja</h2>
-            <DiaryTabs />
-            {this.renderDiaryTable()}
+      <LoggedInContainer>
+        <div className="container container-diary">
+          <div className="row pt-4 justify-content-center">
+            <div className="container-wooden-borders">
+                <div className="header-wrapper">
+                  <h3 className="unit-count-header">Juomapäiväkirja</h3>
+                </div>
+              </div>
           </div>
-          <div className="placeh col-sm-1 hidden-xs" />
+          <div className="row pt-4 justify-content-center">
+            <div className="col-md-1 hidden-sm" />
+            <div className="col-md-10 col-sm-12">
+              <DiaryTabs />
+              {this.renderDiaryTable()}
+            </div>
+            <div className="col-md-1 hidden-sm" />
+          </div>
         </div>
         {editEntryModal}
-      </div>
+        {deleteEntryModal}
+      </LoggedInContainer>
     );
   }
 }
@@ -59,6 +67,7 @@ function mapStateToProps(state) {
   return {
     drinkEntries: state.allDrinkEntries,
     editEntryModal: state.editEntryModal,
+    deleteEntryModal: state.deleteEntryModal,
     selectedTab: state.diarySelectedTab
   };
 }

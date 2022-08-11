@@ -1,0 +1,1231 @@
+/* COLORS */
+
+$wood: #4c3e2d;
+$darkwood: #342a1f;
+$shady-gray: rgba(38, 33, 39, 0.8);
+$shady-gray: #342a1f8b;
+$shadow: rgba(0, 0, 0, 0.5);
+$gray-text: #d8d1c8;
+$pale-gray: #b1aba8;
+$blackboard-gradient: linear-gradient(-10deg, rgb(26, 26, 26), black);
+$golden-beer: #c48a2b;
+$golden-beer-gradient: linear-gradient(-3deg, #c48a2b, #f4ad3b);
+$golden-outline: 2px solid rgba(#c48a2b, 0.8);
+
+/* FONTS */
+
+@font-face {
+  font-family: "Eraser";
+  src: local("EraserDustFin"),
+    url("./fonts/EraserDustFin.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Christmas";
+  src: local("ChristmasRespite"),
+    url("./fonts/ChristmasRespite.ttf") format("truetype");
+}
+
+$font-small: 0.8rem;
+$font-regular: 1rem;
+$font-large: 1.25rem;
+$font-xlarge: 1.5rem;
+$font-h3: 1.75rem;
+$font-h2: 2rem;
+$font-h1: 2.5rem;
+
+.font {
+  &-small {
+    font-size: $font-small;
+  }
+
+  &-regular {
+    font-size: $font-regular;
+  }
+
+  &-large {
+    font-size: $font-large;
+  }
+
+  &-xlarge {
+    font-size: $font-xlarge;
+  }
+
+  &-h3 {
+    font-size: $font-h3;
+  }
+
+  &-h2 {
+    font-size: $font-h2;
+  }
+
+  &-h1 {
+    font-size: $font-h1;
+  }
+}
+
+.font-eraser {
+  text-transform: uppercase;
+  font-family: "Eraser", sans-serif;
+}
+
+.font-christmas {
+  letter-spacing: 2px;
+  font-family: "Christmas", sans-serif;
+}
+
+.font-segoe {
+  letter-spacing: 0px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* BOOTSRAP OVERRIDES */
+
+// Reset
+a.active.focus,
+a.active:focus,
+a.focus,
+a:active.focus,
+a:active:focus,
+a:focus,
+button.active.focus,
+button.active:focus,
+button.focus,
+button:active.focus,
+button:active:focus,
+button:focus,
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn:active:focus,
+.btn:focus,
+input.active.focus,
+// input.active:focus,
+// input.focus,
+input:active.focus,
+// input:active:focus,
+// input:focus
+.form-control.active.focus,
+.form-control.active:focus,
+.form-control.focus,
+.form-control:active.focus,
+.form-control:active:focus,
+.form-control:focus {
+  border: 0;
+  outline: 0;
+  outline-color: transparent;
+  outline-width: 0;
+  outline-style: none;
+  box-shadow: 0 0 0 0px rgba(black, 0.5);
+  // Specify per element if necessary
+  outline: 2px solid rgba(#c48a2b, 0.8);
+  border-radius: 4px;
+}
+
+::-moz-selection {
+  color: $golden-beer;
+}
+
+::selection {
+  color: $golden-beer;
+}
+
+.btn-group-lg>.btn.font-large {
+  font-size: $font-large;
+}
+
+.btn-group-lg>.btn.font-xlarge {
+  font-size: $font-xlarge;
+}
+
+.chalk-underline {
+  position: relative;
+}
+
+.chalk-underline:after {
+  content: "";
+  position: absolute;
+  bottom: 0.1rem;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-image: linear-gradient(to right, rgba(whitesmoke, 0.9) 0%, rgba(whitesmoke, 0.8) 40%, rgba(whitesmoke, 0.7) 90%);
+  background-size: 100% 2px;
+  transform: rotate(-0.75deg);
+  border-radius: 4px;
+  box-shadow: 1px 0 1px 0px rgba(whitesmoke, 0.6);
+  border-collapse: separate;
+}
+
+.text-whitesmoke {
+  color: whitesmoke;
+}
+
+/* GENERAL */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+html {
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  /* min-height: 100vh; */
+}
+
+#root {
+  height: 100%;
+}
+
+.container-bg-img {
+  position: relative;
+  min-height: 100vh;
+}
+
+.container-bg-img:before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  background-image: url("./images/counter_fancy.jpg");
+  background-repeat: repeat;
+  min-height: 100%;
+  width: 100%;
+  opacity: 1;
+}
+
+.container-bg-img--opaque {}
+
+.container-bg-img--opaque:before {
+  box-shadow: inset 0px 0px 200px 100px rgba(0, 0, 0, 1);
+}
+
+.bg-overlay {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0px 24px 100px 50px rgba(0, 0, 0, 1);
+  background-color: rgba($darkwood, 0.15);
+}
+
+.bg-blackboard {
+  background: $blackboard-gradient;
+  text-transform: uppercase;
+  font-family: "Eraser";
+  color: whitesmoke;
+}
+
+.bg-blackboard input {
+  border: 0;
+  position: relative;
+  background: rgba(whitesmoke, 0.1);
+  color: whitesmoke;
+
+  option {
+    font-family: "Eraser" !important;
+  }
+}
+
+.bg-blackboard select.active.focus,
+.bg-blackboard select.active:focus,
+.bg-blackboard select.focus,
+.bg-blackboard select:active.focus,
+.bg-blackboard select:active:focus,
+.bg-blackboard select:focus {
+  background: rgba(whitesmoke, 0.3);
+  color: whitesmoke;
+}
+
+* {
+  /* -- Firefox */
+  scrollbar-color: $golden-beer $pale-gray;
+  scrollbar-width: thin;
+
+  /* --Webkit browsers */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: $pale-gray;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: $golden-beer;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    // background: rgb(137, 3, 3);
+  }
+}
+
+.force-width-100 {
+  width: 100% !important;
+}
+
+
+.react-select {
+  &__control {
+    border: 0 !important;
+    background: rgba(whitesmoke, 0.1) !important;
+  }
+
+  &__control--is-focused {
+    border: 0 !important;
+    background: rgba(whitesmoke, 0.3) !important;
+    box-shadow: none !important;
+  }
+
+  &__menu {
+    background: $blackboard-gradient !important;
+    border-radius: 4px !important;
+    font-size: $font-regular;
+  }
+
+  &__menu,
+  &__single-value {
+    animation-name: fadeIn  !important;
+    -webkit-animation-name: fadeIn  !important;
+    animation-duration: 0.125s  !important;
+    -webkit-animation-duration: 0.125s  !important;
+    animation-timing-function: linear  !important;
+    -webkit-animation-timing-function: linear !important;
+  }
+
+  &__menu-list {
+    background: rgba(whitesmoke, 0.1) !important;
+    border-radius: 4px !important;
+  }
+
+
+  &__value-container {
+    padding: 4px 10px !important;
+  }
+
+  &__single-value {
+    color: whitesmoke !important;
+  }
+
+  &__option--is-focused {
+    background: $shady-gray !important;
+  }
+
+  &__option--is-selected {
+    background: $golden-beer-gradient !important;
+  }
+
+  &__indicator-separator {
+    display: none !important;
+  }
+
+  &__indicator {
+    color: whitesmoke !important;
+  }
+
+  &__indicator:hover {
+    opacity: 0.5 !important;
+  }
+
+  &__multi-value {
+    background: $golden-beer-gradient !important;
+
+    &__label {
+      color: whitesmoke !important;
+      font-size: $font-regular !important;
+    }
+
+    &__remove:hover {
+      background: $shady-gray !important;
+      color: inherit !important;
+    }
+  }
+
+  &--compact {
+    .react-select__value-container {
+      padding: 0px 10px !important;
+    }
+  }
+}
+
+.react-select .react-select__control--is-focused {
+  outline: 2px solid rgba(#c48a2b, 0.8) !important;
+}
+
+
+
+.bg-blackboard select.active.focus,
+.bg-blackboard select.active:focus,
+.bg-blackboard select.focus,
+.bg-blackboard select:active.focus,
+.bg-blackboard select:active:focus,
+.bg-blackboard select:focus {
+  background: rgba(whitesmoke, 0.3);
+  color: whitesmoke;
+}
+
+.bg-blackboard input.active.focus,
+.bg-blackboard input.active:focus,
+.bg-blackboard input.focus,
+.bg-blackboard input:active.focus,
+.bg-blackboard input:active:focus,
+.bg-blackboard input:focus {
+  background: rgba(whitesmoke, 0.3);
+  color: whitesmoke;
+}
+
+.btn-blackboard {
+  text-transform: uppercase;
+  font-family: "Eraser";
+  background: $blackboard-gradient;
+  border: 0;
+  color: whitesmoke;
+}
+
+.btn-blackboard--unselected {
+  opacity: 0.5;
+}
+
+.btn-wood {
+  background: url("./images/painted_wood_colorized.png"),
+    radial-gradient($wood, $darkwood);
+  background-blend-mode: soft-light;
+  color: $gray-text;
+  text-transform: uppercase;
+  font-size: $font-xlarge;
+  letter-spacing: 1px;
+  font-family: "Christmas";
+  border: none;
+
+  &--no-shadow {
+    box-shadow: 0;
+  }
+
+  &--compact {
+    padding: 1px 12px;
+  }
+
+  &--delete {
+    background-blend-mode: hard-light;
+  }
+}
+
+.bg-wood-force {
+  background: url("./images/painted_wood_colorized.png"),
+  radial-gradient($wood, $darkwood) !important;
+  background-blend-mode: soft-light !important;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.shadow-block {
+  box-shadow: 0.125rem -0.125rem 0.25rem 0.125rem rgba(0, 0, 0, 0.5);
+}
+
+/* LOGIN PAGE */
+
+
+.login-wrapper {
+  position: relative;
+  height: calc(100% - 4.8rem);
+  max-width: 600px;
+}
+
+.logo--login--wrapper {
+  margin: 0 auto;
+}
+
+.logo--login {
+  background: url("./images/painted_wood_navbar.png"),
+    linear-gradient(#4c3e2d, #342a1f);
+  background-blend-mode: soft-light;
+  font-size: 4.8rem;
+  font-family: "Christmas", sans-serif;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  color: $gray-text;
+  box-shadow: 0 0.125rem 0.25rem 0.125rem rgba(0, 0, 0, 0.5);
+}
+
+.login-content {
+  padding: 3.6rem;
+  margin: -0rem auto 0rem;
+  border-radius: 4px;
+  max-width: 600px;
+  border-radius: 8px;
+  // background: url("./images/painted_wood_colorized.png"),
+  //   radial-gradient(#4c3e2d, #342a1f);
+    background: url("./images/painted_wood_navbar.png"),
+    linear-gradient(to top, #4c3e2d, #342a1f);
+  background-blend-mode: soft-light;
+  box-shadow: 0 0.125rem 0.25rem 0.25rem rgba(0, 0, 0, 0.5);
+}
+
+.login-form-wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.login-icon {
+  font-size: $font-h1;
+}
+
+.login-description {
+  max-width: 500px;
+  margin: 0 auto;
+  font-size: $font-h3;
+  color: $gray-text;
+}
+
+/* PAGE CALCULATOR */
+
+.otsikko {
+  text-align: center;
+  margin: 3rem;
+}
+
+.container-unit-calculator {
+  position: relative;
+  padding: 0 1rem;
+}
+
+@media (min-width: 960px) {
+  .container-unit-calculator {
+    padding: 0 4rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container-unit-calculator {
+    padding: 0 6rem;
+  }
+}
+
+.drink-icon-button-grid-wrapper {
+  height: 100%;
+  padding: 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .drink-icon-button-grid-wrapper {
+    height: 100%;
+    padding: 0 2.4rem;
+  }
+
+  .drink-icon-button-col--drinks {
+    border-right: 4px solid $shady-gray;
+  }
+
+  .drink-icon-button-col--chosen-drinks {
+    border-left: 4px solid $shady-gray;
+  }
+}
+
+.unit-count-wrapper {
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.32rem;
+  background: url("./images/painted_wood_colorized.png"),
+    radial-gradient($wood, $darkwood);
+  background-blend-mode: soft-light;
+  box-shadow: 0 0.125rem 0.25rem 0.125rem rgba(0, 0, 0, 0.5);
+}
+
+.unit-count-header {
+  min-width: 11rem;
+  color: whitesmoke;
+}
+
+.total-units-count {
+  color: whitesmoke;
+}
+
+.container-wooden-borders {
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+  background: url("./images/painted_wood_colorized.png"),
+    radial-gradient($wood, $darkwood);
+  background-blend-mode: soft-light;
+  box-shadow: 0 0.125rem 0.25rem 0.125rem rgba(0, 0, 0, 0.5);
+}
+
+.header-wrapper {
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.32rem;
+  background: $blackboard-gradient;
+  font-family: "Eraser";
+}
+
+.drink-icon-button-grid-container {
+  margin-top: -1rem;
+}
+
+.drink-icon-button-container {
+  animation-name: fadeIn;
+  -webkit-animation-name: fadeIn;
+  animation-duration: 0.12s;
+  -webkit-animation-duration: 0.12s;
+  animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+  padding: 0.4rem;
+  text-align: center;
+}
+
+@media only screen and (min-width: 960px) {
+  .drink-icon-button-container {
+    padding: 0.6rem;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .drink-icon-button-container {
+    padding: 1rem;
+  }
+}
+
+.drink-icon-button-container--disappearing {
+  animation-name: fadeOut;
+  -webkit-animation-name: fadeOut;
+  animation-duration: 0.12s;
+  -webkit-animation-duration: 0.12s;
+  animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+}
+
+.drink-icon {
+  height: 2rem;
+  margin-bottom: 0.24rem;
+  filter: invert(73%) sepia(4%) saturate(518%) hue-rotate(352deg) brightness(96%) contrast(82%);
+  user-select: none;
+}
+
+.drink-icon-button {
+  position: relative;
+  color: $pale-gray;
+  background: url("./images/painted_wood_colorized.png"),
+    radial-gradient($wood, $darkwood);
+  background-blend-mode: soft-light;
+  width: 7.6rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.8rem 0.4rem;
+  font-size: $font-small;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 100% / 90%;
+  box-shadow: 0 0 0.2rem 0.2rem $shadow;
+}
+
+@media only screen and (min-width: 960px) {
+  .drink-icon-button {
+    width: 8.4rem;
+  }
+}
+
+.drink-icon-button-volume-text {
+  font-size: $font-small;
+}
+
+.drink-icon-button:hover {
+  cursor: pointer;
+  filter: brightness(0.8);
+}
+
+.drink-icon-button:active {
+  position: relative;
+  top: -2px;
+  left: 1px;
+}
+
+.drink-icon-button-badge {
+  position: absolute;
+  font-weight: 400;
+  font-size: $font-small;
+  background-color: #b0aaa3;
+  border-radius: 1.6rem;
+  padding: 0 0.2rem 0.1rem;
+  letter-spacing: -0.02rem;
+  box-shadow: 0.075rem 0.125rem rgba(0, 0, 0, 0.075);
+}
+
+.drink-icon-button-badge--alcohol {
+  top: 0.8rem;
+  left: 1rem;
+}
+
+.drink-icon-button-badge--volume {
+  top: 2.4rem;
+}
+
+.drink-icon-button-badge--quantity {
+  display: inline-block;
+  min-width: 1.6rem;
+  font-size: $font-regular;
+  top: 1rem;
+  right: 1.2rem;
+  left: auto;
+  color: #342a1f;
+}
+
+/* Range slider *******************/
+
+.alkkis-range {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+  height: 0.5rem;
+  border-radius: 1rem;
+}
+
+.alkkis-range:focus {
+  outline: none;
+}
+
+/***** Chrome, Safari, Opera, and Edge Chromium *****/
+.alkkis-range::-webkit-slider-runnable-track {
+  // background: whitesmoke;
+  height: 0.5rem;
+  border-radius: 1rem;
+}
+
+.alkkis-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -0.5rem;
+  /* Centers thumb on the track */
+  background: $pale-gray;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 1rem;
+}
+
+.alkkis-range:focus::-webkit-slider-thumb {
+  outline: 2px solid rgba(#c48a2b, 0.8);
+  outline-offset: 0.1rem;
+}
+
+/******** Firefox ********/
+.alkkis-range::-moz-range-track {
+  height: 0.5rem;
+  border-radius: 1rem;
+}
+
+.alkkis-range::-moz-range-thumb {
+  border: none;
+  /*Removes extra border that FF applies*/
+  background: $pale-gray;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 1rem;
+}
+
+.alkkis-range:focus::-moz-range-thumb {
+  outline: 2px solid rgba($golden-beer, 0.8);
+  outline-offset: 0.1rem;
+}
+
+#juomalista {
+  margin-top: 2rem;
+}
+
+#juomalista p {
+  margin: 3.1rem;
+  text-align: center;
+}
+
+.drink-list-item {
+  height: 4.2rem;
+  padding: 1rem;
+}
+
+.drink-list-item span {
+  height: 2rem;
+  padding: 0;
+}
+
+.list-item-minus,
+.list-item-plus {
+  font-size: 1.8rem;
+  height: 3rem;
+}
+
+.list-item-plus {
+  text-align: right;
+}
+
+.list-item-quantity {
+  text-align: center;
+  background-color: gainsboro;
+  border-radius: 1rem;
+}
+
+.list-item-minus:hover,
+.list-item-plus:hover {
+  background-color: #d8d8d8;
+}
+
+.list-item-data {
+  text-overflow: ellipsis;
+  /* mieti miten saa pysymään vain yhel rivil */
+}
+
+/* OTHER DRINK MODAL ------ */
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.modal-content {
+  max-width: 40rem;
+}
+
+.modal-footer {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  border: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.units-text {
+  // height: 4.6rem;
+  // padding: 0.5rem 1.6rem;
+  // font-size: $font-h3;
+  // line-height: 1.3333333;
+  // color: #555;
+}
+
+/* ADD RESULT MODAL ------ */
+.add-result-modal-content {
+  width: 20rem;
+  height: 12rem;
+  background-color: white;
+  text-align: center;
+}
+
+/* DIARY ----------------- */
+
+// IN progress, delete commented out stuff when ready
+
+// #diary-table-container {
+//   overflow-x: unset;
+// }
+
+// #diary-table-container th, td {
+//   text-align: center;
+// }
+
+// #diary-tabs-container {
+//   overflow: hidden;
+//   margin-bottom: 2rem;
+// }
+
+.container-diary {
+  position: relative;
+}
+
+.alkkis-table {
+  width: 100%;
+}
+
+.alkkis-table thead,
+.alkkis-table tbody,
+.alkkis-table tfoot tr th {
+  border-bottom: 2px solid whitesmoke;
+}
+
+.alkkis-table th,
+.alkkis-table td {
+  padding: 0.5rem;
+
+  &:first-child {
+    padding-left: 1rem;
+  }
+  &:last-child {
+    padding-right: 1rem;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .alkkis-table th,
+  .alkkis-table td {
+    padding: 0.5rem 1rem;
+  }
+}
+
+
+/* DATATABLE -------------- */
+
+.pagination-container {
+  text-align: center;
+  padding: 1rem;
+
+  .paginate_button {
+    @extend .btn-wood;
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin: 4px;
+
+    &.disabled {
+      opacity: 0.65;
+    }
+  }
+
+  .paginate_button:hover {
+    text-decoration: none;
+    cursor: pointer;
+    transition: color .15s ease-in-out;
+    color: #212529;
+  }
+
+  .dataTables_info {
+    margin-bottom: 8px;
+  }
+}
+
+
+
+.dataTables_wrapper {
+
+  /* Sorting arrows */
+  th.sorting {
+    cursor: pointer;
+    position: relative;
+    padding-right: 30px;
+
+    &.sorting_desc:before {
+      border-color: whitesmoke;
+      border-style: solid;
+      border-width: 3px 3px 0 0;
+      content: "";
+      display: block;
+      height: 9px;
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;;
+      width: 9px;
+      transform: rotate(135deg);
+    }
+
+    &.sorting_asc:before {
+      border-color: whitesmoke;
+      border-style: solid;
+      border-width: 3px 3px 0 0;
+      content: "";
+      display: block;
+      height: 9px;
+      position: absolute;
+      top: 1rem;
+      right: 0.75rem;
+      width: 9px;
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+/* NAVBAR ----------------- */
+
+#nav-alkkis {
+  font-family: "Eraser";
+  font-size: $font-xlarge;
+  background: url("./images/painted_wood_navbar.png"),
+    linear-gradient(#4c3e2d, #342a1f);
+  background-blend-mode: soft-light;
+  border: 0;
+  color: black;
+  margin: 0;
+  box-shadow: 0 0.125rem 0.25rem 0.125rem rgba(0, 0, 0, 0.5);
+}
+
+#nav-alkkis a,
+.navbar-brand,
+.nav,
+.navbar-nav,
+li {
+  // color: whitesmoke;
+  color: $gray-text;
+}
+
+#nav-alkkis a:hover {
+  filter: brightness(0.8);
+}
+
+.navbar {
+  border-radius: 0;
+}
+
+/* DATEPICKER ------------- */
+
+.react-datepicker-wrapper {
+  display: block !important;
+  width: 10rem !important;
+}
+
+@media only screen and (min-width: 768px) {
+  .react-datepicker-wrapper {
+    width: 16rem !important;
+  }
+}
+
+
+.react-datepicker__input-container > input {
+  background: $blackboard-gradient;
+  color: whitesmoke;
+  border: none;
+  text-align: center;
+  height: 3rem !important;
+  font-size: $font-large !important;
+  font-family: "Eraser";
+  width: 100% !important;
+}
+
+
+.react-datepicker {
+  border: 0 !important;
+  box-shadow: 0 0 0.2rem 0.2rem $shadow;
+}
+
+.react-datepicker__input-container > input.react-datepicker--minimalist {
+  background: rgba(whitesmoke, 0.1);
+}
+
+.react-datepicker__month-container {
+  background: $blackboard-gradient;
+  font-family: "Eraser";
+  color: whitesmoke;
+  border-top-left-radius: 0.3rem !important;
+  border-top-right-radius: 0.3rem !important;
+}
+
+.react-datepicker__header {
+  border: 0 !important;
+  font-size: $font-xlarge;
+  background: whitesmoke !important;
+  letter-spacing: 2px;
+  user-select: none;
+}
+
+.react-datepicker__current-month {
+  font-weight: 500 !important;
+  font-family: "Christmas";
+  text-transform: uppercase;
+}
+
+.react-datepicker__day {
+  color: whitesmoke !important;
+}
+
+.react-datepicker__day.active.focus,
+.react-datepicker__day.active:focus,
+.react-datepicker__day.focus,
+.react-datepicker__day:active.focus,
+.react-datepicker__day:active:focus,
+.react-datepicker__day:focus {
+  outline: 2px solid rgba(#c48a2b, 0.8);
+}
+
+.react-datepicker__day:hover {
+  background: $shady-gray !important;
+}
+
+.react-datepicker__day--selected {
+  background: $golden-beer !important;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background: $pale-gray !important;
+  background: $wood !important;
+}
+
+.react-datepicker__day-name {
+  font-family: "Christmas";
+  width: 1.75rem !important;
+}
+
+.react-datepicker-wrapper input.active.focus,
+.react-datepicker-wrapper input.active:focus,
+.react-datepicker-wrapper input.focus,
+.react-datepicker-wrapper input:active.focus,
+.react-datepicker-wrapper input:active:focus,
+.react-datepicker-wrapper input:focus {
+  outline: 2px solid rgba(#c48a2b, 0.8);
+}
+
+button.react-datepicker__navigation {
+  border: 0;
+  vertical-align: middle;
+}
+
+.react-datepicker__navigation-icon:hover {
+  opacity: 0.5;
+}
+
+.react-datepicker__year-read-view--down-arrow,
+.react-datepicker__month-read-view--down-arrow,
+.react-datepicker__month-year-read-view--down-arrow,
+.react-datepicker__navigation-icon::before {
+  border-color: black !important;
+  top: 16px !important;
+}
+
+.react-datepicker-popper[data-placement^="top"] .react-datepicker__triangle::before,
+.react-datepicker-popper[data-placement^="top"] .react-datepicker__triangle::after {
+  border-top-color: whitesmoke !important;
+}
+
+/* ALKKIS-SNACKBAR */
+
+.alkkis-snackbar {
+  position: fixed;
+  top: (40vh);
+  right: 1rem;
+  right: 0;
+  background: url("./images/painted_wood_colorized.png"),
+  radial-gradient($wood, $darkwood);
+  background-blend-mode: soft-light;
+  border-radius: .3rem;
+  box-shadow: 0 0 0.5rem 0.5rem $shadow;
+
+  -webkit-animation-name: fadeIn, appearFromTheRight, blurAndClear;
+  animation-name: fadeIn, appearFromTheRight, blurAndClear;
+  -webkit-animation-iteration-count: 1, 1, infinite;
+  animation-iteration-count: 1, 1, infinite;
+  -webkit-animation-duration: 0.3s, 0.3s, 2.5s;
+  animation-duration:  0.3s, 0.3s, 2.5s;
+  -webkit-animation-timing-function: ease-out ease-out linear;
+  animation-timing-function: ease-out ease-out linear;
+  -webkit-animation-delay: 0s, 0s, 1s;
+  animation-delay: 0s, 0s, 1s;
+
+  &--disappearing {
+    -webkit-animation: fadeOut 0.6s linear, disappearToTheRight 0.6s ease-in;
+    animation: fadeOut 0.6s linear, disappearToTheRight 0.6s ease-in;
+  }
+
+  z-index: 999999999;
+}
+
+.alkkis-snackbar__text {
+  font-size: $font-xlarge;
+  color: $gray-text;
+  padding: 0.6rem 1.2rem;
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fallingSign {
+  0% {
+    transform: rotate(180deg);
+    transform-origin: right top;
+  }
+
+  100% {
+    transform: rotate(0deg);
+    transform-origin: right top;
+  }
+}
+
+@keyframes risingSign {
+  0% {
+    transform: rotate(0deg);
+    transform-origin: right top;
+  }
+
+  100% {
+    transform: rotate(180deg);
+    transform-origin: right top;
+  }
+}
+
+@keyframes
+appearFromTheRight {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0%)
+  }
+}
+
+@keyframes
+disappearToTheRight {
+  0% {
+    transform: translateX(0%)
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes blurAndClear {
+  0% {
+    filter: brightness(100%) blur(0);
+  }
+
+  50% {
+    filter: brightness(90%) blur(0.045rem);
+  }
+
+  100% {
+    filter: brightness(100%) blur(0);
+  }
+}

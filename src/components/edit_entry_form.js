@@ -2,16 +2,20 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
+  addSnackbar,
   hideEditEntryModal,
   fetchDrinks,
   fetchSavedDrinks,
   fetchDrinkEntries,
   updateDrinkDate
 } from "../actions";
-import axios from "axios";
-import moment from "moment";
-import { renderDrinksAsOptions } from "../helpers/functions";
+import axiosApi from '../network/axiosApi';
+import {
+  transformDrinksIntoOptions,
+  recursiveTimeout,
+} from "../utils/functions";
 import DrinkDatePicker from "./drink_datepicker";
+import ReactSelect from 'react-select';
 
 class EditEntryForm extends Component {
   constructor(props) {
@@ -24,21 +28,33 @@ class EditEntryForm extends Component {
       drink_quantity
     } = this.props.entry;
     let drinkDate = new Date(Date.parse(this.props.entry.drink_date));
-    let drinkDateMoment = moment(drinkDate);
+    // let drinkDateMoment = moment(drinkDate);
 
     this.state = {
       drink: drink,
       drink_entry_id: drink_entry_id,
       drink_entry_units: drink_entry_units,
-      drink_date: drinkDateMoment,
-      drink_quantity: drink_quantity
+      drink_date: drinkDate,
+      drink_quantity: drink_quantity,
+      drinkOptions: [],
+      selectedDrink: null
     };
   }
 
   componentDidMount() {
-    this.props.fetchDrinks();
-    this.props.fetchSavedDrinks();
-    this.props.updateDrinkDate(this.state.drink_date);
+    Promise.all([
+      this.props.fetchDrinks(),
+      this.props.fetchSavedDrinks()
+    ]).then(async () => {
+      try {
+        const drinkOptions = transformDrinksIntoOptions({...this.props.drinks, ...this.props.savedDrinks})
+        this.setState({...this.state, drinkOptions })
+        await this.props.updateDrinkDate(this.state.drink_date);
+        this.setInitialOption()
+      } catch (error) {
+        console.log(error);
+      }
+    });
   }
 
   countUnitsInEntry = (units, quantity) => units * quantity;
@@ -63,51 +79,31 @@ class EditEntryForm extends Component {
     );
   };
 
-  handleSelection = () => {
-    const { drinks, savedDrinks } = this.props;
-    let drinkIdOfSelected = "";
-    const options = document.getElementsByTagName("option");
-    for (var i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        drinkIdOfSelected = options[i].getAttribute("drink_id");
-        break;
-      }
-    }
-    this.updateDrinkToState(drinks, savedDrinks, drinkIdOfSelected);
+  handleDrinkSelection = (option) => {
+    this.updateDrinkToState(option.value);
+    this.styleSingleValuePercentages()
   };
 
-  updateDrinkToState(drinks, savedDrinks, drinkIdOfSelected) {
-    if (Object.keys(drinks).includes(drinkIdOfSelected)) {
-      this.setState({ drink: drinks[drinkIdOfSelected] }, () =>
-        this.setState({
-          drink_entry_units: this.countUnitsInEntry(
-            this.state.drink.units,
-            this.state.drink_quantity
-          )
-        })
-      ); // rumaa toistoa, refaktoroi
-    } else if (Object.keys(savedDrinks).includes(drinkIdOfSelected)) {
-      this.setState({ drink: savedDrinks[drinkIdOfSelected] }, () =>
-        this.setState({
-          drink_entry_units: this.countUnitsInEntry(
-            this.state.drink.units,
-            this.state.drink_quantity
-          )
-        })
-      );
-    }
+  updateDrinkToState(drinkIdOfSelected) {
+    const allDrinks = {...this.props.drinks, ...this.props.savedDrinks};
+    const drink = allDrinks[drinkIdOfSelected] 
+
+    this.setState({ drink }, () => {
+      const drinkOption = this.state.drinkOptions.find(drinkOption => drinkOption.value === drinkIdOfSelected)
+      this.setState({
+        drink_entry_units: this.countUnitsInEntry(
+          this.state.drink.units,
+          this.state.drink_quantity
+        ),
+        selectedDrink: drinkOption,
+      })
+    });
   }
 
   setInitialOption() {
-    const options = document.getElementsByTagName("option");
     const { drinkId } = this.state.drink;
-    for (var i = 0; i < options.length; i++) {
-      if (options[i].getAttribute("drink_id") === drinkId.toString()) {
-        let el = document.querySelector(`option[drink_id='${drinkId}']`)
-        el.setAttribute("selected", true)
-        break;
-      }
-    }
+    this.updateDrinkToState(drinkId)
+    this.styleSingleValuePercentages()
   }
 
   handleAdd = (event) => {
@@ -115,72 +111,139 @@ class EditEntryForm extends Component {
     this.editEntry();
   }
 
-  editEntry = () => { 
-    axios({
-      method: "post",
-      url: "http://jessetaina.info:8080/edit_entry",
-      data: this.state
-    }).then(response => {
-      console.log(response);
+  editEntry = async () => {
+    const data = {
+      ...this.state,
+      drink_date: this.props.drinkDate
+    }
+
+    let resultText = 'Merkintä on päivitetty'
+    try {
+      const response = await axiosApi.request({
+        method: "PUT",
+        url: "edit_entry",
+        data: data,
+      })
+  
       this.props.fetchDrinkEntries();
       this.props.hideEditEntryModal();
-    });
+      
+      if (!(response.status === 200)) {
+        resultText = 'Merkinnän päivitys epäonnistui'
+      }
+    } catch (error) {
+      console.log('error :>> ', error);
+      resultText = 'Merkinnän päivitys epäonnistui'
+    } finally {
+      this.props.addSnackbar({ text: resultText });
+    }
   };
 
-  render() {
-    this.setInitialOption()
+  styleSingleValuePercentages = () => {
+    this.stylePercentages('.react-select--style-percentages .react-select__single-value');
+  }
 
+  styleOptionPercentages = () => {
+    const foundElements = this.stylePercentages('.react-select__option');
+    // XXX Hacky XXX
+    // Elements might not yet be rendered when this function is called so make additional attempts later.
+    if (!foundElements) {
+      recursiveTimeout(this.stylePercentages, ['.react-select__option'], 2)
+    }
+  }
+
+  // XXX Hacky XXX
+  // Font Eraser does not contain a glyph % so replace the character with a span using a font that does have the glyph
+  stylePercentages (className) {
+    const elements = document.querySelectorAll(className)
+    let success = elements.length ? true : false
+
+    setTimeout(() => {
+      for (const el of elements) {
+        if (!el.innerHTML.includes('span')) {
+          el.innerHTML = el.innerHTML.substring(0, el.innerHTML.length - 1) + '<span class="font-christmas">%</span>'
+        }
+      }
+    }, 0)
+
+    return success
+  }
+
+  unitsFormatted = () => this.state.drink_entry_units.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+
+  render() {
     return (
-      <form className="form-horizontal">
-        <div className="form-group edit-entry-form-group">
-          <label className="control-label col-sm-3">Juontipäivä: </label>
-          <div className="col-sm-8">
-            <DrinkDatePicker />
-          </div>
-        </div>
-        <div className="form-group edit-entry-form-group">
-          <label className="control-label col-sm-3">Juoma: </label>
-          <div className="col-sm-8">
-            <select onChange={this.handleSelection} className="edit-entry-field" id="edit-entry-select">
-              {renderDrinksAsOptions(this.props.drinks)}
-              {renderDrinksAsOptions(this.props.savedDrinks)}
-            </select>
-          </div>
-        </div>
-        <div className="form-group edit-entry-form-group">
-          <label className="control-label col-sm-3">Kappalemäärä:</label>
-          <div className="col-sm-2">
-            <input
-              type="number"
-              name="quantity"
-              step={1}
-              max={100}
-              className="form-control input-lg edit-entry-field"
-              value={this.state.drink_quantity}
-              onChange={this.handleQuantityChange}
-            />
-          </div>
-        </div>
-        <div className="form-group edit-entry-form-group">
-          <label className="control-label col-sm-3">Annokset:</label>
-          <div className="col-sm-2">
-            <div id="units-text">{this.state.drink_entry_units.toFixed(1)}</div>
+      <form className="form-horizontal px-3 py-3">
+        <div className="form-group">
+          <label className="control-label font-large chalk-underline">
+            Juontipäivä:{" "}
+          </label>
+          <div className="row">
+            <div className="col-lg-6 col-sm-8">
+              <DrinkDatePicker minimalist />
+            </div>
           </div>
         </div>
         <div className="form-group">
-          <div className="col-sm-6 col-sm-offset-3">
-            <button className="btn btn-default" onClick={this.handleAdd}>
+          <label className="control-label font-large chalk-underline">
+            Juoma
+          </label>
+          <div className="row">
+            <div className="col-lg-6 col-sm-8">
+              <ReactSelect
+                value={this.state.selectedDrink}
+                onChange={this.handleDrinkSelection}
+                onMenuOpen={this.styleOptionPercentages}
+                className="react-select react-select--style-percentages font-large"
+                classNamePrefix="react-select"
+                options={this.state.drinkOptions}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="form-group">
+          <label className="control-label font-large chalk-underline">
+            Kappalemäärä
+          </label>
+          <div className="row">
+            <div className="col-lg-2 col-sm-4">
+              <input
+                type="number"
+                name="quantity"
+                step={1}
+                max={100}
+                className="form-control input-lg edit-entry-field"
+                value={this.state.drink_quantity}
+                onChange={this.handleQuantityChange}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="form-group">
+          <div className="row">
+            <div className="col font-xlarge">
+              <label className="units-text chalk-underline">
+                Annokset: {this.unitsFormatted()}
+              </label>
+            </div>
+          </div>
+        </div>
+        <div className="form-group mt-4 mb-0">
+          <div className="row no-gutters justify-content-between">
+            <button
+              type="button"
+              className="btn btn-lg btn-wood"
+              onClick={this.props.hideEditEntryModal}
+            >
+              Sulje
+            </button>
+            <button
+              type="button"
+              className="btn btn-lg btn-wood"
+              onClick={this.handleAdd}
+            >
               Vahvista muokkaus
             </button>
-          </div>
-          <div  className="col-sm-2 close-btn-div">
-          <button
-            type="button"
-            className="btn btn-default"
-            onClick={this.props.hideEditEntryModal}
-          >
-            Sulje
-          </button>
           </div>
         </div>
       </form>
@@ -199,7 +262,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
-    { hideEditEntryModal, fetchDrinks, fetchSavedDrinks, updateDrinkDate, fetchDrinkEntries },
+    { addSnackbar, hideEditEntryModal, fetchDrinks, fetchSavedDrinks, updateDrinkDate, fetchDrinkEntries },
     dispatch
   );
 }

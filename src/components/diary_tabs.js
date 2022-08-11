@@ -2,24 +2,38 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { selectDiaryTab } from '../actions';
-import { allEntriesTab, weeklyViewTab, monthlyViewTab } from '../reducers/reducer_diary_selected_tab';
-import { styleTabIfActive } from '../helpers/functions';
+import { diaryTabs } from '../utils/constants';
+import { styleTabIfActive } from '../utils/functions';
 
 class DiaryTabs extends Component {
+  getBtnGroupClass () {
+    return this.props.screenSize.smallScreen ? 'btn-group-md' : 'btn-group-lg'
+  }
 
   render() {
     const { selectedTab } = this.props;
     return (
-      <div id="diary-tabs-container">
-        <button className={`btn btn-default col-sm-4 alkkis-tab ${styleTabIfActive(allEntriesTab, selectedTab)}`} onClick={() => this.props.selectDiaryTab(allEntriesTab)}>
+      <div className="container-wooden-borders">
+        <div className={`btn-group ${this.getBtnGroupClass()} d-flex`} role="group">
+          <button
+            className={`btn btn-blackboard ${selectedTab !== diaryTabs.ALL_ENTRIES_TAB && 'btn-blackboard--unselected'}`}
+            onClick={() => this.props.selectDiaryTab(diaryTabs.ALL_ENTRIES_TAB)}
+          >
           Kaikki merkinnät
-        </button>
-        <button className={`btn btn-default col-sm-4 alkkis-tab ${styleTabIfActive(weeklyViewTab, selectedTab)}`} onClick={() => this.props.selectDiaryTab(weeklyViewTab)}>
-          Viikkonäkymä
-        </button>
-        <button className={`btn btn-default col-sm-4 alkkis-tab ${styleTabIfActive(monthlyViewTab, selectedTab)}`} onClick={() => this.props.selectDiaryTab(monthlyViewTab)}>
-          Kuukausinäkymä
-        </button>
+          </button>
+          <button
+            className={`btn btn-blackboard ${selectedTab !== diaryTabs.WEEKLY_VIEW_TAB && 'btn-blackboard--unselected'}`}
+            onClick={() => this.props.selectDiaryTab(diaryTabs.WEEKLY_VIEW_TAB)}
+          >
+            Viikkonäkymä
+          </button>
+          <button
+            className={`btn btn-blackboard ${selectedTab !== diaryTabs.MONTHLY_VIEW_TAB && 'btn-blackboard--unselected'}`}
+            onClick={() => this.props.selectDiaryTab(diaryTabs.MONTHLY_VIEW_TAB)}
+          >
+            Kuukausinäkymä
+          </button>
+        </div>
       </div>
     );
   }
@@ -27,7 +41,8 @@ class DiaryTabs extends Component {
 
 function mapStateToProps(state) {
   return {
-    selectedTab: state.diarySelectedTab
+    selectedTab: state.diarySelectedTab,
+    screenSize: state.screenSize
   };
 }
 

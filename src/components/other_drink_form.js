@@ -1,63 +1,116 @@
-import React, { Component } from "react";
-import Slider from "react-rangeslider";
-import "react-rangeslider/lib/index.css";
-import { countUnits } from "../helpers/functions";
+import React, { useState, useEffect, useRef } from "react";
+import { useForm } from "react-hook-form";
+import { countUnits, formatJSDate, isEmptyString } from "../utils/functions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { hideOthDrinkModal, updateDrinkList } from "../actions";
-import axios from "axios";
+import { hideOthDrinkModal, increaseQuantity } from "../actions";
+import axiosApi from '../network/axiosApi';
 import qs from "qs";
+import { drinkType } from '../utils/constants';
+import ReactSelect from 'react-select';
 
-class OtherDrinkForm extends Component {
-  constructor(props) {
-    super(props);
+const typeSelectOptions = [
+  { value: drinkType.MILD, label: 'MIedot' },
+  { value: drinkType.WINE, label: 'VIINIt' },
+  { value: drinkType.LIQUEUR, label: 'LIköörIt' },
+  { value: drinkType.BOOZE, label: 'Väkevät' },
+]
 
-    this.state = {
-      drinkName: "",
-      volume: 0.0,
-      alcContent: 0.0,
-      units: 0.0
-    };
-  }
+const OtherDrinkForm = (props) => {
+  const [drinkName, setDrinkName] = useState('');
+  const [volume, setVolume] = useState(0.33);
+  const [alcContent, setAlcContent] = useState(4.7);
+  const [units, setUnits] = useState(0.0);
+  const [type, setType] = useState(typeSelectOptions[0]);
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const volumeSlider = useRef(null);
+  const alcContentSlider = useRef(null);
 
-  handleDrinkNameChange = event => {
-    this.setState({ drinkName: event.target.value });
+
+  const handleDrinkNameChange = event => {
+    setDrinkName(event.target.value);
   };
 
-  handleVolumeSliderChange(value) {
-    let volFloat = +value.toFixed(2);
-    this.setState({ volume: volFloat }, () => this.updateUnits());
+  const handleVolumeSliderInput = event => {
+    const value = parseFloat(event.target.value)
+    setVolume(value)
   }
 
-  handleVolumeFieldChange = event => {
-    let volFloat = +event.target.value;
-    if (volFloat > 1.0) {
-      volFloat = 1.0;
+  const handleVolumeFieldChange = event => {
+    setVolume(event.target.value)
+    // const valueIsEmpty = isEmptyString(input.value)
+    // const volFloat = valueIsEmpty ? '' : +input.value;
+    // console.log('volFloat :>> ', volFloat);
+    // if (!valueIsEmpty && volFloat > 1.0) {
+    //   console.log('Korkein sallittu tilavuus on 1 l.');
+    //   // input.setCustomValidity('Korkein sallittu tilavuus on 1 l.');
+    //   // input.reportValidity();
+    // } else {
+    //   // input.setCustomValidity('');
+    // }
+
+    // setVolume(volFloat)
+    // updateUnits()
+  };
+
+  const handleAlcContentSliderInput = event => {
+    const value = parseFloat(event.target.value)
+    setAlcContent(value)
+  }
+
+  const handleAlcContentFieldChange = event => {
+    setAlcContent(event.target.value);
+  };
+
+  const handleTypeSelection = option => {
+    setType(option)
+  }
+
+  const updateUnits = () => {
+    let units = 0.0;
+
+    const volFloat = parseFloat(volume);
+    const alcContentFloat = parseFloat(alcContent);
+
+    if (
+      typeof volFloat === 'number' &&
+      typeof alcContentFloat === 'number'
+    ) {
+      units = countUnits(volume, alcContent);
     }
-    this.setState({ volume: volFloat }, () => this.updateUnits());
-  };
 
-  handleAlcContentSliderChange(value) {
-    let alcFloat = +value.toFixed(2);
-    this.setState({ alcContent: alcFloat }, () => this.updateUnits());
+    setUnits(units)
   }
 
-  handleAlcContentFieldChange = event => {
-    let alcFloat = +event.target.value;
-    if (alcFloat > 100) {
-      alcFloat = 100;
-    }
-    this.setState({ alcContent: alcFloat }, () => this.updateUnits());
-  };
-
-  updateUnits() {
-    const { volume, alcContent } = this.state;
-    const units = countUnits(volume, alcContent);
-    this.setState({ units: units });
+  const styleBackgroundImage = (slider) => {
+    // Use gradient to fill the left side of the slider track based on the value or the position of the slider thumb.
+    slider.current.style.backgroundImage = getLinearGradientCSS(slider.current);
   }
 
-  addNewDrinkToDbAndList() {
-    let { drinkName, alcContent, units, volume } = this.state;
+  const getLinearGradientCSS = (element) => {
+    const ratio = (element.value - element.min) / (element.max - element.min);
+
+    return [
+      '-webkit-gradient(',
+      'linear, ',
+      'left top, ',
+      'right top, ',
+      'color-stop('+ 0 + ', #c48a2b), ',
+      'color-stop(' + ratio + ', #f4ad3b), ',
+      'color-stop(' + ratio + ', whitesmoke)',
+      ')'
+    ].join('');
+  }
+
+  useEffect(updateUnits, [volume, alcContent])
+  useEffect(() => { styleBackgroundImage(volumeSlider)}, [volume])
+  useEffect(() => { styleBackgroundImage(alcContentSlider)}, [alcContent])
+
+  useEffect(() => {
+    console.log('errors :>> ', errors);
+  }, [errors])
+
+  const addNewDrinkToDbAndList = () => {
     if (drinkName === "") {
       drinkName = "Muu juoma";
     }
@@ -65,120 +118,187 @@ class OtherDrinkForm extends Component {
       drinkName: drinkName,
       volume: volume,
       alcContent: alcContent,
-      units: units
+      units: units,
+      type: type.value,
     };
+
     const options = {
       method: "POST",
       headers: { "content-type": "application/x-www-form-urlencoded" },
       data: qs.stringify(data),
-      url: "http://jessetaina.info:8080/save_other_drink"
+      url: "save_other_drink"
     };
 
-    axios(options)
+    axiosApi.request(options)
       .then(response => {
-        this.props.updateDrinkList(response.data);
+        props.increaseQuantity(response.data);
       })
       .catch(response => {
         console.log("Error", response.status);
       });
   }
 
-  handleAdd = event => {
+  const handleAdd = event => {
+    console.log('handleAdd');
     event.preventDefault();
-    this.addNewDrinkToDbAndList();
-    this.props.hideOthDrinkModal();
+    // TODO VALIDATION
+    // try {
+    //   handleSubmit(() => {
+    //     console.log('handleSubmit called!');
+    //   })
+    // } catch (e) {
+    //   console.log('e :>> ', e);
+    // }
+
+    addNewDrinkToDbAndList();
+    props.hideOthDrinkModal();
   };
 
-  render() {
-    const { drinkName, volume, alcContent } = this.state;
-    const units = this.state.units.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  const unitsFormatted = () => units.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
-    return (
-      <form className="form-horizontal">
-        <div className="form-group">
-          <label className="control-label col-sm-3">Juoman nimi:</label>
-          <div className="col-sm-8">
+  return (
+    <form
+      className="form-horizontal px-3 py-3"
+      onSubmit={handleSubmit((data) => {
+        console.log("data", data);
+        console.log("errors", errors);
+      })}
+    >
+      <div className="form-group">
+        <label className="control-label font-large chalk-underline">Juoman nimi</label>
+        <div className="row">
+          <div className="col-lg-8 col-sm-10">
             <input
               type="text"
               name="drinkName"
-              className="form-control input-lg"
+              className="form-control input-lg font-large"
+              {...register("drinkName", { required: true })}
               value={drinkName}
-              onChange={this.handleDrinkNameChange}
+              onChange={handleDrinkNameChange}
             />
           </div>
         </div>
-        <div className="form-group">
-          <label className="control-label col-sm-3">Tilavuus (l):</label>
-          <div className="col-sm-2">
+      </div>
+      <div className="form-group">
+        <label className="control-label font-large chalk-underline">
+          Tilavuus <span className="font-christmas">(</span>litraa
+          <span className="font-christmas">)</span>
+        </label>
+        <div className="row">
+          <div className="col-lg-2">
             <input
               type="number"
-              max={1.0}
               step={0.01}
               name="volume"
-              className="form-control input-lg"
+              className="form-control input-lg font-large"
+              {...register("volume", { required: true, min: 0, max: 1 })}
               value={volume}
-              onChange={this.handleVolumeFieldChange}
+              onChange={handleVolumeFieldChange}
             />
           </div>
-          <div className="col-sm-6">
-            <Slider
-              max={1.0}
+          <div className="col-lg-6 d-flex align-items-center">
+            <input
+              type="range"
+              ref={volumeSlider}
+              className="alkkis-range"
               step={0.01}
+              min={0}
+              max={1}
               value={volume}
-              onChange={value => this.handleVolumeSliderChange(value)}
+              onInput={handleVolumeSliderInput}
             />
           </div>
         </div>
-        <div className="form-group">
-          <label className="control-label col-sm-3">Vahvuus (%):</label>
+      </div>
+      <div className="form-group">
+        <label className="control-label font-large chalk-underline">
+          Vahvuus <span className="font-christmas">(%)</span>
+        </label>
+        <div className="row">
           <div className="col-sm-2">
             <input
               type="number"
               step={0.1}
-              name="alc-content"
-              className="form-control input-lg"
+              // name="alc-content"
+              className="form-control input-lg font-large"
               value={alcContent}
-              onChange={this.handleAlcContentFieldChange}
+              onInput={handleAlcContentFieldChange}
+              // {...register("alc-content", { required: true, min: 0, max: 100 })}
             />
           </div>
-          <div className="col-sm-6">
-            <Slider
-              max={100}
+          <div className="col-sm-6 d-flex align-items-center">
+            <input
+              type="range"
+              ref={alcContentSlider}
+              className="alkkis-range"
               step={0.1}
+              min={0}
+              max={100}
               value={alcContent}
-              onChange={value => this.handleAlcContentSliderChange(value)}
+              onInput={handleAlcContentSliderInput}
             />
           </div>
         </div>
-        <div className="form-group">
-          <label className="control-label col-sm-3">Annokset:</label>
-          <div className="col-sm-2">
-            <div id="units-text">{units}</div>
+      </div>
+
+      <div className="form-group">
+        <label className="control-label font-large chalk-underline">
+          Luokitus
+        </label>
+        <div className="row">
+          <div className="col-lg-8">
+            <ReactSelect
+              value={type}
+              onChange={handleTypeSelection}
+              className="react-select font-large"
+              classNamePrefix="react-select"
+              options={typeSelectOptions}
+            />
           </div>
         </div>
-        <div className="form-group">
-          <div className="col-sm-6 col-sm-offset-3">
-            <button className="btn btn-default" onClick={this.handleAdd}>
-              Tallenna juoma ja lisää listaan
-            </button>
-          </div>
-          <div className="col-sm-2 close-btn-div">
-            <button
-              type="button"
-              className="btn btn-default"
-              onClick={this.props.hideOthDrinkModal}
-            >
-              Sulje
-            </button>
+        {/* <select className="form-control" id="exampleFormControlSelect1" onInput={handleTypeSelection}>
+          <option value={drinkType.MILD}>MIedot</option>
+          <option value={drinkType.WINE}>VIINIt</option>
+          <option value={drinkType.LIQUEUR}>LIköörIt</option>
+          <option value={drinkType.BOOZE}>Väkevät</option>
+        </select> */}
+      </div>
+
+      {/* { errors } */}
+      <div className="form-group mt-4">
+        <div className="row">
+          <div className="col font-xlarge">
+            <label className="units-text chalk-underline">Annokset: {unitsFormatted()}</label>
           </div>
         </div>
-      </form>
-    );
-  }
+      </div>
+      {/* </div> */}
+      {/* <div>
+        <input type="submit"></input>
+      </div> */}
+      <div className="form-group mt-4 mb-0">
+        <div className="row no-gutters justify-content-between">
+          <button
+            type="button"
+            className="btn btn-lg btn-wood"
+            onClick={props.hideOthDrinkModal}
+          >
+            Sulje
+          </button>
+          <button
+            className="btn btn-lg btn-wood"
+            onClick={handleAdd}
+          >
+            Tallenna juoma
+          </button>
+        </div>
+      </div>
+    </form>
+  );
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ hideOthDrinkModal, updateDrinkList }, dispatch);
+  return bindActionCreators({ hideOthDrinkModal, increaseQuantity }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(OtherDrinkForm);

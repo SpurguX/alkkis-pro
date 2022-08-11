@@ -1,56 +1,115 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { hideOthDrinkModal, updateDrinkList, fetchSavedDrinks } from "../actions";
-import { renderDrinksAsOptions } from '../helpers/functions';
+import { hideOthDrinkModal, increaseQuantity, fetchSavedDrinks } from "../actions";
+import { getVolumeDisplayValue } from '../utils/functions';
+import ReactSelect from 'react-select';
 
 class SavedDrinks extends Component {
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
-    this.props.fetchSavedDrinks();
+    this.state = {
+      options: [],
+      selectedDrinks: [],
+    }
   }
 
-  handleAdd = (event) => {
-    event.preventDefault();
-    const options = document.getElementsByTagName("option");
-    for (var i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        let drinkId = options[i].getAttribute("drink_id");
-        this.props.updateDrinkList(this.props.savedDrinks[drinkId]);
+  componentDidMount() {
+    this.props.fetchSavedDrinks().then(async () => {
+      try {
+        await this.transformSavedDrinksIntoOptions()
+      } catch (error) {
+        console.log(error)
       }
+    });
+  }
+
+  transformSavedDrinksIntoOptions(savedDrinks) {
+    const options = _.map(this.props.savedDrinks, drink => {
+      const { drinkId, drinkName, volume, alcContent } = drink;
+
+      return {
+        value: drinkId,
+        label: `${drinkName} ${getVolumeDisplayValue(volume)} ${alcContent} %`
+      }
+    });
+    this.setState({ ...this.state, options })
+  }
+
+  handleSelection = (selectedDrinks) => {
+    this.setState({ ...this.state, selectedDrinks })
+    this.styleMultiValuePercentages();
+  }
+
+
+  // TODO Purkkaa - keksi parempi ratkaisu?
+  styleMultiValuePercentages = () => {
+    this.stylePercentages('react-select__multi-value__label');
+  }
+
+  styleOptionPercentages = () => {
+    this.stylePercentages('react-select__option');
+  }
+
+  stylePercentages (className) {
+    const elements = document.getElementsByClassName(className);
+
+    setTimeout(() => {
+      for (const el of elements) {
+        if (!el.innerHTML.includes('span')) {
+          el.innerHTML = el.innerHTML.substring(0, el.innerHTML.length - 1) + '<span class="font-christmas">%</span>'
+        }
+      }
+    }, 0)
+  }
+
+
+  handleAdd = () => {
+    for (const option of this.state.selectedDrinks) {
+        this.props.increaseQuantity(this.props.savedDrinks[option.value]);
     }
     this.props.hideOthDrinkModal();
   };
 
   render() {
     return (
-      <form className="form-horizontal">
+      <form className="form-horizontal py-3 px-3">
         <div className="form-group">
-          <div className="col-sm-offset-1 col-sm-10">
-            <div className="col-sm-1"><span className="glyphicon glyphicon-info-sign" id="saved-drink-info"></span></div>
-            Valitse useampi juoma pitämällä control-näppäintä painettuna
+          <label className="form-group font-large chalk-underline">
+            Valitse yksi tai useampi juoma
+          </label>
+          <div className="row">
+            <div className="col">
+              <ReactSelect
+                isMulti
+                value={this.state.selectedDrinks}
+                onChange={this.handleSelection}
+                onMenuOpen={this.styleOptionPercentages}
+                className="react-select react-select--style-percentages font-large"
+                classNamePrefix="react-select"
+                options={this.state.options}
+                placeholder="Valitse juomia"
+                noOptionsMessage={() => "Ei muita valintoja"}
+              />
+            </div>
           </div>
         </div>
-        <div className="form-group">
-          <div className="col-sm-offset-1 col-sm-10">
-            <select multiple className="form-control" id="saved-drink-select">
-              {renderDrinksAsOptions(this.props.savedDrinks)}
-            </select>
-          </div>
-        </div>
-        <div className="form-group">
-          <div className="col-sm-6 col-sm-offset-3">
-            <button className="btn btn-default" onClick={this.handleAdd}>
-              Lisää valitut juomat listaan
-            </button>
-          </div>
-          <div className="col-sm-2 close-btn-div">
+        <div className="form-group mt-4 mb-0">
+          <div className="row no-gutters justify-content-between">
             <button
               type="button"
-              className="btn btn-default"
+              className="btn btn-lg btn-wood"
               onClick={this.props.hideOthDrinkModal}
             >
               Sulje
+            </button>
+            <button
+              type="button"
+              className="btn btn-lg btn-wood"
+              onClick={this.handleAdd}
+            >
+              Lisää juotuihin juomiin
             </button>
           </div>
         </div>
@@ -66,7 +125,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ hideOthDrinkModal, updateDrinkList, fetchSavedDrinks }, dispatch);
+  return bindActionCreators({ hideOthDrinkModal, increaseQuantity, fetchSavedDrinks }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SavedDrinks);
