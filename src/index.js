@@ -12,9 +12,10 @@ import Diary from './components/page_diary';
 import PageUnitCalculator from './components/page_unit_calculator';
 import moment from 'moment';
 import localeFi from './moment-locale-fi' // relevant import
-import AxiosSetupInterceptors from './network/axiosSetupInterceptors'
-import ScreenSizeObserver from './components/screen_size_observer'
-import SnackbarRenderer from './components/snackbar_renderer'
+import AxiosSetupInterceptors from './network/axiosSetupInterceptors';
+import ScreenSizeObserver from './components/screen_size_observer';
+import SnackbarRenderer from './components/snackbar_renderer';
+import ChangePasswordModalRenderer from './components/change_password_modal_renderer';
 import { ROUTE_CALCULATOR, ROUTE_DIARY, ROUTE_LOGIN } from './utils/paths';
 
 moment.locale('fi')
@@ -34,6 +35,7 @@ ReactDOM.render(
         </BrowserRouter>
         <ScreenSizeObserver />
         <SnackbarRenderer />
+        <ChangePasswordModalRenderer />
     </Provider>,
     document.getElementById('root')
 );

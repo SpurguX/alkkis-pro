@@ -26,7 +26,8 @@ export default function LoginForm() {
     if (token) {
       history.replace(ROUTE_CALCULATOR);
     } else {
-      if (result?.error?.response?.status === 403) {
+      const statusCode = result?.error?.response?.status
+      if (statusCode === 401 || statusCode === 403) {
         dispatch(addSnackbar({ text: 'Sinua ei kyllä päästetä sisään!'}))
       } else {
         dispatch(addSnackbar({ text: 'Ovi on epäkunnossa - tule myöhemmin uudelleen!'}))

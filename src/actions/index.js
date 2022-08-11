@@ -32,7 +32,10 @@ export const SELECT_DIARY_TAB = 'SELECT_DIARY_TAB';
 export const ADD_SNACKBAR = 'ADD_SNACKBAR';
 export const REMOVE_SNACKBAR = 'REMOVE_SNACKBAR';
 
-export const SAVE_CURRENT_SCREEN_SIZE = 'SAVE_CURRENT_SCREEN_SIZE'
+export const SAVE_CURRENT_SCREEN_SIZE = 'SAVE_CURRENT_SCREEN_SIZE';
+
+export const SHOW_CHANGE_PASSWORD_MODAL = 'SHOW_CHANGE_PASSWORD_MODAL';
+export const HIDE_CHANGE_PASSWORD_MODAL = 'HIDE_CHANGE_PASSWORD_MODAL';
 
 // AUTH --------------------------------------------------------
 
@@ -235,6 +238,8 @@ export function selectDiaryTab(selectedTab) {
     }
 }
 
+// GENERAL / MISC ----------------------------------
+
 export function addSnackbar(snackbar) {
     return {
         type: ADD_SNACKBAR,
@@ -254,4 +259,16 @@ export function saveCurrentScreenSize(screenSize) {
         type: SAVE_CURRENT_SCREEN_SIZE,
         payload: screenSize
     }
+}
+
+export function showChangePasswordModal() {
+  return {
+      type: SHOW_CHANGE_PASSWORD_MODAL
+  }
+}
+
+export function hideChangePasswordModal() {
+  return{
+      type: HIDE_CHANGE_PASSWORD_MODAL
+  }
 }

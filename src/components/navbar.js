@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ROUTE_CALCULATOR, ROUTE_DIARY, ROUTE_LOGIN } from '../utils/paths';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { clearAuthToken } from '../actions';
+import { clearAuthToken, showChangePasswordModal } from '../actions';
 
 const Navbar = (props) => {
   const dispatch = useDispatch();
@@ -48,6 +48,11 @@ const Navbar = (props) => {
           <li className="nav-item">
             <a className="nav-link" href={ROUTE_DIARY}>
               Päiväkirja
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#" onClick={() => dispatch(showChangePasswordModal())}>
+              Tunnussana
             </a>
           </li>
         </ul>

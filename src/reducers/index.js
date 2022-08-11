@@ -15,6 +15,7 @@ import reducerSavedDrinks from './reducer_saved_drinks';
 import reducerDiarySelectedTab from './reducer_diary_selected_tab';
 import reducerSnackbar from './reducer_snackbar';
 import reducerScreenSize from './reducer_screen_size';
+import reducerChangePasswordModal from './reducer_change_password_modal';
 
 
 const rootReducer = combineReducers({
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
     screenSize: reducerScreenSize,
     snackbars: reducerSnackbar,
     unitsInList: reducerUnitsInList,
+    changePasswordModal: reducerChangePasswordModal,
 });
 
 export default rootReducer;
