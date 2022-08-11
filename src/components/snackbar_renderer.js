@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { useSelector } from 'react-redux'
 import { Snackbar } from './snackbar';
 
-const ScreenSizeObserver = props => {
+const SnackbarRenderer = props => {
   const snackbars = useSelector((state) => state.snackbars)
 
   return (
@@ -20,4 +20,4 @@ const ScreenSizeObserver = props => {
   )
 }
 
-export default ScreenSizeObserver;
+export default SnackbarRenderer;
