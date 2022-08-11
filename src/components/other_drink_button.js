@@ -14,7 +14,6 @@ class OtherDrinkButton extends Component {
                     <img src={icon} alt="img" className="drink-icon"/>
                     <p className="mb-0">Muu Juoma</p>
                     <p className="mt-0 mb-0">Syötä arvot</p>
-                    {/* <div className="drink-icon-button-badge drink-icon-button-badge--alcohol">?&#8202;%</div> */}
                 </div>
             </div>
         )
