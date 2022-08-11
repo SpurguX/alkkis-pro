@@ -1123,8 +1123,8 @@ button.react-datepicker__navigation {
   border-radius: .3rem;
   box-shadow: 0 0 0.5rem 0.5rem $shadow;
 
-  -webkit-animation-name: fadeIn, fallingSign, blurAndClear;
-  animation-name: fadeIn, fallingSign, blurAndClear;
+  -webkit-animation-name: fadeIn, appearFromTheRight, blurAndClear;
+  animation-name: fadeIn, appearFromTheRight, blurAndClear;
   -webkit-animation-iteration-count: 1, 1, infinite;
   animation-iteration-count: 1, 1, infinite;
   -webkit-animation-duration: 0.3s, 0.3s, 2.5s;
@@ -1135,9 +1135,11 @@ button.react-datepicker__navigation {
   animation-delay: 0s, 0s, 1s;
 
   &--disappearing {
-    -webkit-animation: fadeOut 0.6s linear, risingSign 0.6s ease-in;
-    animation: fadeOut 0.6s linear, risingSign 0.6s ease-in;
+    -webkit-animation: fadeOut 0.6s linear, disappearToTheRight 0.6s ease-in;
+    animation: fadeOut 0.6s linear, disappearToTheRight 0.6s ease-in;
   }
+
+  z-index: 999999999;
 }
 
 .alkkis-snackbar__text {
@@ -1189,6 +1191,28 @@ button.react-datepicker__navigation {
   100% {
     transform: rotate(180deg);
     transform-origin: right top;
+  }
+}
+
+@keyframes
+appearFromTheRight {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0%)
+  }
+}
+
+@keyframes
+disappearToTheRight {
+  0% {
+    transform: translateX(0%)
+  }
+
+  100% {
+    transform: translateX(100%);
   }
 }
 
