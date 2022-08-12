@@ -600,7 +600,7 @@ body {
   }
 }
 
-.drink-icon-button-container--disappearing {
+.drink-icon-button-container[data-interaction-state="about-to-disappear"] {
   animation-name: fadeOut;
   -webkit-animation-name: fadeOut;
   animation-duration: 0.12s;
@@ -631,6 +631,7 @@ body {
   font-weight: 600;
   border-radius: 100% / 90%;
   box-shadow: 0 0 0.2rem 0.2rem $shadow;
+  user-select: none;
 }
 
 @media only screen and (min-width: 960px) {
@@ -650,8 +651,21 @@ body {
 
 .drink-icon-button:active {
   position: relative;
-  top: -2px;
-  left: 1px;
+  top:  0.125rem;
+}
+
+.drink-icon-button-container[data-interaction-state="swiped-right"] {
+  .drink-icon-button {
+    position: relative;
+    left: 0.125rem;
+  }
+}
+
+.drink-icon-button-container[data-interaction-state="swiped-left"] {
+  .drink-icon-button {
+    position: relative;
+    right: 0.125rem;
+  }
 }
 
 .drink-icon-button-badge {

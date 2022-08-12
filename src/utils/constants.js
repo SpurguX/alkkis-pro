@@ -18,3 +18,6 @@ export const DATATABLE_PAGE_SIZE_OPTIONS = Object.freeze([
   { value: 50, label: "50" },
   { value: 100, label: "100" }
 ])
+
+export const SWIPE_STARTED_THRESHOLD = 4;
+export const SWIPE_COMPLETED_THRESHOLD = 36;
