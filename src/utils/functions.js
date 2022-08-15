@@ -6,20 +6,6 @@ export function countUnits(volume, alcContent) {
 	return volume * (alcContent / 100) * ethanolDensity / 12.00;
 }
 
-export function renderDrinksAsOptions(savedDrinks) {
-	const options = _.map(savedDrinks, drink => {
-		const { drinkId, drinkName } = drink;
-		const volume = drink.volume.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-		const alcContent = drink.alcContent.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-		return (
-			<option key={drinkId} drink_id={drinkId}>
-				{drinkName} {volume} l, {alcContent} %
-			</option>
-		);
-	});
-	return options;
-}
-
 export const transformDrinksIntoOptions = (drinks) => {
   const options = _.map(drinks, drink => {
 		const { drinkId, drinkName, volume, alcContent } = drink;
@@ -31,25 +17,6 @@ export const transformDrinksIntoOptions = (drinks) => {
 	});
 
 	return options;
-}
-
-export function sortEntriesbyDrinkDate(entries) {
-	let dateSortedEntries = [];
-	Object.keys(entries).forEach((key) => {
-			dateSortedEntries.push(entries[key])
-	})
-	dateSortedEntries.sort(compareDrinkDates);
-	return dateSortedEntries;
-}
-
-function compareDrinkDates(a, b) {
-	if (a.drink_date < b.drink_date) {
-			return -1;
-	}
-	if (a.drink_date > b.drink_date) {
-			return 1;
-	}
-	return 0;
 }
 
 export function formatDBDate(date) {
@@ -74,13 +41,6 @@ export function calculateTotalUnits(entries) {
 		totalUnits += obj.drink_entry_units;
 	});
 	return totalUnits;
-}
-
-export function styleTabIfActive(thisTab, tabInState) {
-	if (tabInState === thisTab) {
-		return "alkkis-tab-active";
-	}
-	return "";
 }
 
 export function capitalizeFirstLetter(string) {

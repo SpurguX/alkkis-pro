@@ -249,7 +249,7 @@ class DiaryTableAllEntries extends Component {
   }
 
   /** Using react to render elements/JSX in the datatable footer turned out to be too difficult so vanilla JS is used
-   * here to programmatically create and add the footerq elements
+   * here to programmatically create and add the footer elements
    */
   addDatatableFooter () {
     const trHeadings = this.createFooterHeadingRow()

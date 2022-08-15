@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { selectDiaryTab } from '../actions';
 import { diaryTabs } from '../utils/constants';
-import { styleTabIfActive } from '../utils/functions';
 
 class DiaryTabs extends Component {
   getBtnGroupClass () {
