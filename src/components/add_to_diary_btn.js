@@ -9,23 +9,15 @@ import _ from "lodash";
 import axiosApi from '../network/axiosApi';
 
 class AddToDiaryBtn extends Component {
-  async postDrinkList(drinkList, date) {
-    const drinkListArray = _.map(drinkList, (drinkListItem) => {
-      const entryUnits = drinkListItem.units * drinkListItem.quantity;
-      return {
-        drink_date: date.toISOString(),
-        drink: { drinkId: drinkListItem.drinkId },
-        drink_quantity: drinkListItem.quantity,
-        drink_entry_units: entryUnits,
-      };
-    });
+  async postDrinkList() {
+    const drinkEntries = _.map(this.props.drinkList, this.convertDrinkEntryToPostableForm);
 
     let resultText = 'Juomat on lisätty päiväkirjaan';
     try {
       const response = await axiosApi.request({
         method: "post",
         url: "entry",
-        data: drinkListArray,
+        data: drinkEntries,
       });
       if (response.status === 200) {
         this.props.emptyDrinkList();
@@ -33,14 +25,25 @@ class AddToDiaryBtn extends Component {
         resultText = 'Juomien lisääminen epäonnistui'
       }
     } catch (error) {
-        resultText = 'Juomien lisääminen epäonnistui'
+      resultText = 'Juomien lisääminen epäonnistui'
     } finally {
       this.props.addSnackbar({ text: resultText });
     }
   }
 
+  convertDrinkEntryToPostableForm = (drinkListItem) => {
+    const entryUnits = drinkListItem.units * drinkListItem.quantity;
+
+    return {
+      drink_date: this.props.drinkDate.toISOString(),
+      drink: { drinkId: drinkListItem.drinkId },
+      drink_quantity: drinkListItem.quantity,
+      drink_entry_units: entryUnits,
+    };
+  }
+
   handleClick() {
-    this.postDrinkList(this.props.drinkList, this.props.drinkDate);
+    this.postDrinkList();
   }
 
   renderBtn() {
