@@ -1,6 +1,6 @@
 "Use strict";
 
-import api from "./axiosApi";
+import axiosApi from "./axiosApi";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { clearAuthToken } from "../actions"
@@ -10,46 +10,52 @@ import { ROUTE_LOGIN } from '../utils/paths';
  * Interceptors are setup via a functional React component so that React/Redux hooks can be used in the interceptor functions.
  */
 const SetupInterceptors = () => {
-    const history = useHistory();
-    const location = useLocation();
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const history = useHistory();
 
-    // Request
-    api.interceptors.request.use(function (request) {
-      // Get token from localStorage every time the callback is invoked as localStorage is not reactive.
-      const token = localStorage.getItem('token');
+  function interceptRequest(request) {
+    // Get token from localStorage every time the callback is invoked as localStorage is not reactive.
+    const token = localStorage.getItem('token');
 
-      if (token) {
-        request.headers.Authorization = `Bearer ${token}`
-      }
-      return request
-    },
-    function (error) {
-      console.log('error :>> ', error);
-      return Promise.reject(error)
-    })
+    if (token) {
+      request.headers.Authorization = `Bearer ${token}`
+    }
+    return request
+  }
 
-    // Response
-    api.interceptors.response.use(function (response) {
-      return response
-    },
-    function (error) {
-      console.log('error :>> ', error);
+  function interceptRequestError(error) {
+    console.log('error :>> ', error);
+    return Promise.reject(error)
+  }
 
-      const statusCode = error?.response?.status
-      console.log('statusCode :>> ', statusCode);
+  function interceptResponse(response) {
+    return response
+  }
 
-      // No token or expired token or no permission
-      if (statusCode === 401 || statusCode === 403) {
-        dispatch(clearAuthToken());
+  function interceptResponseError(error) {
+    console.log('error :>> ', error);
 
-        if (location.pathname !== ROUTE_LOGIN) history.replace(ROUTE_LOGIN)
-      }
+    const statusCode = error?.response?.status
+    console.log('statusCode :>> ', statusCode);
 
-      return Promise.reject(error)
-    })
+    // No token or expired token or no permission
+    if (statusCode === 401 || statusCode === 403) {
+      dispatch(clearAuthToken());
 
-    return null
+      if (location.pathname !== ROUTE_LOGIN) history.replace(ROUTE_LOGIN)
+    }
+
+    return Promise.reject(error)
+  }
+
+  // Request
+  axiosApi.interceptors.request.use(interceptRequest, interceptRequestError)
+
+  // Response
+  axiosApi.interceptors.response.use(interceptResponse, interceptResponseError)
+
+  return null
 }
 
 export default SetupInterceptors;
