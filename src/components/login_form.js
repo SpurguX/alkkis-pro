@@ -46,6 +46,8 @@ export default function LoginForm() {
               placeholder="KutsumaNimi"
               value={username}
               onChange={handleUsernameChange}
+              autocomplete="username"
+              name="username"
             />
           </div>
         </div>
