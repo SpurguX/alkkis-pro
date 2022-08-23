@@ -1,6 +1,6 @@
 {
   "name": "alkkis-pro",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
@@ -27,8 +27,8 @@
     "sass": "^1.52.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "rm .env && ln .env_dev .env && react-scripts start",
+    "build": "rm .env && ln .env_prod .env && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },

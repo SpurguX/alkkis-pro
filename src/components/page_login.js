@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import LoginForm from './login_form';
 
+const v = require('../../package.json')?.version;
+
 export default class LoginPage extends Component {
+
     render() {
         return (
             <div id="main" className="container-fluid container-bg-img px-0">
@@ -15,6 +18,7 @@ export default class LoginPage extends Component {
                             Nyt vasta <span className="text-underline">aletaan</span> ryyppäämään!
                         </div>
                     </div>
+                    <div data-v={v}></div>
                 </div>
             </div>
         )

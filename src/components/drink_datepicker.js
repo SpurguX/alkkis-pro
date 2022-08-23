@@ -35,6 +35,7 @@ class DrinkDatePicker extends Component {
             onChange={date => this.handleChange(date)}
             dateFormat="d.M.yyyy"
             locale={fi}
+            popperPlacement="top"
           />
        </div>
       )
