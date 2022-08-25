@@ -1,41 +1,24 @@
 import { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { countUnitsInList } from '../actions';
 import _ from 'lodash';
 
-class UnitCounter extends Component {
+export default class UnitCounter extends Component {
+  componentDidUpdate() {
+    this.countUnits(this.props.itemList);
+  }
 
-componentDidUpdate() {
-    this.countUnits(this.props.drinkList);   
-}
-
-countUnits(drinkList) {
+  countUnits(itemList) {
     let units = 0.0;
-    if (!_.isEmpty(drinkList)) {
-        _.forIn(drinkList, drink => {
-            units += drink.units * drink.quantity;
-            this.props.countUnitsInList(units);
-        })
+    if (!_.isEmpty(itemList)) {
+      _.forIn(itemList, (item) => {
+        units += item.units * item.quantity;
+      });
+      this.props.setterFn(units)
     } else {
-        this.props.countUnitsInList(0);
+      this.props.setterFn(0)
     }
+  }
+
+  render() {
+    return null;
+  }
 }
-
-render() {
-      return null;
-    }
-}
-
-function mapStateToProps(state) {
-    return {
-        drinkList: state.drinkList,
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ countUnitsInList }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UnitCounter);
-

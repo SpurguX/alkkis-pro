@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Navbar from './navbar';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Snackbar } from './snackbar';
 import _ from 'lodash';
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { countUnits, formatJSDate, isEmptyString } from "../utils/functions";
+import { countUnits } from "../utils/functions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { hideOthDrinkModal, increaseQuantity } from "../actions";

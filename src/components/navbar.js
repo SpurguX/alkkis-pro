@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { ROUTE_CALCULATOR, ROUTE_DIARY, ROUTE_LOGIN } from '../utils/paths';
+import {
+  ROUTE_DRUNK_TODAY,
+  ROUTE_CALCULATOR,
+  ROUTE_DIARY,
+  ROUTE_LOGIN,
+} from '../utils/routes';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { clearAuthToken, showChangePasswordModal } from '../actions';
@@ -8,14 +13,18 @@ const Navbar = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const isCurrent = (path) => {
-    return window.location?.pathname === path;
+  const isCurrent = (route) => {
+    return window.location?.pathname === route;
+  };
+
+  const navigate = (route) => {
+    history.replace(route);
   };
 
   const logout = () => {
     dispatch(clearAuthToken());
-    history.replace(ROUTE_LOGIN)
-  }
+    history.replace(ROUTE_LOGIN);
+  };
 
   return (
     <nav className="navbar navbar-expand-md" id="nav-alkkis">
@@ -37,21 +46,39 @@ const Navbar = (props) => {
         <ul className="nav navbar-nav ml-auto mr-auto font-christmas">
           <li className="nav-item">
             <a
+              className="nav-link"
+              href="#"
+              onClick={() => navigate(ROUTE_DRUNK_TODAY)}
+            >
+              Tänään juotu
+            </a>
+          </li>
+          <li className="nav-item">
+            <a
               className={`nav-link ${
                 isCurrent(ROUTE_CALCULATOR) && 'nav-link-current'
               }`}
-              href={ROUTE_CALCULATOR}
+              href="#"
+              onClick={() => navigate(ROUTE_CALCULATOR)}
             >
               Annoslaskuri
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href={ROUTE_DIARY}>
+            <a
+              className="nav-link"
+              href="#"
+              onClick={() => navigate(ROUTE_DIARY)}
+            >
               Päiväkirja
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#" onClick={() => dispatch(showChangePasswordModal())}>
+            <a
+              className="nav-link"
+              href="#"
+              onClick={() => dispatch(showChangePasswordModal())}
+            >
               Tunnussana
             </a>
           </li>

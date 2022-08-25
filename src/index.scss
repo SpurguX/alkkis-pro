@@ -36,31 +36,31 @@ $font-h1: 2.5rem;
 
 .font {
   &-small {
-    font-size: $font-small;
+    font-size: $font-small !important;
   }
 
   &-regular {
-    font-size: $font-regular;
+    font-size: $font-regular !important;
   }
 
   &-large {
-    font-size: $font-large;
+    font-size: $font-large !important;
   }
 
   &-xlarge {
-    font-size: $font-xlarge;
+    font-size: $font-xlarge !important;
   }
 
   &-h3 {
-    font-size: $font-h3;
+    font-size: $font-h3 !important;
   }
 
   &-h2 {
-    font-size: $font-h2;
+    font-size: $font-h2 !important;
   }
 
   &-h1 {
-    font-size: $font-h1;
+    font-size: $font-h1 !important;
   }
 }
 
@@ -137,29 +137,6 @@ input:active.focus,
 
 .btn-group-lg>.btn.font-xlarge {
   font-size: $font-xlarge;
-}
-
-.chalk-underline {
-  position: relative;
-}
-
-.chalk-underline:after {
-  content: "";
-  position: absolute;
-  bottom: 0.1rem;
-  left: 0;
-  height: 2px;
-  width: 100%;
-  background-image: linear-gradient(to right, rgba(whitesmoke, 0.9) 0%, rgba(whitesmoke, 0.8) 40%, rgba(whitesmoke, 0.7) 90%);
-  background-size: 100% 2px;
-  transform: rotate(-0.75deg);
-  border-radius: 4px;
-  box-shadow: 1px 0 1px 0px rgba(whitesmoke, 0.6);
-  border-collapse: separate;
-}
-
-.text-whitesmoke {
-  color: whitesmoke;
 }
 
 /* GENERAL */
@@ -251,6 +228,33 @@ body {
   color: whitesmoke;
 }
 
+.chalk-underline {
+  position: relative;
+}
+
+.chalk-underline:after {
+  content: "";
+  position: absolute;
+  bottom: 0.1rem;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-image: linear-gradient(to right, rgba(whitesmoke, 0.9) 0%, rgba(whitesmoke, 0.8) 40%, rgba(whitesmoke, 0.7) 90%);
+  background-size: 100% 2px;
+  transform: rotate(-0.75deg);
+  border-radius: 4px;
+  box-shadow: 1px 0 1px 0px rgba(whitesmoke, 0.6);
+  border-collapse: separate;
+}
+
+.text-whitesmoke {
+  color: whitesmoke;
+}
+
+.text-gray {
+  color: $gray-text;
+}
+
 * {
   /* -- Firefox */
   scrollbar-color: $golden-beer $pale-gray;
@@ -274,6 +278,12 @@ body {
   ::-webkit-scrollbar-thumb:hover {
     // background: rgb(137, 3, 3);
   }
+}
+
+.sticky-element {
+  position: sticky;
+  top: 0;
+  z-index: 99;
 }
 
 .force-width-100 {
@@ -437,8 +447,18 @@ body {
 }
 
 .shadow-block {
-  box-shadow: 0.125rem -0.125rem 0.25rem 0.125rem rgba(0, 0, 0, 0.5);
+  /* offset-x | offset-y | blur-radius | spread-radius | color */
+  box-shadow: 0 0.125rem 0.25rem 0.125rem rgba(0, 0, 0, 0.5) !important;
+
+  &--deep {
+    box-shadow: 0 0.125rem 0.25rem 0.25rem rgba(0, 0, 0, 0.5) !important;
+  }
 }
+
+.general-transition {
+  transition: all .15s ease-in-out;
+}
+
 
 /* LOGIN PAGE */
 
@@ -495,6 +515,13 @@ body {
   color: $gray-text;
 }
 
+/* PAGE UNITS TODAY */
+
+.container-units-today {
+  position: relative;
+}
+
+
 /* PAGE CALCULATOR */
 
 .otsikko {
@@ -546,15 +573,11 @@ body {
     radial-gradient($wood, $darkwood);
   background-blend-mode: soft-light;
   box-shadow: 0 0.125rem 0.25rem 0.125rem rgba(0, 0, 0, 0.5);
+  color: whitesmoke;
 }
 
 .unit-count-header {
   min-width: 11rem;
-  color: whitesmoke;
-}
-
-.total-units-count {
-  color: whitesmoke;
 }
 
 .container-wooden-borders {
@@ -571,6 +594,7 @@ body {
   border-radius: 0.32rem;
   background: $blackboard-gradient;
   font-family: "Eraser";
+  color: whitesmoke;
 }
 
 .drink-icon-button-grid-container {
@@ -883,6 +907,10 @@ input::-webkit-inner-spin-button {
 .alkkis-table tbody,
 .alkkis-table tfoot tr th {
   border-bottom: 2px solid whitesmoke;
+}
+
+.alkkis-table--no-body-bottom-border tbody {
+  border-bottom: none;
 }
 
 .alkkis-table th,

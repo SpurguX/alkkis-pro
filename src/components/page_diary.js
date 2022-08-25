@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchDrinkEntries } from "../actions";
+import BlackboardHeader from "./blackboard_header";
 import DiaryTableAllEntries from "./diary_table_all_entries";
 import DiaryTableWeekView from "./diary_table_week_view";
 import DiaryTableMonthView from "./diary_table_month_view";
@@ -41,18 +42,17 @@ class Diary extends Component {
       <LoggedInContainer>
         <div className="container container-diary">
           <div className="row pt-4 justify-content-center">
-            <div className="container-wooden-borders">
-                <div className="header-wrapper">
-                  <h3 className="unit-count-header">Juomapäiväkirja</h3>
-                </div>
-              </div>
+              <BlackboardHeader
+                headingTag="h3"
+                title="Juomapäiväkirja"
+              />
           </div>
           <div className="row pt-4 justify-content-center">
             <div className="col-md-1 hidden-sm" />
-            <div className="col-md-10 col-sm-12">
-              <DiaryTabs />
-              {this.renderDiaryTable()}
-            </div>
+              <div className="col-md-10 col-sm-12">
+                <DiaryTabs />
+                {this.renderDiaryTable()}
+              </div>
             <div className="col-md-1 hidden-sm" />
           </div>
         </div>
@@ -65,7 +65,7 @@ class Diary extends Component {
 
 function mapStateToProps(state) {
   return {
-    drinkEntries: state.allDrinkEntries,
+    drinkEntries: state.drinkEntriesAll,
     editEntryModal: state.editEntryModal,
     deleteEntryModal: state.deleteEntryModal,
     selectedTab: state.diarySelectedTab

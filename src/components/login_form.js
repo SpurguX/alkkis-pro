@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 import { login, addSnackbar } from '../actions';
-import { ROUTE_CALCULATOR } from '../utils/paths';
+import { ROUTE_CALCULATOR } from '../utils/routes';
 
 export default function LoginForm() {
   const [username, setUsername] = useState('');

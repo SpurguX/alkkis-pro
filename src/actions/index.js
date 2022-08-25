@@ -11,7 +11,8 @@ export const EMPTY_DRINK_LIST = 'EMPTY_DRINK_LIST';
 export const POPULATE_DRINK_LIST_BU = 'POPULATE_DRINK_LIST_BU';
 export const POPULATE_DRINK_LIST = 'POPULATE_DRINK_LIST';
 export const EMPTY_DRINK_LIST_BU = 'EMPTY_DRINK_LIST_BU';
-export const COUNT_UNITS_IN_LIST = 'COUNT_UNITS_IN_LIST';
+export const SET_UNITS_IN_LIST = 'SET_UNITS_IN_LIST';
+export const SET_UNITS_TODAY = 'SET_UNITS_TODAY';
 export const POST_DRINK_LIST_OK = 'POST_DRINK_LIST_OK';
 export const POST_DRINK_LIST_FAILURE = 'POST_DRINK_LIST_FAILURE';
 export const POST_DRINK_LIST_CLEAR_STATUS = 'POST_DRINK_LIST_CLEAR_STATUS';
@@ -23,6 +24,7 @@ export const HIDE_ADD_RESULT_MODAL = 'HIDE_ADD_DRINK_MODAL';
 export const FETCH_SAVED_DRINKS = 'FETCH_SAVED_DRINKS';
 
 export const FETCH_DRINK_ENTRIES = 'FETCH_DRINK_ENTRIES';
+export const FETCH_DRINK_ENTRIES_TODAY = 'FETCH_DRINK_ENTRIES_TODAY';
 export const SHOW_EDIT_ENTRY_MODAL = 'SHOW_EDIT_ENTRY_MODAL';
 export const HIDE_EDIT_ENTRY_MODAL = 'HIDE_EDIT_ENTRY_MODAL';
 export const SHOW_DELETE_ENTRY_MODAL = 'SHOW_DELETE_ENTRY_MODAL';
@@ -148,9 +150,16 @@ export function emptyDrinkListBu() {
     }
 }
 
-export function countUnitsInList(units) {
+export function setUnitsInList(units) {
     return {
-        type: COUNT_UNITS_IN_LIST,
+        type: SET_UNITS_IN_LIST,
+        payload: units
+    }
+}
+
+export function setUnitsToday(units) {
+    return {
+        type: SET_UNITS_TODAY,
         payload: units
     }
 }
@@ -199,9 +208,24 @@ export function hideAddResultModal() {
 
 export function fetchDrinkEntries() {
     const drinkEntriesPromise = axiosApi.get("entry")
-    
+
     return {
         type: FETCH_DRINK_ENTRIES,
+        payload: drinkEntriesPromise
+    }
+}
+
+export function fetchDrinkEntriesToday() {
+    const config = {
+      params: {
+        today_only: true
+      }
+    };
+
+    const drinkEntriesPromise = axiosApi.get("entry", config)
+
+    return {
+        type: FETCH_DRINK_ENTRIES_TODAY,
         payload: drinkEntriesPromise
     }
 }

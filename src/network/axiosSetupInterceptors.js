@@ -4,7 +4,7 @@ import axiosApi from "./axiosApi";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { clearAuthToken } from "../actions"
-import { ROUTE_LOGIN } from '../utils/paths';
+import { ROUTE_LOGIN } from '../utils/routes';
 
 /**
  * Interceptors are setup via a functional React component so that React/Redux hooks can be used in the interceptor functions.
