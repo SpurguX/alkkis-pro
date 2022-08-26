@@ -46,7 +46,9 @@ const Navbar = (props) => {
         <ul className="nav navbar-nav ml-auto mr-auto font-christmas">
           <li className="nav-item">
             <a
-              className="nav-link"
+              className={`nav-link ${
+                isCurrent(ROUTE_DRUNK_TODAY) && 'nav-link--current'
+              }`}
               href="#"
               onClick={() => navigate(ROUTE_DRUNK_TODAY)}
             >
@@ -56,7 +58,7 @@ const Navbar = (props) => {
           <li className="nav-item">
             <a
               className={`nav-link ${
-                isCurrent(ROUTE_CALCULATOR) && 'nav-link-current'
+                isCurrent(ROUTE_CALCULATOR) && 'nav-link--current'
               }`}
               href="#"
               onClick={() => navigate(ROUTE_CALCULATOR)}
@@ -66,7 +68,9 @@ const Navbar = (props) => {
           </li>
           <li className="nav-item">
             <a
-              className="nav-link"
+              className={`nav-link ${
+                isCurrent(ROUTE_DIARY) && 'nav-link--current'
+              }`}
               href="#"
               onClick={() => navigate(ROUTE_DIARY)}
             >

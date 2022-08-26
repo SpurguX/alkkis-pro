@@ -18,19 +18,25 @@ class DiaryTabs extends Component {
             className={`btn btn-blackboard ${selectedTab !== diaryTabs.ALL_ENTRIES_TAB && 'btn-blackboard--unselected'}`}
             onClick={() => this.props.selectDiaryTab(diaryTabs.ALL_ENTRIES_TAB)}
           >
-          Kaikki merkinnät
+            {this.props.screenSize.smallScreen ? 'Kaikki' : 'Kaikki merkinnät'}
+          </button>
+          <button
+            className={`btn btn-blackboard ${selectedTab !== diaryTabs.DAILY_VIEW_TAB && 'btn-blackboard--unselected'}`}
+            onClick={() => this.props.selectDiaryTab(diaryTabs.DAILY_VIEW_TAB)}
+          >
+            {this.props.screenSize.smallScreen ? 'Päivä' : 'Päivänäkymä'}
           </button>
           <button
             className={`btn btn-blackboard ${selectedTab !== diaryTabs.WEEKLY_VIEW_TAB && 'btn-blackboard--unselected'}`}
             onClick={() => this.props.selectDiaryTab(diaryTabs.WEEKLY_VIEW_TAB)}
           >
-            Viikkonäkymä
+            {this.props.screenSize.smallScreen ? 'Viikko' : 'Viikkonäkymä'}
           </button>
           <button
             className={`btn btn-blackboard ${selectedTab !== diaryTabs.MONTHLY_VIEW_TAB && 'btn-blackboard--unselected'}`}
             onClick={() => this.props.selectDiaryTab(diaryTabs.MONTHLY_VIEW_TAB)}
           >
-            Kuukausinäkymä
+            {this.props.screenSize.smallScreen ? 'Kuukausi' : 'Kuukausinäkymä'}
           </button>
         </div>
       </div>

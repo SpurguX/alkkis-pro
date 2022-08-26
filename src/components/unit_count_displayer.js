@@ -6,10 +6,10 @@ class UnitCountDisplayer extends Component {
   createHeadingContent () {
     let totalUnits = this.props.units.toLocaleString('fi', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
-    const unitCount = <span className="unit-count-number">{totalUnits}</span>;
+    const unitCount = <span className="unit-count-number" key="1">{totalUnits}</span>;
     const headingContent = [this.props.title];
     if (this.props.break) {
-      headingContent.push(<br />)
+      headingContent.push(<br key="2" />)
     }
     headingContent.push(unitCount)
 
@@ -18,7 +18,7 @@ class UnitCountDisplayer extends Component {
 
   render() {
     const headingContent = this.createHeadingContent();
-    const headingElement = React.createElement(this.props.headingTag, { className: 'unit-count-header'}, headingContent)
+    const headingElement = React.createElement(this.props.headingTag, { className: 'unit-count-header', key: '3' }, headingContent)
 
     return (
       <div className="container-wooden-borders shadow-block--deep">

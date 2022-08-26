@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { fetchDrinkEntries } from "../actions";
 import BlackboardHeader from "./blackboard_header";
 import DiaryTableAllEntries from "./diary_table_all_entries";
+import DiaryTableDailyView from "./diary_table_daily_view";
 import DiaryTableWeekView from "./diary_table_week_view";
 import DiaryTableMonthView from "./diary_table_month_view";
 import DiaryTabs from "./diary_tabs";
@@ -21,12 +22,14 @@ class Diary extends Component {
     switch (this.props.selectedTab) {
       case diaryTabs.ALL_ENTRIES_TAB:
         return <DiaryTableAllEntries entries={this.props.drinkEntries} />;
+      case diaryTabs.DAILY_VIEW_TAB:
+        return <DiaryTableDailyView entries={this.props.drinkEntries} />;
       case diaryTabs.WEEKLY_VIEW_TAB:
         return <DiaryTableWeekView entries={this.props.drinkEntries} />;
       case diaryTabs.MONTHLY_VIEW_TAB:
         return <DiaryTableMonthView entries={this.props.drinkEntries} />;
       default:
-        return <DiaryTableWeekView entries={this.props.drinkEntries} />;
+        return <DiaryTableDailyView entries={this.props.drinkEntries} />;
     }
   }
 
